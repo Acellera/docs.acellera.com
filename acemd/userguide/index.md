@@ -5,8 +5,10 @@ name: User Guide
 description: ACEMD user guide
 ---
 
+Contents
+========
 
-1 auto-gen TOC:
+1. auto-gen TOC:
 {:toc}
 
 ACEMD
@@ -52,7 +54,50 @@ When run without any arguments ACEMD will attempt to read a configuration from t
 An alternative input file can be specified by putting the filename on the command line, for example:
 
 ```
-$ acemd input-equilibrate
+$ acemd equilibrate.conf
 ```
 
 The input file contains all of the commands required to configure and run a simulation. The specification for the system to be simulated resides in separate files, eeg PDB, Bincoor files for coordinates, PSF, PRMTOP files for topology and force field parameters.
+
+## Command Help
+
+ACEMD contains a built-in reference manaual for all configuration commands, which can be access from the command line. To all commands that pertain to a particular topic, use the command:
+
+```
+$ acemd --command [section]
+```
+
+where section is one of the topics listed by the command acemd -command alone. For help on a particular command, use:
+
+```
+$ acemd --command [command]
+```
+
+This will give a description of the command's function along with any required arguments and default value. For example:
+
+```
+$ ./acemd.release.strip.3156 --command langevintemp
+
+ langevintemp <+ve float>   [0.]    The set point in K for the Langevin
+                                    thermostat
+```
+
+# Selecting a GPU
+
+ACEMD Basic will run only on the first GPU in the system. The following section applies only to ACEMD Pro users.
+
+ACEMD will by default try to run on the first GPU available in the system. If several instance of ACEMD are launched they will normally1 all run on the first GPU, leaving any other devices idle. To explicity set the GPU to run on, use the command-line flag -device:
+
+```
+$ acemd --device 2
+```
+
+If the device specified does not exist, ACEMD will automatically select an available GPU.
+
+If several GPUs are given as a comma-separated list to -device, ACEMD will attempt to run a single simulation in parallel accross them. For example:
+
+```
+$ acemd --device 0,1,2
+```
+
+When running in parallel note that performance may not always improve as more GPUs are added. Typical improvements of 20% and 30% may be expected with 2 and 3 GPUs.
