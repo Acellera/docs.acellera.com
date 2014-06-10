@@ -273,3 +273,14 @@ ACEMD can perform checkpointing to allow an aborted simulation to be resumed, us
 Restart coordinate and velocity files are in NAMD Bincoord format.
 
 Simulations started using protocols will be configured to restart by default.
+
+# Apply periodic boundary conditions
+
+ACEMD by default does not wrap in the output the coordinates around the periodic box, so when the molecular system is visualized water molecules appear to diffuse away. This is done such that you can measure diffusion coefficients. It is just a visualization choice. In the newest versions of ACEMD there is the command "wrap all" which instead wraps the coordinates of every atoms.
+Best and most flexible way to do the wrapping is after the simulation with VMD. From VMD 1.8.7 (http://www.ks.uiuc.edu/Research/vmd/plugins/pbctools/) you can wrap using the information in the DCD unitcell (load the dcd directly on a structure file rather than the pdb):
+
+```
+pbc wrap -center bb -centersel protein -compound res
+```
+
+NB: In the case that you want to align the protein as well to some structure, be careful to align only after wrapping, otherwise the wrapping is wrong as the periodic box is rotated by the alignment. With the older version of VMD, 1.8.6 use instead: pbc wrap -sel "not protein" -center "protein" -all
