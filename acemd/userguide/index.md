@@ -284,3 +284,17 @@ pbc wrap -center bb -centersel protein -compound res
 ```
 
 NB: In the case that you want to align the protein as well to some structure, be careful to align only after wrapping, otherwise the wrapping is wrong as the periodic box is rotated by the alignment. With the older version of VMD, 1.8.6 use instead: pbc wrap -sel "not protein" -center "protein" -all
+
+# Citations
+
+When publishing results with ACEMD please cite:
+
+    M. Harvey, G. Giupponi and G. De Fabritiis, ACEMD: Accelerated molecular dynamics simulations in the microseconds          timescale, J. Chem. Theory and Comput. 5, 1632 (2009).
+
+Additonally, please read and consider citing the following methods papers:
+
+* M. J. Harvey and G. De Fabritiis, An implementation of the smooth particle-mesh Ewald (PME) method on GPU hardware, J. Chem. Theory Comput., 5, 2371–2377 (2009)
+* U. Essmann, L. Perera, M. L. Berkowitz, T. Darden, H. Lee and L. G. Pedersen, A smooth Particle Mesh Ewald Method, J. Chem. Phys. 103, 8577 (1995)
+* Mass repatitioning (dt=4fs) Feenstra, K. A., Hess, B., Berendsen, H. J. C., Improving efficiency of large time-scale molecular dynamics simulations of hydrogen-rich systems, J. Comp. Chem. 20, 786(1999).
+* M-SHAKE V. Krautler, W. F. Van Gunsteren, P. H. Hunenberger, A fast SHAKE algorithm to solve distance constraint equations for small molecules in molecular dynamics simulations, J. Comp. Chem. 22, 501 (2001).
+* RATTLE H. C. Andersen, Rattle: A velocity version of the shake algorithm for molecular dynamics calculations, J. Comp. Phys. 52, 24 (1983).
