@@ -5,14 +5,12 @@ name: User Guide
 description: ACEMD user guide
 ---
 
-Content
-=======
 
 1 auto-gen TOC:
 {:toc}
 
 ACEMD
-================
+=====
 
 ACEMD is a high performance molecular dynamics simulator for biomolecular systems designed for NVIDIA GPUs. ACEMD has the following features and capabilities:
 
@@ -43,3 +41,18 @@ These yield the derived units:
 * velocity unit v = Ångström/t
 * Boltzmann constant  kB = 0.001987191 kcal/mol/K
 
+# Running ACEMD
+
+ACEMD is a command line program, invoked with the command ACEMD. If ACEMD is not found, or reports any other error at startup, please refer to the ACEMD Installation Guide
+
+## Specifying an Input File
+
+When run without any arguments ACEMD will attempt to read a configuration from the file input and run a simulation on the first GPU in the system. If the input file does not exist ACEMD will print out a help message and exit.
+
+An alternative input file can be specified by putting the filename on the command line, for example:
+
+```
+$ acemd input-equilibrate
+```
+
+The input file contains all of the commands required to configure and run a simulation. The specification for the system to be simulated resides in separate files, eeg PDB, Bincoor files for coordinates, PSF, PRMTOP files for topology and force field parameters.
