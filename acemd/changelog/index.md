@@ -5,7 +5,7 @@ name: Changelog
 description: Description of feature changes in any revision of ACEMD
 ---
 
-* auto-gen TOC:
+1. auto-gen TOC:
 {:toc}
 
 Release acemd 3212 – Oct 2013
