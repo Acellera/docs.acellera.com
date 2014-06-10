@@ -75,10 +75,10 @@ $ acemd --command [command]
 
 This will give a description of the command's function along with any required arguments and default value. For example:
 
-```
-$ ./acemd.release.strip.3156 --command langevintemp
-langevintemp <+ve float>   [0.]    The set point in K for the Langevin thermostat
-```
+
+    $ ./acemd.release.strip.3156 --command langevintemp
+    langevintemp <+ve float>   [0.]    The set point in K for the Langevin thermostat
+
 
 # Selecting a GPU
 
@@ -103,6 +103,7 @@ When running in parallel note that performance may not always improve as more GP
 # Running parallel ensembles
 
 ACEMD Pro supports ensemble simulations for replica exchange molecular dynamics. Ensemble mode is automatically enabled if ACEMD is run via MPI. For example, to run an 8 replica ensemble:
+
 ```
 $ mpirun -np 8 acemd input
 ```
@@ -113,12 +114,10 @@ Note that this assumes that the MPI environment is appropriately configured. In 
 
 ACEMD simulations are configured using a single input file. This file is parsed as a TCL script, so can include programmatic elements. The syntax of the input script is very similar to that of NAMD. The script is read in its entirety before the simulation commences. If commands are duplicated, generally only the last setting will be used. For example:
 
-```
-structure struct1.pdb
-structure struct2.pdb
-run 100
-run 1000
-```
+    structure struct1.pdb
+    structure struct2.pdb
+    run 100
+    run 1000
 
 configures ACEMD to use the structure file struct2.pdb and to run for 1000 iterations.
 
@@ -126,33 +125,28 @@ configures ACEMD to use the structure file struct2.pdb and to run for 1000 itera
 
 A complete specification for an ACEMD simulation requires configuration of input and output files, force field parameters and thermodynamic ensemble. Explicitly writing the full configuration can result in a long input file. ACEMD includes a set of pre-defined parameter sets for common simulation configurations. These are activated using the protocol command. For example:
 
-```
-protocol run/NVT
-protocol ff/Amber
-```
+    protocol run/NVT
+    protocol ff/Amber
 
 configures ACEMD to simulate in the isothermal ensemble and to expect Amber force field input files. Unlike most other commands, protocol is executed as soon as it is encountered and can be specified multiple times.
 
 If ACEMD is run with the flag -verbose then as each protocol is executed, the commands that it specifies are printed out in the log file. These can be captured for use in an explicit input file. Any inappropriate settings can be overriden by re-issuing the command afterwards. For example:
 
-```
-protocol run/NVT
-protocol run/Amber
-
-parmfile amber.prmtop
-run      10ns
-```
+    protocol run/NVT
+    protocol run/Amber
+    parmfile amber.prmtop
+    run      10ns
 
 changes the default setting for the name of the Amber parameter file and the length of the simulation.
 
 The following protocols are available:
 
-* Run types
+* __Run types__
   * run/NVT run in the isotermal ensemble, using a Langevin thermostat set at 300 K
   * run/NPT run in the isothermal-isobaric ensemble, using a Langevin thermostat at 300.K and a Berendsen barostat at 1atm.
   * run/NVE run in the microcanonical ensemble.
   * run/CG run a coarse-grained simulation.
-* Force field types
+* __Force field types__
   * ff/Amber configure for Amber force fields
   * ff/CHARMM27 configure for CHARMM version 22 and 27 force fields
   * ff/CHARMM36 configure for CHARMM version 36 force fields
@@ -175,54 +169,52 @@ These protocols assume the following file naming conventions:
 
 Shown below is an example of an explicit input file for an Amber force field simulation in the NPT ensemble using positional restraints:
 
-```
-# Configure electrostatics
-	pme                 on
-	pmegridspacing      1.0
-	pmefreq             2
-	cutoff              9.
-	switching           on
-	switchdist          7.5
-# Configure holonomic restraints
-	rigidbonds          all
-# Configure integration
-	hydrogenscale       4.0
-	timestep            4.0
-# Configure output
-	energyfreq          5000
-	xtcfreq             25000
-	xtcfile             trajectory.xtc
-	outputname          output
-	restart             on
-	restartfreq         25000
-	restartname         restart      
-	coordinates         structure.pdb
-	extendedsystem      input.xsc
-	run                 100ns
-# Configure thermostat
-	langevin            on
-	langevintemp        300.0
-	langevindamping     0.1
-# Configure barostat 
-	berendsenpressure                on
-	berendsenpressuretarget          1.01325
-	berendsenpressurerelaxationtime  800
-	useflexiblecell     off
-	useconstantratio    on
-# Configure positional restraints
-	constraints         on
-	consref             structure.pdb
-	constraintscaling   1.0
-# Configure Amber ff
-	amber       on
-	coordinates structure.pdb
-	structure   structure.psf
-	parmfile    structure.prmtop 
-	switching   on
-	switchdist  7.5
-	exclude     scaled1-4
-	1-4scaling  0.8333333333333333
-```
+    # Configure electrostatics
+    	pme                 on
+    	pmegridspacing      1.0
+    	pmefreq             2
+    	cutoff              9.
+    	switching           on
+    	switchdist          7.5
+    # Configure holonomic restraints
+    	rigidbonds          all
+    # Configure integration
+    	hydrogenscale       4.0
+    	timestep            4.0
+    # Configure output
+    	energyfreq          5000
+    	xtcfreq             25000
+    	xtcfile             trajectory.xtc
+    	outputname          output
+    	restart             on
+    	restartfreq         25000
+    	restartname         restart      
+    	coordinates         structure.pdb
+    	extendedsystem      input.xsc
+    	run                 100ns
+    # Configure thermostat
+    	langevin            on
+    	langevintemp        300.0
+    	langevindamping     0.1
+    # Configure barostat 
+    	berendsenpressure                on
+    	berendsenpressuretarget          1.01325
+    	berendsenpressurerelaxationtime  800
+    	useflexiblecell     off
+    	useconstantratio    on
+    # Configure positional restraints
+    	constraints         on
+    	consref             structure.pdb
+    	constraintscaling   1.0
+    # Configure Amber ff
+    	amber       on
+    	coordinates structure.pdb
+    	structure   structure.psf
+    	parmfile    structure.prmtop 
+    	switching   on
+    	switchdist  7.5
+    	exclude     scaled1-4
+    	1-4scaling  0.8333333333333333
 
 # Input Files
 
