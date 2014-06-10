@@ -77,7 +77,6 @@ This will give a description of the command's function along with any required a
 
 ```
 $ ./acemd.release.strip.3156 --command langevintemp
-
  langevintemp <+ve float>   [0.]    The set point in K for the Langevin
                                     thermostat
 ```
@@ -100,4 +99,26 @@ If several GPUs are given as a comma-separated list to -device, ACEMD will attem
 $ acemd --device 0,1,2
 ```
 
-When running in parallel note that performance may not always improve as more GPUs are added. Typical improvements of 20% and 30% may be expected with 2 and 3 GPUs.
+When running in parallel note that performance may not always improve as more GPUs are added. 
+
+# Running parallel ensembles
+
+ACEMD Pro supports ensemble simulations for replica exchange molecular dynamics. Ensemble mode is automatically enabled if ACEMD is run via MPI. For example, to run an 8 replica ensemble:
+```
+$ mpirun -np 8 acemd input
+```
+
+Note that this assumes that the MPI environment is appropriately configured. In this mode no explicit -device flag should be used. ACEMD will run one replica per GPU and assume that all GPUs on the allocated hosts are available for its use.
+
+## Simulation Configuration
+
+ACEMD simulations are configured using a single input file. This file is parsed as a TCL script, so can include programmatic elements. The syntax of the input script is very similar to that of NAMD. The script is read in its entirety before the simulation commences. If commands are duplicated, generally only the last setting will be used. For example:
+
+```
+structure struct1.pdb
+structure struct2.pdb
+run 100
+run 1000
+```
+
+configures ACEMD to use the structure file struct2.pdb and to run for 1000 iterations.
