@@ -10,6 +10,7 @@ Release acemd 3212 – Oct 2013
 -----------------------------
 
 **Main changes:**
+
 - Support for Geforce GTX 780 and Titan GPUs
 - Support for Parallel tempering metadynamics with PLUMED 1.3
 - Expanded Plugin interface and new manual — see doc/ACEMD-Extension-Guide.pdf
