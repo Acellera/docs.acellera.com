@@ -23,6 +23,7 @@ Release acemd 3212 – Oct 2013
 
 
 **Minor enhancements:**
+
 - Improved parallel performance
 - Parallel runs no longer require GPUs to share a PCIe bus
 - Output wrapping to the unit cell with “wrap all” no longer splits molecules over the periodic boundary
@@ -35,6 +36,7 @@ Release acemd 2728 – Oct 2012
 -----------------------------
 
 **Major release require CUDA4.2 Nvidia drivers. Main changes:**
+
 - New parallel protocols via mpirun and parallel execution via, e.g. acemd –device 1,2,3
 - Faster serial and parallel execution up of 30%
 - Requires CUDA4.2 drivers, so driver update might be necessary
@@ -49,6 +51,7 @@ Release acemd 2325 – Dec 2011
 -----------------------------
 
 **Main changes:**
+
 - Even more ACEMD protocols, now distributed directly with ACEMD
 - Added command extendsystem to read the box information from xsc file
 - Added command pmegridspacing to set automatically the PME grid
@@ -59,6 +62,7 @@ Release acemd 1890 – Feb 2011
 -----------------------------
 
 **Main changes:**
+
 - Berendsen barostat now available
 - Improved parallel performance
 - Even faster with multiple time step scheme, now use for production runs “fullelectfrequency 2″ and timestep 4 as usual
