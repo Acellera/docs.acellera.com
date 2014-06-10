@@ -258,13 +258,12 @@ The log also contains a measure of the current performance of the simulation, ex
 
 An example is shown below:
 
-```
-#     Step	      Bond	     Angle	     Dihed	      Elec	       VDW	        PE	        KE	  External	     Total	      Temp	      Pres	   PresAve
-         0	   74.8328	  340.6115	  750.4010	-72143.0851	 4123.4423	-66853.7976	14371.4091	    0.0000	-52482.3885	  298.9427	16519.2258	16519.2258
-       100	  486.7075	 1343.1273	 1024.4554	-78224.9388	 6361.2833	-69009.3652	15448.9447	    0.0000	-53560.4206	  321.3568	  -35.9722	 -250.7526
-# Simulation rate 19.32 (ave) 19.32 (inst) ns/day. Estimated completion Wed Aug 28 15:53:34 2013
-# NVML : 0 : Fan 31%	 Temp 43C	 Mem Used 253MB Free 769MB Total 1023MB
-```
+
+    #     Step	      Bond	     Angle	     Dihed	      Elec	       VDW	        PE	        KE	      External	     Total	      Temp	      Pres	   PresAve
+             0	   74.8328	  340.6115	  750.4010	-72143.0851	 4123.4423	-66853.7976	14371.4091	        0.0000	-52482.3885	  298.9427	16519.2258	16519.2258
+           100	  486.7075	 1343.1273	 1024.4554	-78224.9388	 6361.2833	-69009.3652	15448.9447	        0.0000	-53560.4206	  321.3568	  -35.9722	 -250.7526
+    # Simulation rate 19.32 (ave) 19.32 (inst) ns/day. Estimated completion Wed Aug 28 15:53:34 2013
+    # NVML : 0 : Fan 31%	 Temp 43C	 Mem Used 253MB Free 769MB Total 1023MB
 
 # Restarting
 
@@ -289,7 +288,7 @@ NB: In the case that you want to align the protein as well to some structure, be
 
 When publishing results with ACEMD please cite:
 
-    M. Harvey, G. Giupponi and G. De Fabritiis, ACEMD: Accelerated molecular dynamics simulations in the microseconds          timescale, J. Chem. Theory and Comput. 5, 1632 (2009).
+* M. Harvey, G. Giupponi and G. De Fabritiis, ACEMD: Accelerated molecular dynamics simulations in the microseconds          timescale, J. Chem. Theory and Comput. 5, 1632 (2009).
 
 Additonally, please read and consider citing the following methods papers:
 
