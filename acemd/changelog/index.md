@@ -1,5 +1,5 @@
 ---
-title: ACEMD ChangeLog
+page.title: ACEMD ChangeLog
 layout: default
 name: Changelog
 description: Description of feature changes in any revision of ACEMD
