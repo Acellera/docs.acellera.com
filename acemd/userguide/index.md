@@ -148,25 +148,128 @@ changes the default setting for the name of the Amber parameter file and the len
 The following protocols are available:
 
 * Run types
- * run/NVT run in the isotermal ensemble, using a Langevin thermostat set at 300.K
- * run/NPT run in the isothermal-isobaric ensemble, using a Langevin thermostat at 300.K and a Berendsen barostat at 1atm.
- * run/NVE run in the microcanonical ensemble.
- * run/CG run a coarse-grained simulation.
+  * run/NVT run in the isotermal ensemble, using a Langevin thermostat set at 300 K
+  * run/NPT run in the isothermal-isobaric ensemble, using a Langevin thermostat at 300.K and a Berendsen barostat at 1atm.
+  * run/NVE run in the microcanonical ensemble.
+  * run/CG run a coarse-grained simulation.
 * Force field types
- * ff/Amber configure for Amber force fields
- * ff/CHARMM27 configure for CHARMM version 22 and 27 force fields
- * ff/CHARMM36 configure for CHARMM version 36 force fields
- * ff/Martini configure for Martini force field
- * ff/OPLS configure for OPLS force field
- * 
+  * ff/Amber configure for Amber force fields
+  * ff/CHARMM27 configure for CHARMM version 22 and 27 force fields
+  * ff/CHARMM36 configure for CHARMM version 36 force fields
+  * ff/Martini configure for Martini force field
+  * ff/OPLS configure for OPLS force field
+  
 These protocols assume the following file naming conventions:
 
 * Input
- * Coordinates: structure.pdb
- * CHARMM Topology: structure.psf
- * CHARMM Parameters: parameters
- * Amber Parameters: structure.prmtop
- * Extended System: input.xsc
+  * Coordinates: structure.pdb
+  * CHARMM Topology: structure.psf
+  * CHARMM Parameters: parameters
+  * Amber Parameters: structure.prmtop
+  * Extended System: input.xsc
 * Output
- * Trajectory: trajectory.xtc
- * Final state: output.coor output.vel output.xsc
+  * Trajectory: trajectory.xtc
+  * Final state: output.coor output.vel output.xsc
+
+# Full Configuration Example
+
+Shown below is an example of an explicit input file for an Amber force field simulation in the NPT ensemble using positional restraints:
+
+```
+# Configure electrostatics
+	pme                 on
+	pmegridspacing      1.0
+	pmefreq             2
+	cutoff              9.
+	switching           on
+	switchdist          7.5
+# Configure holonomic restraints
+	rigidbonds          all
+# Configure integration
+	hydrogenscale       4.0
+	timestep            4.0
+# Configure output
+	energyfreq          5000
+	xtcfreq             25000
+	xtcfile             trajectory.xtc
+	outputname          output
+	restart             on
+	restartfreq         25000
+	restartname         restart      
+	coordinates         structure.pdb
+	extendedsystem      input.xsc
+	run                 100ns
+# Configure thermostat
+	langevin            on
+	langevintemp        300.0
+	langevindamping     0.1
+# Configure barostat 
+	berendsenpressure                on
+	berendsenpressuretarget          1.01325
+	berendsenpressurerelaxationtime  800
+	useflexiblecell     off
+	useconstantratio    on
+# Configure positional restraints
+	constraints         on
+	consref             structure.pdb
+	constraintscaling   1.0
+# Configure Amber ff
+	amber       on
+	coordinates structure.pdb
+	structure   structure.psf
+	parmfile    structure.prmtop 
+	switching   on
+	switchdist  7.5
+	exclude     scaled1-4
+	1-4scaling  0.8333333333333333
+```
+
+# Input Files
+
+ACEMD expects input coordinates in PDB or Bincoor format, specified using the commands coordinates and bincoordinates respectively. An initial velocity field may also be supplied using velocities or binvelocities.
+
+The dimensions of the unit cell may also be specified in a file given by extendedsystem. If present, this will over-ride any celldimensions setting.
+
+For simulations using CHARMM format models, a topolgy file in PSF format must be specified with structure along with force field parameters by parameters.
+
+For Amber simulations, the combined topology/force field PRMTOP file is required, specified with the command parmfile.
+
+# Output Files
+
+ACEMD can produce trajectories in both DCD and XTC formats. XTC trajectories are compressed, so save on disk space, but may not be read by all analysis programs.
+
+At the end of a simulation, ACEMD also outputs the final system state (coordinates and velocities) in NAMD Bincoord format. The filename prefix of these files is by defualt output and can be overriden with the command outputname.
+
+If the barostat is enabled, the unit cell dimensions are emitted into the output file suffix .xstfile whenever the energies are printed.
+
+#Standard output (stdout)
+
+During a run ACEMD will print a summary of the system energies to stdout. This should sually be saved in a log file for future reference using re-direction, for example:
+
+```
+$ acemd --device 1 input > log.txt
+```
+
+During ensemble runs ech replica's log file is automatically redirected to a file called log.N, where N is the 0-based replica index.
+
+All log lines not containing an energy are prefixed with # to facilitate greping. Attention should be paid to the log for lines prefixed # WARNING. These will generally indicate when a default value for a parameter has been used, indicating that a configuration option may have been unintentionally omitted.
+
+The log also contains a measure of the current performance of the simulation, expressed in ns/day, along with an estimate of the completion time. GPU temperatures and fan speeds are also printed, for monitoring purposes.
+
+An example is shown below:
+
+```
+#     Step	      Bond	     Angle	     Dihed	      Elec	       VDW	        PE	        KE	  External	     Total	      Temp	      Pres	   PresAve
+         0	   74.8328	  340.6115	  750.4010	-72143.0851	 4123.4423	-66853.7976	14371.4091	    0.0000	-52482.3885	  298.9427	16519.2258	16519.2258
+       100	  486.7075	 1343.1273	 1024.4554	-78224.9388	 6361.2833	-69009.3652	15448.9447	    0.0000	-53560.4206	  321.3568	  -35.9722	 -250.7526
+# Simulation rate 19.32 (ave) 19.32 (inst) ns/day. Estimated completion Wed Aug 28 15:53:34 2013
+# NVML : 0 : Fan 31%	 Temp 43C	 Mem Used 253MB Free 769MB Total 1023MB
+```
+
+# Restarting
+
+ACEMD can perform checkpointing to allow an aborted simulation to be resumed, using the commands restart, restartname and restartfreq. Frequency of restart dump should generally be set to match the trajectory output frequency.
+
+Restart coordinate and velocity files are in NAMD Bincoord format.
+
+Simulations started using protocols will be configured to restart by default.
