@@ -39,7 +39,7 @@ Release acemd 2728 – Oct 2012
 Release acemd 2325 – Dec 2011
 -----------------------------
 
-Main changes:
+**Main changes:**
 - Even more ACEMD protocols, now distributed directly with ACEMD
 - Added command extendsystem to read the box information from xsc file
 - Added command pmegridspacing to set automatically the PME grid
@@ -77,28 +77,3 @@ Previous releases 2009
 - Back up of restart files to avoid file corruptions
 - Parallel version
 - Improvements in the TCL interface
-
-
-
-
-
-
-
-
-
-
-
-title: What title?
-layout: default
-name: A name
-description: A longer description
----
-
-
-This is a header
-================
-
-This is a sub-header
---------------------
-
-This is _markdown_.
