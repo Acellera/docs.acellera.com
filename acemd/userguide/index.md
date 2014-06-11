@@ -11,8 +11,8 @@ Contents
 1. auto-gen TOC:
 {:toc}
 
-ACEMD
-=====
+# Introduction
+
 
 ACEMD is a high performance molecular dynamics simulator for biomolecular systems designed for NVIDIA GPUs. ACEMD has the following features and capabilities:
 
@@ -29,8 +29,7 @@ ACEMD is a high performance molecular dynamics simulator for biomolecular system
 * Scripting TCL and C interfaces
 * Metadynamics using PLUMED 1.3, including parallel tempering
 
-Fundamental units
------------------
+## Fundamental units
 
 * Length Ångström (0.1nm)
 * Energy kcal/mol
@@ -80,7 +79,7 @@ This will give a description of the command's function along with any required a
     langevintemp <+ve float>   [0.]    The set point in K for the Langevin thermostat
 
 
-# Selecting a GPU
+## Selecting a GPU
 
 ACEMD Basic will run only on the first GPU in the system. The following section applies only to ACEMD Pro users.
 
@@ -100,7 +99,7 @@ $ acemd --device 0,1,2
 
 When running in parallel note that performance may not always improve as more GPUs are added. 
 
-# Running parallel ensembles
+## Running parallel ensembles
 
 ACEMD Pro supports ensemble simulations for replica exchange molecular dynamics. Ensemble mode is automatically enabled if ACEMD is run via MPI. For example, to run an 8 replica ensemble:
 
@@ -121,7 +120,7 @@ ACEMD simulations are configured using a single input file. This file is parsed 
 
 configures ACEMD to use the structure file struct2.pdb and to run for 1000 iterations.
 
-# Quick Configurations
+## Quick Configurations
 
 A complete specification for an ACEMD simulation requires configuration of input and output files, force field parameters and thermodynamic ensemble. Explicitly writing the full configuration can result in a long input file. ACEMD includes a set of pre-defined parameter sets for common simulation configurations. These are activated using the protocol command. For example:
 
@@ -165,7 +164,7 @@ These protocols assume the following file naming conventions:
   * Trajectory: trajectory.xtc
   * Final state: output.coor output.vel output.xsc
 
-# Full Configuration Example
+# Full Configuration
 
 Shown below is an example of an explicit input file for an Amber force field simulation in the NPT ensemble using positional restraints:
 
@@ -216,7 +215,7 @@ Shown below is an example of an explicit input file for an Amber force field sim
     	exclude     scaled1-4
     	1-4scaling  0.8333333333333333
 
-# Input Files
+## Input Files
 
 ACEMD expects input coordinates in PDB or Bincoor format, specified using the commands coordinates and bincoordinates respectively. An initial velocity field may also be supplied using velocities or binvelocities.
 
@@ -226,7 +225,7 @@ For simulations using CHARMM format models, a topolgy file in PSF format must be
 
 For Amber simulations, the combined topology/force field PRMTOP file is required, specified with the command parmfile.
 
-# Output Files
+## Output Files
 
 ACEMD can produce trajectories in both DCD and XTC formats. XTC trajectories are compressed, so save on disk space, but may not be read by all analysis programs.
 
@@ -234,7 +233,7 @@ At the end of a simulation, ACEMD also outputs the final system state (coordinat
 
 If the barostat is enabled, the unit cell dimensions are emitted into the output file suffix .xstfile whenever the energies are printed.
 
-#Standard output (stdout)
+## Standard output (stdout)
 
 During a run ACEMD will print a summary of the system energies to stdout. This should sually be saved in a log file for future reference using re-direction, for example:
 
@@ -257,7 +256,7 @@ An example is shown below:
     # Simulation rate 19.32 (ave) 19.32 (inst) ns/day. Estimated completion Wed Aug 28 15:53:34 2013
     # NVML : 0 : Fan 31%	 Temp 43C	 Mem Used 253MB Free 769MB Total 1023MB
 
-# Restarting
+## Restarting
 
 ACEMD can perform checkpointing to allow an aborted simulation to be resumed, using the commands restart, restartname and restartfreq. Frequency of restart dump should generally be set to match the trajectory output frequency.
 
@@ -265,7 +264,9 @@ Restart coordinate and velocity files are in NAMD Bincoord format.
 
 Simulations started using protocols will be configured to restart by default.
 
-# Apply periodic boundary conditions
+# Extra
+
+## Apply periodic boundary conditions
 
 ACEMD by default does not wrap in the output the coordinates around the periodic box, so when the molecular system is visualized water molecules appear to diffuse away. This is done such that you can measure diffusion coefficients. It is just a visualization choice. In the newest versions of ACEMD there is the command "wrap all" which instead wraps the coordinates of every atoms.
 Best and most flexible way to do the wrapping is after the simulation with VMD. From VMD 1.8.7 (http://www.ks.uiuc.edu/Research/vmd/plugins/pbctools/) you can wrap using the information in the DCD unitcell (load the dcd directly on a structure file rather than the pdb):
