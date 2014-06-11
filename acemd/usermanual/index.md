@@ -57,16 +57,17 @@ The topology and parameters force fields for CHARMM are available at http://mack
 
 ### AMBER force field
 
-If you are used to AMBER input files, then you can just keep doing that. It is necessary to provide a PDB instead of the CRD file (load it and save it from VMD). Use the following commands in your ACEMD configuration files :
+AMBER input files are read by ACEMD, so  it is only necessary to provide a PDB instead of the CRD file (load it and save it from VMD). Use the following commands in your ACEMD configuration files :
 
     coordinates  your_pdb_file
     amber on
     parmfile your_topology_file
     1-4scaling 0.83333
     
-We suggest that you keep switching when using AMBER force fields in ACEMD to avoid force discontinuities at the cutoff distance as you do for CHARMM. Special parameters for the Amber forcefields can be found at http://www.pharmacy.manchester.ac.uk/bryce/amber
+We suggest that you keep switching when using AMBER force fields in ACEMD to avoid force discontinuities at the cutoff distance as you do for CHARMM. 
 
-To generate a system with tleap using ff13SB and new ions, load the following settings
+The latest forcefield from Amber is the best to use
+* __Amber14SB__ -  solves several shortcomings of previous forcefields. Special parameters for the Amber forcefields can be found at [this site](http://www.pharmacy.manchester.ac.uk/bryce/amber). To obtain the latest forcefield simply download the latest version of AmberTools for free. To generate a system with tleap using ff14SB and new ions, load the following settings
 
     source leaprc.ff13SB # FF13 forcefield 
     source leaprc.gaff   # If custom ligands/lipids: GAFF forcefield
