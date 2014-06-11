@@ -67,6 +67,7 @@ AMBER input files are read by ACEMD, so  it is only necessary to provide a PDB i
 We suggest that you keep switching when using AMBER force fields in ACEMD to avoid force discontinuities at the cutoff distance as you do for CHARMM. 
 
 The latest forcefield from Amber is the best to use
+
 * __Amber14SB__ -  solves several shortcomings of previous forcefields. Special parameters for the Amber forcefields can be found at [this site](http://www.pharmacy.manchester.ac.uk/bryce/amber). To obtain the latest forcefield simply download the latest version of AmberTools for free. To generate a system with tleap using ff14SB and new ions, load the following settings
 
     source leaprc.ff13SB # FF13 forcefield 
