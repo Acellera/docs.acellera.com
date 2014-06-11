@@ -14,7 +14,9 @@ Contents
 # Introduction
 
 
-ACEMD is a high performance molecular dynamics simulator for biomolecular systems designed for NVIDIA GPUs. ACEMD has the following features and capabilities:
+ACEMD is a high performance molecular dynamics code for biomolecular systems designed specifically for NVIDIA GPUs. Simple and fast,  ACEMD uses very similar commands and input files of NAMD [NAMD] and output files as NAMD or Gromacs. The three design target features of ACEMD are:
+
+ACEMD is fast, as it was designed from scratch to be an optimized MD engine that exploits the computational power of graphical processing units (GPUs). ACEMD provides the equivalent performance of parallel CPU simulations using many tens to hundreds of processors, depending on the number and type of GPU cards installed. ACEMD has the following features and capabilities:
 
 * Force fields Amber, CHARMM, OPLS and Martini
 * Input file formats PDB, PSF, PRMTOP, NAMD Bincoor
@@ -27,7 +29,7 @@ ACEMD is a high performance molecular dynamics simulator for biomolecular system
 * Integrator Velocity Verlet, long timesteps with H mass repartitioning
 * Unit Cell Cuboid, fully periodic
 * Scripting TCL and C interfaces
-* Metadynamics using PLUMED 1.3, including parallel tempering
+* Metadynamics using PLUMED 1.3, including parallel tempering metadynamics
 
 ## Fundamental units
 
@@ -41,6 +43,40 @@ These yield the derived units:
 * time unit  t = 48.88821 femtoseconds$
 * velocity unit v = Ångström/t
 * Boltzmann constant  kB = 0.001987191 kcal/mol/K
+
+## Force field parameters
+
+The default force-field formats used by ACEMD are CHARMM including cross-term support and Amber force-fields. The code can also simulate OPLS force-fields in CHARMM format via translated force-fields. To build the molecular system it is possible to use any tool that it suitable for these force fields. For instance, charmm or VMD (free) for the Charmm forcefield and ambertools (free) for Amber.
+
+### CHARMM force field
+
+The topology and parameters force fields for CHARMM are available at http://mackerell.umaryland.edu/CHARMM_ff_params.html. Please refer to this link for the complete and latest information. Different forcefields might give diffent results for your system. Also the quality of the forcefields have greatly improved in the last years. Use always the latest forcefield unless you have a specific reason not to. For Charmm we suggest two forcefields:
+
+* __CHARMM36__ - this is the last available forcefield for Charmm. It is probably the best forcefield for membrane proteins. The free online website CHARMM-GUI is the best to set up a membrane system also changing the type of lipids. Combined parameter file which uses the new lipid naming scheme used by CHARMM-GUI (cfr e.g. P1 instead of previously-used P for the phosporus atom in lipids). 
+* __CHARMM22*__ - this is a revised version of the Charmm forcefield derived by DE SHAW research. It is older than Charmm36 but it works better for protein folding. You can also mix Charmm22* for protein with Charmm36 for proteins. Note that this is different from Charmm22 without star which should never be used. Charmm27 also widely used is known to overstabilize helices and should also be avoided now that there are better alternatives.
+
+### AMBER force field
+
+If you are used to AMBER input files, then you can just keep doing that. It is necessary to provide a PDB instead of the CRD file (load it and save it from VMD). Use the following commands in your ACEMD configuration files :
+
+    coordinates  your_pdb_file
+    amber on
+    parmfile your_topology_file
+    1-4scaling 0.83333
+    
+We suggest that you keep switching when using AMBER force fields in ACEMD to avoid force discontinuities at the cutoff distance as you do for CHARMM. Special parameters for the Amber forcefields can be found at http://www.pharmacy.manchester.ac.uk/bryce/amber
+
+To generate a system with tleap using ff13SB and new ions, load the following settings
+
+    source leaprc.ff13SB # FF13 forcefield 
+    source leaprc.gaff   # If custom ligands/lipids: GAFF forcefield
+    # Modified ions and ion names Joung/Cheatham ion parameters for TIP3P water
+    loadamberparams frcmod.ionsjc_tip3p
+    loadoff ions08.lib
+
+### OPLS force field
+
+The use of OPLS force field parameters is possible using the version in CHARMM format, but only for the protein portion. See http://brooks.scripps.edu/charmm_docs/Data/oplsaa-toppar.tgz. This requires to use the configuration parameter "vdwgeometricsigma on". This forcefield is less used and so less tested, in particular we have not tested the porting 
 
 # Running ACEMD
 
