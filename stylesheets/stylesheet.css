@@ -160,11 +160,11 @@ p img {
 pre, code {
   width: 100%;
   color: #222;
-  background-color: #fafafa;
+  background-color: #fafbe8;
 
   font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
   font-size: 14px;
-
+  border: 1px solid #e1e4e5;
   border-radius: 1px;
   -webkit-border-radius: 1px;
 }
@@ -172,7 +172,7 @@ pre, code {
 pre {
   width: 100%;
   padding: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,.1);
+  box-shadow: none;
   overflow: auto;
 }
 
