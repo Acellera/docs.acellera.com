@@ -2,7 +2,7 @@
 title: ACEMD User Guide
 layout: default
 name: User Guide
-description: ACEMD user guide
+description:
 ---
 
 Contents
@@ -168,7 +168,7 @@ configures ACEMD to simulate in the isothermal ensemble and to expect Amber forc
 If ACEMD is run with the flag -verbose then as each protocol is executed, the commands that it specifies are printed out in the log file. These can be captured for use in an explicit input file. Any inappropriate settings can be overriden by re-issuing the command afterwards. For example:
 
     protocol run/NVT
-    protocol run/Amber
+    protocol ff/Amber
     parmfile amber.prmtop
     run      10ns
 
