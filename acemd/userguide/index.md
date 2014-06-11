@@ -1,7 +1,7 @@
 ---
-title: ACEMD User Guide
+title: ACEMD User Manual
 layout: default
-name: User Guide
+name: User Manual
 description:
 ---
 
