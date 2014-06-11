@@ -53,7 +53,7 @@ The default force-field formats used by ACEMD are CHARMM including cross-term su
 The topology and parameters force fields for CHARMM are available at http://mackerell.umaryland.edu/CHARMM_ff_params.html. Please refer to this link for the complete and latest information. Different forcefields might give diffent results for your system. Also the quality of the forcefields have greatly improved in the last years. Use always the latest forcefield unless you have a specific reason not to. For Charmm we suggest two forcefields:
 
 * __CHARMM36__ - this is the latest available forcefield for Charmm. It is probably the best forcefield for membrane proteins. The free online website CHARMM-GUI is very good to set up a membrane system also changing the type of lipids.  
-* __CHARMM22star__ - this is a revised version of the Charmm forcefield derived by DE SHAW research. It is older than Charmm36 but it works better for protein folding. You can also mix Charmm22star for protein with Charmm36 for proteins. Note that this is different from Charmm22 without star which should never be used. Charmm27 also widely used is known to overstabilize helices and should also be avoided now that there are better alternatives.
+* __CHARMM22star__ - this is a revised version of the Charmm forcefield derived by DE SHAW research. It is older than Charmm36 but it works better for protein folding. You can also mix Charmm22star for protein with Charmm36 for proteins. Note that this is different from Charmm22 without star which should never be used. Charmm27 also widely used is known to overstabilize helices and should also be avoided now that there are better alternatives. Charmm22star files are available from us here: [charmm22star topology file](http://docs.acellera.com/acemd/pub/top_all22star_prot.inp) and [parameter file](par_all22star_prot.inp). There is no official distribution of charmm22star files, but these were manually validated against Desmond implementation and we are sufficiently confident that they are correct and acemd produces the correct implementation.
 
 ### AMBER force field
 
@@ -76,7 +76,7 @@ To generate a system with tleap using ff13SB and new ions, load the following se
 
 ### OPLS force field
 
-The use of OPLS force field parameters is possible using the version in CHARMM format, but only for the protein portion. See http://brooks.scripps.edu/charmm_docs/Data/oplsaa-toppar.tgz. This requires to use the configuration parameter "vdwgeometricsigma on". This forcefield is less used and so less tested, in particular we have not tested the porting 
+The use of OPLS force field parameters is possible using the version in [CHARMM format](http://brooks.scripps.edu/charmm_docs/Data/oplsaa-toppar.tgz), but only for the protein portion. This requires to use the configuration parameter "vdwgeometricsigma on". This forcefield is less used and so less tested, in particular we have not tested the porting 
 
 # Running ACEMD
 
