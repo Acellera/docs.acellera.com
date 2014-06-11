@@ -301,7 +301,22 @@ Restart coordinate and velocity files are in NAMD Bincoord format.
 
 Simulations started using protocols will be configured to restart by default.
 
-# Extra
+# Advanced material
+
+##  Tcl Scripting
+
+The entire input file is seen by ACEMD as a Tcl script. You can interleave Tcl command with the commands shown in this manual. Tcl is also useful to manipulate the molecular systems by reading coordinates, velocities and forces on-the-fly while the simulation is running. Tcl scripts are executed in the CPU, so they can be expensive if the number of atoms involved is large (depending on system size, but target for less than 100 atoms if possible). For simple harmonic positional constraints use the constraints command instead.
+
+ACEMD calls two tcl functions, calc_forces_init at startup and calc_forces at every step. Note that calc_forces is processed on the CPU.
+
+## Plugin interface
+
+ACEMD is easily extended by adding plugin modules written in C and dynamically loaded by the application. Current plugins include metadynamics, a power biased free energy calculation method. It is easy to think of ways on which users might want to customize ACEMD for their needs. In practice, the plugin interface give access to the position,velocities and forces at each iteration from a C interface. Please visit the plugin web page for more information.
+
+## Getting support
+
+Users can receive individual and confidential support at Acellera Ltd via support@acellera.com.
+There is also a  ACEMD user forum at http://www.acellera.com/support/community. 
 
 ## Apply periodic boundary conditions
 
