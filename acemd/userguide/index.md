@@ -316,7 +316,7 @@ ACEMD is easily extended by adding plugin modules written in C and dynamically l
 ## Getting support
 
 Users can receive individual and confidential support at Acellera Ltd via support@acellera.com.
-There is also a  ACEMD user forum at http://www.acellera.com/support/community. 
+There is also a [ACEMD user forum](http://www.acellera.com/support/community). 
 
 ## Apply periodic boundary conditions
 
