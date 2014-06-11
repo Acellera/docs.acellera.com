@@ -53,7 +53,7 @@ The default force-field formats used by ACEMD are CHARMM including cross-term su
 The topology and parameters force fields for CHARMM are available at http://mackerell.umaryland.edu/CHARMM_ff_params.html. Please refer to this link for the complete and latest information. Different forcefields might give diffent results for your system. Also the quality of the forcefields have greatly improved in the last years. Use always the latest forcefield unless you have a specific reason not to. For Charmm we suggest two forcefields:
 
 * __CHARMM36__ - this is the latest available forcefield for Charmm. It is probably the best forcefield for membrane proteins. The free online website CHARMM-GUI is very good to set up a membrane system also changing the type of lipids.  
-* __CHARMM22star__ - this is a revised version of the Charmm forcefield derived by DE SHAW research. It is older than Charmm36 but it works better for protein folding. You can also mix Charmm22* for protein with Charmm36 for proteins. Note that this is different from Charmm22 without star which should never be used. Charmm27 also widely used is known to overstabilize helices and should also be avoided now that there are better alternatives.
+* __CHARMM22star__ - this is a revised version of the Charmm forcefield derived by DE SHAW research. It is older than Charmm36 but it works better for protein folding. You can also mix Charmm22star for protein with Charmm36 for proteins. Note that this is different from Charmm22 without star which should never be used. Charmm27 also widely used is known to overstabilize helices and should also be avoided now that there are better alternatives.
 
 ### AMBER force field
 
