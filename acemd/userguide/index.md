@@ -168,16 +168,20 @@ These protocols assume the following file naming conventions:
 
 Shown below is an example of an explicit input file for an Amber force field simulation in the NPT ensemble using positional restraints:
 
-    # Configure electrostatics
+    # Inputs
+       	coordinates         structure.pdb
+       	bincoordinates      input.coor
+       	binvelocities       input.vel
+       	extendedsystem      input.xsc
+    # Configure force calculation
     	pme                 on
     	pmegridspacing      1.0
     	pmefreq             2
     	cutoff              9.
     	switching           on
     	switchdist          7.5
-    # Configure holonomic restraints
-    	rigidbonds          all
     # Configure integration
+    	rigidbonds          all
     	hydrogenscale       4.0
     	timestep            4.0
     # Configure output
@@ -188,9 +192,6 @@ Shown below is an example of an explicit input file for an Amber force field sim
     	restart             on
     	restartfreq         25000
     	restartname         restart      
-    	coordinates         structure.pdb
-    	extendedsystem      input.xsc
-    	run                 100ns
     # Configure thermostat
     	langevin            on
     	langevintemp        300.0
@@ -205,16 +206,16 @@ Shown below is an example of an explicit input file for an Amber force field sim
     	constraints         on
     	consref             structure.pdb
     	constraintscaling   1.0
-    # Configure Amber ff
+    # Configure for Amber ff
     	amber       on
-    	coordinates structure.pdb
-    	structure   structure.psf
     	parmfile    structure.prmtop 
     	switching   on
     	switchdist  7.5
     	exclude     scaled1-4
     	1-4scaling  0.8333333333333333
-
+    # run
+    	run                 100ns
+    	
 ## Input Files
 
 ACEMD expects input coordinates in PDB or Bincoor format, specified using the commands coordinates and bincoordinates respectively. An initial velocity field may also be supplied using velocities or binvelocities.
