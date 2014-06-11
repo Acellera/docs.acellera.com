@@ -14,7 +14,7 @@ Contents
 # Introduction
 
 
-ACEMD is a high performance molecular dynamics code for biomolecular systems designed specifically for NVIDIA GPUs. Simple and fast,  ACEMD uses very similar commands and input files of NAMD [NAMD] and output files as NAMD or Gromacs. The three design target features of ACEMD are:
+ACEMD is a high performance molecular dynamics code for biomolecular systems designed specifically for NVIDIA GPUs. Simple and fast,  ACEMD uses very similar commands and input files of NAMD and output files as NAMD or Gromacs. The three design target features of ACEMD are:
 
 ACEMD is fast, as it was designed from scratch to be an optimized MD engine that exploits the computational power of graphical processing units (GPUs). ACEMD provides the equivalent performance of parallel CPU simulations using many tens to hundreds of processors, depending on the number and type of GPU cards installed. ACEMD has the following features and capabilities:
 
@@ -52,8 +52,8 @@ The default force-field formats used by ACEMD are CHARMM including cross-term su
 
 The topology and parameters force fields for CHARMM are available at http://mackerell.umaryland.edu/CHARMM_ff_params.html. Please refer to this link for the complete and latest information. Different forcefields might give diffent results for your system. Also the quality of the forcefields have greatly improved in the last years. Use always the latest forcefield unless you have a specific reason not to. For Charmm we suggest two forcefields:
 
-* __CHARMM36__ - this is the last available forcefield for Charmm. It is probably the best forcefield for membrane proteins. The free online website CHARMM-GUI is the best to set up a membrane system also changing the type of lipids. Combined parameter file which uses the new lipid naming scheme used by CHARMM-GUI (cfr e.g. P1 instead of previously-used P for the phosporus atom in lipids). 
-* __CHARMM22*__ - this is a revised version of the Charmm forcefield derived by DE SHAW research. It is older than Charmm36 but it works better for protein folding. You can also mix Charmm22* for protein with Charmm36 for proteins. Note that this is different from Charmm22 without star which should never be used. Charmm27 also widely used is known to overstabilize helices and should also be avoided now that there are better alternatives.
+* __CHARMM36__ - this is the latest available forcefield for Charmm. It is probably the best forcefield for membrane proteins. The free online website CHARMM-GUI is very good to set up a membrane system also changing the type of lipids.  
+* __CHARMM22star__ - this is a revised version of the Charmm forcefield derived by DE SHAW research. It is older than Charmm36 but it works better for protein folding. You can also mix Charmm22* for protein with Charmm36 for proteins. Note that this is different from Charmm22 without star which should never be used. Charmm27 also widely used is known to overstabilize helices and should also be avoided now that there are better alternatives.
 
 ### AMBER force field
 
