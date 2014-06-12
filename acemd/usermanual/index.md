@@ -53,20 +53,24 @@ The default force-field formats used by ACEMD are CHARMM including cross-term su
 The topology and parameters force fields for CHARMM are available at http://mackerell.umaryland.edu/CHARMM_ff_params.html. Please refer to this link for the complete and latest information. Different forcefields might give diffent results for your system. Also the quality of the forcefields have greatly improved in the last years. Use always the latest forcefield unless you have a specific reason not to. For Charmm we suggest two forcefields:
 
 * __CHARMM36__ - this is the latest available forcefield for Charmm. It is probably the best forcefield for membrane proteins. The free online website CHARMM-GUI is very good to set up a membrane system also changing the type of lipids.  
-* __CHARMM22star__ - this is a revised version of the Charmm forcefield derived by DE SHAW research. It is older than Charmm36 but it works better for protein folding. You can also mix Charmm22star for protein with Charmm36 for proteins. Note that this is different from Charmm22 without star which should never be used. Charmm27 also widely used is known to overstabilize helices and should also be avoided now that there are better alternatives. Charmm22star files are available from us here: [charmm22star topology file](http://docs.acellera.com/acemd/pub/top_all22star_prot.inp) and [parameter file](http://docs.acellera.com/acemd/pub/par_all22star_prot.inp). There is no official distribution of charmm22star files, but these were manually validated against Desmond implementation and we are sufficiently confident that they are correct and acemd produces the correct implementation.
+* __CHARMM22star__ - this is a revised version of the Charmm forcefield derived by DE SHAW research. It is older than Charmm36 but it works better for protein folding. You can also mix Charmm22star for protein with Charmm36 for proteins. Note that this is different from Charmm22 without star which should never be used. Charmm27 also widely used is known to overstabilize helices and should also be avoided now that there are better alternatives. Charmm22star files are available from us here: [charmm22star topology file](http://docs.acellera.com/acemd/pub/top_all22star_prot.inp) and [parameter file](http://docs.acellera.com/acemd/pub/par_all22star_prot.inp). There is no official distribution of charmm22star files, but these were manually validated against Desmond implementation and we are sufficiently confident that they are correct and acemd produces the correct forces.
 
 ### AMBER force field
 
-If you are used to AMBER input files, then you can just keep doing that. It is necessary to provide a PDB instead of the CRD file (load it and save it from VMD). Use the following commands in your ACEMD configuration files :
+AMBER input files are read by ACEMD, so  it is only necessary to provide a PDB instead of the CRD file (load it and save it from VMD). Use the following commands in your ACEMD configuration files :
 
     coordinates  your_pdb_file
     amber on
     parmfile your_topology_file
     1-4scaling 0.83333
     
-We suggest that you keep switching when using AMBER force fields in ACEMD to avoid force discontinuities at the cutoff distance as you do for CHARMM. Special parameters for the Amber forcefields can be found at http://www.pharmacy.manchester.ac.uk/bryce/amber
+We suggest that you keep switching when using AMBER force fields in ACEMD to avoid force discontinuities at the cutoff distance as you do for CHARMM. 
 
-To generate a system with tleap using ff13SB and new ions, load the following settings
+The latest forcefield from Amber is the best to use
+
+* __Amber14SB__ solves several shortcomings of previous forcefields. Special parameters for the Amber forcefields can be found at [this site](http://www.pharmacy.manchester.ac.uk/bryce/amber). To obtain the latest forcefield simply download the latest version of AmberTools for free. 
+ 
+To generate a system with tleap using ff14SB and new ions, load the following settings
 
     source leaprc.ff13SB # FF13 forcefield 
     source leaprc.gaff   # If custom ligands/lipids: GAFF forcefield
@@ -145,7 +149,7 @@ $ mpirun -np 8 acemd input
 
 Note that this assumes that the MPI environment is appropriately configured. In this mode no explicit -device flag should be used. ACEMD will run one replica per GPU and assume that all GPUs on the allocated hosts are available for its use.
 
-## Simulation Configuration
+# Simulation Configuration
 
 ACEMD simulations are configured using a single input file. This file is parsed as a TCL script, so can include programmatic elements. The syntax of the input script is very similar to that of NAMD. The script is read in its entirety before the simulation commences. If commands are duplicated, generally only the last setting will be used. For example:
 
@@ -200,7 +204,16 @@ These protocols assume the following file naming conventions:
   * Trajectory: trajectory.xtc
   * Final state: output.coor output.vel output.xsc
 
-# Full Configuration
+## Langevin thermostat
+
+The Langevin thermostat is needed to keep the system in the NVT ensemble. This is the suggested ensemble for production runs. The langevindamping should be as small as possible in order to thermalize the system without affecting the transport parameters (diffusion). We suggest to use langevindamping 0.1 for all production runs in NVT. A langevindamping 1 is better during equilibration.
+
+## Barostat
+
+ACEMD implements a Berendsen barostat designed for the equilibration of molecular systems (globular and in a membrane) to then start NVT production runs. With the system sizes which are achievable nowadays it is not necessary to have a pressure control in the production run, unless you really know what you are doing (for large number of atoms all ensembles are equivalent statistically). For molecular systems up to 100,000 atoms in a membrane allow for an equilibration of 20 ns, for globular proteins 1 to 5 ns are sufficient.
+
+
+## Full Configuration Example
 
 Shown below is an example of an explicit input file for an Amber force field simulation in the NPT ensemble using positional restraints:
 
@@ -308,6 +321,84 @@ Simulations started using protocols will be configured to restart by default.
 The entire input file is seen by ACEMD as a Tcl script. You can interleave Tcl command with the commands shown in this manual. Tcl is also useful to manipulate the molecular systems by reading coordinates, velocities and forces on-the-fly while the simulation is running. Tcl scripts are executed in the CPU, so they can be expensive if the number of atoms involved is large (depending on system size, but target for less than 100 atoms if possible). For simple harmonic positional constraints use the constraints command instead.
 
 ACEMD calls two tcl functions, calc_forces_init at startup and calc_forces at every step. Note that calc_forces is processed on the CPU.
+
+Harmonic positional constraints can be applied on selected atoms. This is useful during equilibration but also in production runs, so ACEMD implements it in the fastest possible way: directly computed on the GPU. There are no limitations on the number of atoms to which the constraints are applied. Similar and more flexible constraints can also be applied using Tcl scripting.
+
+For instance the following Tcl scripting example applies a flat bottom potential restrain to a single atom group in 1D
+
+    #Normal acemd conf file
+    protocol run/NVT
+    protocol ff/Amber
+    run 1000
+    # TCL
+    set structure mystructure.pdb
+    set Krestrain 10
+    set axis {1 0 0}
+    set logfreq 1000
+    tclforces on
+    #
+    proc restrain1_1D_flatbottom { _coor O group Dir K d log } {
+       # USAGE: restrains 1 group of atoms with a flat bottom potential 
+       #                    at a distance $d from $O in the direction $Dir with constant $K  
+       upvar $_coor coor
+       global logfreq
+       #
+       set dr [expr [vecdot $coor($group) $Dir] - [vecdot $O $Dir] ]
+       set DR  [expr abs($dr) - $d]
+       if {$DR > 0} {
+         if {$dr > 0} {
+           set DR [expr $dr - $d]
+         } else {
+           set DR [expr $dr + $d]
+         }
+       set f [vecscale [expr -$K*$DR] $Dir]
+       addforce $group $f
+       set step [ getstep ]
+       if {$step % $logfreq == 0} {
+         set E [ expr 0.5*$K*$DR*$DR ]
+         print "$log $step $dr $DR $E"
+       }
+       }
+    }
+    #
+    proc calcforces_init {} {
+    global structure coor1 glist1 gcom1
+    #
+    # Extraction of atoms and coordinates from pdb file.
+    readpdb pdb $structure
+    #
+    # Loading of atoms with beta column equal to '1' and storage of
+    # selected atoms index values and coordinates.
+    loadsystem pdb 1 id1 coor1    
+    #
+    # Creation of group corresponding to the center of mass of
+    # selected atoms to which we will apply the restrain.
+    set gcom1 [ addgroup $id1 ]
+    #
+    # Creation of a list of groups for every selected atom.
+    # We need this to obtain later the reference position for the center of mass.
+    get_groups id1 glist1
+    #
+    }
+    #
+    proc calcforces {} {
+    global coor1 glist1 gcom1 axis Krestrain logfreq
+    #
+    ## Loading of system's current coordinates
+    loadcoords coords
+    #
+    ## Getting atom selection coordinates
+    # Current
+    set gcom1_pos $coords($gcom1)
+    # Reference
+    set gcom1_start [ center_of_mass glist1 coor1 ]
+    #    
+    ## Applying a 1D restrain to the center of mass of the atom selection
+    ## using as reference coordinates those extracted from the pdb.
+    restrain1_1D_flatbottom $gcom1_start $gcom1 $axis $Krestrain 0 "log_text"
+    #
+    return;
+    }
 
 ## Plugin interface
 
