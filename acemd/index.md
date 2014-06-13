@@ -1,15 +1,10 @@
 ---
-title: What title?
+title: ACEMD Documentation
 layout: default
-name: A name
-description: A longer description
+name: ACEMD Documentation
+description: Links to all resources related to ACEMD
 ---
 
 
-This is a header
-================
+[ACEMD user manual](./usermanual)
 
-This is a sub-header
---------------------
-
-This is _markdown_.
