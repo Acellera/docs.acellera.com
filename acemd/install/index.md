@@ -1,8 +1,8 @@
 ---
-title: What title?
+title: ACEMD Install guide
 layout: default
-name: A name
-description: A longer description
+name: ACEMD Install guide
+description: 
 ---
 
 # Prerequisites
@@ -47,6 +47,93 @@ The NVIDIA Kernel driver is not installed correctly.
 * libmpiwrapper.so is part of the ACEMD distribution. Ensure that ACEMD_HOME/lib is inclued in LD_LIBRARY_PATH.
 
 * libmpi, libopen-rte, libopen-pal. Check that your Operating System's OpenMPI runtime packages are installed2 and the library directory included, or read section 4.3
+
+# Install ACEMD Basic
+
+ACEMD Basic is freely available to academic and industrial users for single-machine, single-GPU use. ACEMD Basic can be obtained by making a request on the [Acellera website](http://www.acellera.com/products/acemd/getacemd/)
+
+To install ACEMD Basic follow the instructions for ACEMD PRO. Before ACEMD Basic can be used, a license must be obtained. This is achieved by online activation, using the activation code supplied in the confirmation email.
+
+Once activated, ACEMD Basic is locked to the machine on which the activation was done. Be sure to activate on the machine on which you wish to run ACEMD.
+
+To activate, do the following, replacing XXXX-XXXX-XXXX-XXXX with your activation code:
+
+    $ acemd --active XXXX-XXXX-XXXX-XXXX
+    
+If successful, ACEMD can now be used. If activation failed, please consult the FAQ section below.
+
+
+## FAQ
+
+* I registered but didn't receive any email. You should receive a confirmation email shortly after registering. If you have not received any email within 10 minutes, please check your spam folder and double-check the email address you entered. ACEMD Basic applications are approved individually, during EU office hours, so there may be a delay before you receive download approval
+
+* My request for ACEMD Basic was refused. ACEMD Basic is available only to legitimate academic and industrial users. You provided insufficient or incorrect information in your request to allow us to confirm your identity. Please re-register, being sure to give full contact details and an institutional/business email address.
+
+* When I try to run `acemd', I get the error `bash: acemd: command not found'. Check that the directory containing the acemd binary is included in the PATH environment variable
+
+* When I try to run `acemd', I get the error `acemd: error while loading shared libraries: libcufft.so.4:'
+Check that the directory containing the missing library is included in the LD_LIBRARY_PATH environment variable. libcudafft.so.4 and libcudart.so.4 are included in the bin directory of the acemd distribution.
+
+* I tried activation but it failed! Please check the following:
+Ethernet device eth0 exists.
+Run the command ifconfig eth0. This should report information about the network interface on your computer. If, instead you get the error error fetching interface information: Device not found, then ACEMD Basic will not be able to obtain the information necessary to activate. To remedy this, please speak to your systems administrator1
+
+* Your machine has a direct connection to the internet.
+ACEMD Basic activation performs authentication with a remote server. Activation will fail if the server cannot be reached. Note that ACEMD Basic can have difficulty communicating through some proxy servers. If activation is failing for this reason, please write to support@acellera.com, enclosing the output of the command ifconfig eth0, and we will send a license file to you via email.
+
+* This is your first attempt to activate
+The activation code can only be used to successfully activate one machine.
+
+# More on MPI
+
+ACEMD supports ensemble simulations for replica exchange molecular dynamics. This is implemented using MPI for parallel communication. Because there are many different MPI implementations, all with different binary interfaces, ACEMD includes a wrapper library to allow it be used with whichever MPI your system is configured with.
+
+If you do not intend to use ensemble methods, and receive no warnings or errors when running ACEMD, you do not need to take any further action.
+
+The wrapper library, libmpiwrapper.so, provided with ACEMD is built against OpenMPI 1.5.4. If you wish to use a different MPI, you must recompile the wrapper as follows:
+
+    $ cd $ACEMD_HOME/mpiwrapper
+    $ make
+    
+If you receive any errors, check that the MPI development packages and C compiler are installed. If successful, the libmpiwrapper.so in the lib directory will be reconfigured for your system.
+
+# License Server
+
+Floating licenses allow ACEMD Pro to be used on any machine, subject to a limit on the number of concurrent instances. Floating licenses require a license server to be running. This should be installed on a machine that all clients can connect to over the network. In a cluster environment, for example, it should be run on an administrative machine.
+
+The following instructions assume that you have administrative/root access to the machine in question, that the Operating System is Red Hat EL6, and that you wish to configure the license server to run automatically as a system service.
+
+To install the license server, first create a new userid for it, for example:
+
+    # useradd sglmd
+
+Next, copy the script ACEMD_HOME/sglmd/etc/lmgrd.sglmd to /etc/init.d. Edit the copy to include the correct value for ACEMD_HOME for your system.
+
+Add the license server as a system process and enable it at runlevel 3 and 5:
+
+    # chkconfig --add lmgrd.sglmd
+    # chkconfig --level 35 lmgrd.sglmd on
+
+Install the license file as license.dat in ACEMD_HOME. Ensure that its permissions allow it to be read under the sglmd user context.
+
+Start the license server using:
+
+    # service lmgrd.sglmd start
+
+The license server will produce a log file in /var/log/lmgrd.sglmd. Check this file to confirm that all is working:
+
+    $ head -2 /var/log/lmgrd.sglmd
+    2013/01/01 00:00:00 Server starting on host.example.com, port 27000, max components 64, max connections 256
+    Enabling acemd 1.0 60 28-apr-2014 
+    Ready...
+
+Check that the license components available matchthose purchased (in this example 60 acemd tokens with expiry date 28 April 2014).
+
+Finally, ensure that the environment variable SG_LICENSE_FILE is set with the connection details of the license server. This has the format port@hostname. The detaul port number is 27000. For example:
+
+    $ export SG_LICENSE_FILE=27000@host.example.com
+
+If you encounter any problems installing the license server, please contact us directly at support@acellera.com
 
 # Nvidia driver update procedure
 
