@@ -50,7 +50,7 @@ The default force-field formats used by ACEMD are CHARMM including cross-term su
 
 ### CHARMM force field
 
-The topology and parameters force fields for CHARMM are available at http://mackerell.umaryland.edu/CHARMM_ff_params.html. Please refer to this link for the complete and latest information. Different forcefields might give diffent results for your system. Also the quality of the forcefields have greatly improved in the last years. Use always the latest forcefield unless you have a specific reason not to. For Charmm we suggest two forcefields:
+The topology and parameters force fields for CHARMM are available at [Mackerell's page](http://mackerell.umaryland.edu/CHARMM_ff_params.html). Please refer to this link for the complete and latest information. Different forcefields might give diffent results for your system. Also the quality of the forcefields have greatly improved in the last years. Use always the latest forcefield unless you have a specific reason not to. For Charmm we suggest two forcefields:
 
 * __CHARMM36__ - this is the latest available forcefield for Charmm. It is probably the best forcefield for membrane proteins. The free online website CHARMM-GUI is very good to set up a membrane system also changing the type of lipids.  
 * __CHARMM22star__ - this is a revised version of the Charmm forcefield derived by DE SHAW research. It is older than Charmm36 but it works better for protein folding. You can also mix Charmm22star for protein with Charmm36 for proteins. Note that this is different from Charmm22 without star which should never be used. Charmm27 also widely used is known to overstabilize helices and should also be avoided now that there are better alternatives. Charmm22star files are available from us here: [charmm22star topology file](http://docs.acellera.com/acemd/pub/top_all22star_prot.inp) and [parameter file](http://docs.acellera.com/acemd/pub/par_all22star_prot.inp). There is no official distribution of charmm22star files, but these were manually validated against Desmond implementation and we are sufficiently confident that they are correct and acemd produces the correct forces.
@@ -68,12 +68,12 @@ We suggest that you keep switching when using AMBER force fields in ACEMD to avo
 
 The latest forcefield from Amber is the best to use
 
-* __Amber14SB__ solves several shortcomings of previous forcefields. Special parameters for the Amber forcefields can be found at [this site](http://www.pharmacy.manchester.ac.uk/bryce/amber). To obtain the latest forcefield simply download the latest version of AmberTools for free. 
+* __Amber14SB__ solves several shortcomings of previous Amber forcefields. Special parameters for the Amber forcefields can be found at [this site](http://www.pharmacy.manchester.ac.uk/bryce/amber). To obtain the latest forcefield simply download the latest version of AmberTools for free. 
  
 To generate a system with tleap using ff14SB and new ions, load the following settings
 
-    source leaprc.ff13SB # FF13 forcefield 
-    source leaprc.gaff   # If custom ligands/lipids: GAFF forcefield
+    source leaprc.ff14SB # FF14 forcefield 
+    source leaprc.gaff   # If custom ligands: GAFF forcefield
     # Modified ions and ion names Joung/Cheatham ion parameters for TIP3P water
     loadamberparams frcmod.ionsjc_tip3p
     loadoff ions08.lib
