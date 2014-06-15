@@ -21,15 +21,11 @@ ACEMD is fast, as it was designed from scratch to be an optimized MD engine that
 * Force fields Amber, CHARMM, OPLS and Martini
 * Input file formats PDB, PSF, PRMTOP, NAMD Bincoor
 * Output file formats PDB, NAMD Bincoor, DCD, XTC
-* Electrostatics PME with 4th order splines
-* Thermostat Langevin
-* Barostat Berendsen
-* Constraints and restraints M-SHAKE with RATTLE correction 
-* Positional restraints
-* Integrator Velocity Verlet, long timesteps with H mass repartitioning
-* Unit Cell Cuboid, fully periodic
+* Electrostatics PME, integrator Velocity Verlet, long timesteps with H mass repartitioning, unit cell cuboid, fully periodic
+* Thermostat Langevin, barostat Berendsen
+* Constraints and restraints M-SHAKE with RATTLE correction, positional harmonic restraints
 * Scripting TCL and C interfaces
-* Metadynamics using PLUMED 1.3, including parallel tempering metadynamics
+* Metadynamics using PLUMED 1.3/2.0, including parallel tempering metadynamics and replica exchange
 
 ## Fundamental units
 
@@ -50,9 +46,9 @@ The default force-field formats used by ACEMD are CHARMM including cross-term su
 
 ### CHARMM force field
 
-The topology and parameters force fields for CHARMM are available at [Mackerell's page](http://mackerell.umaryland.edu/CHARMM_ff_params.html). Please refer to this link for the complete and latest information. Different forcefields might give diffent results for your system. Also the quality of the forcefields have greatly improved in the last years. Use always the latest forcefield unless you have a specific reason not to. For Charmm we suggest two forcefields:
+ACEMD reads directly the psf and parameters file for Charmm. You can generate these files as usual with the Charmm program or with VMD. The topology and parameters force fields for CHARMM are available at [Mackerell's page](http://mackerell.umaryland.edu/CHARMM_ff_params.html). Please refer to this link for the complete and latest information. Different forcefields might give diffent results for your system. Also the quality of the forcefields have greatly improved in the last years. Use always the latest forcefield unless you have a specific reason not to. For Charmm we suggest two forcefields:
 
-* __CHARMM36__ - this is the latest available forcefield for Charmm. It is probably the best forcefield for membrane proteins. The free online website CHARMM-GUI is very good to set up a membrane system also changing the type of lipids.  
+* __CHARMM36__ - this is the latest available forcefield for Charmm. It is probably the best forcefield for membrane proteins. The free (for academics) online website [CHARMM-GUI](http://www.charmm-gui.org/) is very good to set up a membrane system also changing the type of lipids.  However it is still possible to the same using VMD, just a bit more scripting is required.
 * __CHARMM22star__ - this is a revised version of the Charmm forcefield derived by DE SHAW research. It is older than Charmm36 but it works better for protein folding. You can also mix Charmm22star for protein with Charmm36 for proteins. Note that this is different from Charmm22 without star which should never be used. Charmm27 also widely used is known to overstabilize helices and should also be avoided now that there are better alternatives. Charmm22star files are available from us here: [charmm22star topology file](http://docs.acellera.com/acemd/pub/top_all22star_prot.inp) and [parameter file](http://docs.acellera.com/acemd/pub/par_all22star_prot.inp). There is no official distribution of charmm22star files, but these were manually validated against Desmond implementation and we are sufficiently confident that they are correct and acemd produces the correct forces.
 
 ### AMBER force field
@@ -84,12 +80,11 @@ The use of OPLS force field parameters is possible using the version in [CHARMM 
 
 # Running ACEMD
 
-ACEMD is a command line program, invoked with the command ACEMD. If ACEMD is not found, or reports any other error at startup, please refer to the ACEMD Installation Guide
+ACEMD is a command line program, invoked with the command ACEMD. If ACEMD is not found, or reports any other error at startup, please refer to the [ACEMD Installation Guide](../install).
 
 ## Specifying an Input File
 
-When run without any arguments ACEMD will attempt to read a configuration from the file input and run a simulation on the first GPU in the system. If the input file does not exist ACEMD will print out a help message and exit.
-
+When run without any arguments ACEMD will attempt to read a configuration from the file input and run a simulation on the first GPU in the system. If the input file does not exist ACEMD will print out a help message and exit. 
 An alternative input file can be specified by putting the filename on the command line, for example:
 
 ```
@@ -100,7 +95,7 @@ The input file contains all of the commands required to configure and run a simu
 
 ## Command Help
 
-ACEMD contains a built-in reference manaual for all configuration commands, which can be access from the command line. To all commands that pertain to a particular topic, use the command:
+ACEMD contains a built-in reference manaual for all configuration commands, which can be access from the command line and online at [ACEMD command reference](../commands). To all commands that pertain to a particular topic, use the command:
 
 ```
 $ acemd --command [section]
@@ -115,14 +110,13 @@ $ acemd --command [command]
 This will give a description of the command's function along with any required arguments and default value. For example:
 
 
-    $ ./acemd.release.strip.3156 --command langevintemp
+    $ acemd --command langevintemp
     langevintemp <+ve float>   [0.]    The set point in K for the Langevin thermostat
 
 
 ## Selecting a GPU
 
 ACEMD Basic will run only on the first GPU in the system. The following section applies only to ACEMD Pro users.
-
 ACEMD will by default try to run on the first GPU available in the system. If several instance of ACEMD are launched they will normally1 all run on the first GPU, leaving any other devices idle. To explicity set the GPU to run on, use the command-line flag -device:
 
 ```
@@ -130,7 +124,6 @@ $ acemd --device 2
 ```
 
 If the device specified does not exist, ACEMD will automatically select an available GPU.
-
 If several GPUs are given as a comma-separated list to -device, ACEMD will attempt to run a single simulation in parallel accross them. For example:
 
 ```
@@ -177,7 +170,6 @@ If ACEMD is run with the flag -verbose then as each protocol is executed, the co
     run      10ns
 
 changes the default setting for the name of the Amber parameter file and the length of the simulation.
-
 The following protocols are available:
 
 * __Run types__
@@ -192,23 +184,21 @@ The following protocols are available:
   * ff/Martini configure for Martini force field
   * ff/OPLS configure for OPLS force field
   
-These protocols assume the following file naming conventions:
+These protocols assume the following file naming conventions which however you can override:
 
-* Input
-  * Coordinates: structure.pdb
-  * CHARMM Topology: structure.psf
-  * CHARMM Parameters: parameters
-  * Amber Parameters: structure.prmtop
-  * Extended System: input.xsc
-* Output
-  * Trajectory: trajectory.xtc
-  * Final state: output.coor output.vel output.xsc
+* Coordinates: structure.pdb
+* CHARMM Topology: structure.psf
+* CHARMM Parameters: parameters
+* Amber Parameters: structure.prmtop
+* Extended System: input.xsc
+* Trajectory: trajectory.xtc
+* Final state: output.coor output.vel output.xsc
 
-## Langevin thermostat
+## Langevin thermostat for NVT ensemble
 
 The Langevin thermostat is needed to keep the system in the NVT ensemble. This is the suggested ensemble for production runs. The langevindamping should be as small as possible in order to thermalize the system without affecting the transport parameters (diffusion). We suggest to use langevindamping 0.1 for all production runs in NVT. A langevindamping 1 is better during equilibration.
 
-## Barostat
+## Barostat for NPT ensemble
 
 ACEMD implements a Berendsen barostat designed for the equilibration of molecular systems (globular and in a membrane) to then start NVT production runs. With the system sizes which are achievable nowadays it is not necessary to have a pressure control in the production run, unless you really know what you are doing (for large number of atoms all ensembles are equivalent statistically). For molecular systems up to 100,000 atoms in a membrane allow for an equilibration of 20 ns, for globular proteins 1 to 5 ns are sufficient.
 
@@ -264,15 +254,21 @@ Shown below is an example of an explicit input file for an Amber force field sim
     	1-4scaling  0.8333333333333333
     # run
     	run                 100ns
-    	
+
+This is equivalent to simple write in the quick format:
+
+    ff/amber
+    run/NPT
+    langevintemp        300.0
+    constraints         on
+    run 100ns
+    
 ## Input Files
 
 ACEMD expects input coordinates in PDB or Bincoor format, specified using the commands coordinates and bincoordinates respectively. An initial velocity field may also be supplied using velocities or binvelocities.
-
 The dimensions of the unit cell may also be specified in a file given by extendedsystem. If present, this will over-ride any celldimensions setting.
 
 For simulations using CHARMM format models, a topolgy file in PSF format must be specified with structure along with force field parameters by parameters.
-
 For Amber simulations, the combined topology/force field PRMTOP file is required, specified with the command parmfile.
 
 ## Output Files
@@ -308,11 +304,9 @@ An example is shown below:
 
 ## Restarting
 
-ACEMD can perform checkpointing to allow an aborted simulation to be resumed, using the commands restart, restartname and restartfreq. Frequency of restart dump should generally be set to match the trajectory output frequency.
+ACEMD can perform checkpointing to allow an aborted simulation to be resumed, using the commands restart, restartname and restartfreq. Frequency of restart dump should generally be set to match the trajectory output frequency. Checkpointing and restarting is very powerful in ACEMD and seamless. Trajectory files are automatically appended upon a restart. 
 
-Restart coordinate and velocity files are in NAMD Bincoord format.
-
-Simulations started using protocols will be configured to restart by default.
+Restart coordinate and velocity files are in NAMD Bincoord format. Simulations started using protocols will be configured to restart by default.
 
 # Advanced material
 
