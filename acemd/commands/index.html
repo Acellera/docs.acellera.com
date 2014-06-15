@@ -765,32 +765,242 @@ on | off:
 <H2>TCL</H2>
 Commands useful in TCL Extension Programming. See the ACEMD Extension Programming Guide for more information
 <UL>
-<LI><strong>pluginarg</strong>
-&lt;tag&gt; &lt;key&gt; &lt;value&gt;:
- Pass a configuration argument to a loaded plugin. <tag> specifies a plugin identifier set in a previous call to 'pluginload'. <key> gives a name to the argument and <value> its value..
-</LI>
-
-<LI><strong>pluginfreq</strong>
+<LI><strong>addatom</strong>
 &lt;+ve integer&gt;:
- The frequency with which plugin forces will be evaluated. Applies to all active plugins.
- <strong>Default</strong>: 1
+ Request coordinates of this atom for next force evaluation, and the calculated total force on this atom for current force evaluation. Request remains in effect until clearconfig is called..
 </LI>
 
-<LI><strong>pluginload</strong>
-&lt;tag&gt; &lt;filename&gt;:
- Load a plugin specified by the file <filename>. <tag> specifies an identifier for subsequent references to the plugin by 'pluginarg'. ACEMD will attempt to load the plugin from the current working directory,  $ACED_HOME/plugin and $HOME/plugin/ . It will permute the filename with the prefix 'lib' and suffic '-so'.  If a plugin cannot be found, ACEMD will issue a warning but continue running..
+<LI><strong>addenergy</strong>
+&lt;float&gt;:
+ Add a contribution to the external energy term.
 </LI>
 
-<LI><strong>tclforces</strong>
+<LI><strong>addforce</strong>
+&lt;atomid|groupid&gt; &lt;force vector&gt;:
+ Applies force (in kcal mol A) to atom or group. addforce should only be called from within the calcforces procedure..
+</LI>
+
+<LI><strong>addgroup</strong>
+&lt;atomid list&gt;:
+ Request center of mass coordinates of this group for next force evaluation. Returns a group ID that may then be used to find coordinates and apply forces just like a regular atom ID. Aggregate forces may then be applied to the group as whole. Request remains in effect until clearconfig is called..
+</LI>
+
+<LI><strong>anglegrad</strong>
+&lt;coor1&gt; &lt;coor2&gt; &lt;coor3&gt;:
+ This command takes the angle, theta, defined by the three coordinates and returns a list of the gradients dtheta/dr.
+</LI>
+
+<LI><strong>berendsenpressure</strong>
 on | off:
- Enable TCL force scripting. If set, the procedures calcforces_init, calcforces, calcforces_endstep and calcforces_terminate must be defined.
+ Set to enable the Berendsen pressure bath barostatic control.
  <strong>Default</strong>: off
 </LI>
 
-<LI><strong>tclforcesfreq</strong>
-&lt;+ve integer&gt;:
- The frequency with which the procedure calcforces will be called.
- <strong>Default</strong>: 1
+<LI><strong>cellresize</strong>
+{ X Y Z }:
+ Force a resizing of the unit cell to the given dimensions. Likely to crash a simulation unless used with caution..
+</LI>
+
+<LI><strong>cellsize</strong>
+ Return a 3vec containing the current dimensions of the unit cell..
+</LI>
+
+<LI><strong>clearconfig</strong>
+ Clears the current list of requested atoms. After clearconfig, calls to addatom and addgroup can be used to build a new configuration..
+</LI>
+
+<LI><strong>computevirial</strong>
+ Return the 3x3 virial tensor. Requires the barostat to have been enabled (although it may have been switched off subsequently.
+</LI>
+
+<LI><strong>constraints</strong>
+on | off:
+ Set to enable positional constraints on specified atoms.
+ <strong>Default</strong>: off
+</LI>
+
+<LI><strong>constraintscaling</strong>
+&lt;float&gt;:
+ The harmonic constraint energy function is multiplied by this parameter, making it possible to gradually turn off constraints during equilibration. This parameter is used only if constraints is set to on..
+ <strong>Default</strong>: 0.
+</LI>
+
+<LI><strong>dihedralgrad</strong>
+&lt;coor1&gt; &lt;coor2&gt; &lt;coor3&gt; &lt;coor4&gt;:
+ This command takes the dihedra, phi, defined by the four input coordinates and returns a list of the gradients dphi/dr.
+</LI>
+
+<LI><strong>ensemblerecv</strong>
+&lt;var&gt;:
+ Receive data send from another ensemble instance using 'ensemble_send' into <var>..
+</LI>
+
+<LI><strong>ensemblesend</strong>
+&lt;rank&gt; &lt;var&gt;:
+ Send the contents of <var> to ensemble instance with index <rank>. Must be matched with an 'ensemble_recv' on the destination instance.
+</LI>
+
+<LI><strong>getangle</strong>
+&lt;coor1&gt; &lt;coor2&gt; &lt;coor3&gt;:
+ Returns the angle (from 0 to 180) defined by the three coordinates..
+</LI>
+
+<LI><strong>getbond</strong>
+&lt;coor1&gt; &lt;coor2&gt;:
+ Returns the length of the bond between the two coordinates..
+</LI>
+
+<LI><strong>getdihedral</strong>
+&lt;coor1&gt; &lt;coor2&gt; &lt;coor3&gt; &lt;coor4&gt;:
+ Returns the dihedral (from -180 to 180) defined by the four coordinates..
+</LI>
+
+<LI><strong>getenergies</strong>
+ Returns a 3vec containing the total potential energy, the kinetic energy and the current temperature of the system. This is valid only from within the caclforces_endstep procedure..
+</LI>
+
+<LI><strong>getensemblerank</strong>
+ Returns the 0-based index of this instance of ACEMD within any ensemble, or 0 otherwise..
+</LI>
+
+<LI><strong>getensemblesize</strong>
+ Returns the number of ACEMD instances participating in any ensemble simulation, or 1 otherwise..
+</LI>
+
+<LI><strong>getiterationcount</strong>
+ Return the current simulation interation number.
+</LI>
+
+<LI><strong>getiterationtime</strong>
+ Return the timestep in fs.
+</LI>
+
+<LI><strong>getnatoms</strong>
+ Return the number of atoms in the system.
+</LI>
+
+<LI><strong>getstep</strong>
+ Returns the current iteration number.
+</LI>
+
+<LI><strong>gpuversion</strong>
+ Returns an integer giving the compute capability of the GPU.
+</LI>
+
+<LI><strong>langevintemp</strong>
+&lt;+ve float&gt;:
+ The set point in K for the Langevin thermostat.
+ <strong>Default</strong>: 0.
+</LI>
+
+<LI><strong>loadcharges</strong>
+&lt;var&gt;:
+ Loads requested atom and group charges (in e) into a local array. loadcharges should only be called from within the calcforces procedure.
+</LI>
+
+<LI><strong>loadcoords</strong>
+&lt;var&gt;:
+ Loads requested atom and group coordinates (in Angstrom) into a local array. loadcoords should only be called from within the calcforces procedure..
+</LI>
+
+<LI><strong>loadmasses</strong>
+&lt;var&gt;:
+ Loads requested atom and group masses (in amu) into a local array. loadmasses should only be called from within the calcforces procedure.
+</LI>
+
+<LI><strong>loadvelocities</strong>
+&lt;var&gt;:
+ Loads requested atom and group velocities into a local array. loadcoords should only be called from within the calcforces procedure..
+</LI>
+
+<LI><strong>mindist</strong>
+&lt;coor1&gt; &lt;coor2&gt;:
+ Returns the vector of the shortest distance between two coordinates, taking into account the periodic boundaries of the system. The result is a four element list containg a unit vector followed by a length..
+</LI>
+
+<LI><strong>nbenergy</strong>
+&lt;groupid A&gt; &lt;groupid B&gt;:
+ Returns a list containing the electrostatic and VdW energies computed between the atoms in groups A and B. An infinite cutoff is assumed..
+</LI>
+
+<LI><strong>print</strong>
+&lt;string&gt;:
+ Print <string> to the stdout log.
+</LI>
+
+<LI><strong>readpdb</strong>
+&lt;var&gt; &lt;filename&gt;:
+ Load a PDB file <filename> and put the contents in the TCL variable named <var>, in the form of a list of 4vecs. Each 4vec contains the position of an atom followed by the temperature (beta) factor. If <filename> is not specified, that specified for 'coordinates' will be used..
+</LI>
+
+<LI><strong>repulsionadd</strong>
+&lt;atomid&gt;|&lt;groupid&gt;:
+ Add to the list of atoms that feel a mutual repulsive force.
+</LI>
+
+<LI><strong>repulsionconstant</strong>
+&lt;float&gt;:
+ Set the strength of the repulsive potential (kcal/mol).
+ <strong>Default</strong>: 1.0
+</LI>
+
+<LI><strong>repulsionrange</strong>
+&lt;+ve float&gt;:
+ Set the cutoff for the repulsive potential (Angstrom).
+ <strong>Default</strong>: 20.0
+</LI>
+
+<LI><strong>repulsionref</strong>
+&lt;filename&gt;:
+ Reference PDB file for repulsive force. All atoms with beta>0 will be used.
+</LI>
+
+<LI><strong>scalevelocities</strong>
+&lt;float&gt;:
+ Scale the velocity field for the simulation. Should only be called from within calcforces_endstep.
+</LI>
+
+<LI><strong>terminate</strong>
+ Terminate the simulation in an orderly manner.
+</LI>
+
+<LI><strong>vecadd</strong>
+&lt;3vec A&gt; &lt;3vec B&gt;:
+ Return the sum A+B of two vectors.
+</LI>
+
+<LI><strong>vecdot</strong>
+&lt;3vec A&gt; &lt;3vec B&gt;:
+ Return the dot product of vectors A  and B.
+</LI>
+
+<LI><strong>veclength</strong>
+&lt;3vec&gt;:
+ Return the magnitude of vector A sqrt(a.x*a.x + a.y*a.y + a.z*a.z).
+</LI>
+
+<LI><strong>veclength2</strong>
+&lt;3vec&gt;:
+ Return the square of the magnitude of vector A (a.x*a.x + a.y*a.y + a.z*a.z).
+</LI>
+
+<LI><strong>vecnormalise</strong>
+&lt;3vec A&gt;:
+ Return vector A normalised to unit length.
+</LI>
+
+<LI><strong>vecscale</strong>
+&lt;3vec A&gt; &lt;scalar B&gt;:
+ Scale the vector A by scalar B.
+</LI>
+
+<LI><strong>vecsub</strong>
+&lt;3vec A&gt; &lt;3vec B&gt;:
+ Return the difference A-B between two vectors.
+</LI>
+
+<LI><strong>verbose</strong>
+ Returns 1 if ACEMD was started with the --verbose flag.
 </LI>
 
 
