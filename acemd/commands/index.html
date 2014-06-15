@@ -2,29 +2,22 @@
   <head>
     <meta charset='utf-8' />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Slate is a responsive theme for GitHub Pages" />
-
+    <meta name="description" content="Command references for ACEMD" />
     <link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/stylesheet.css">
-
   <title>ACEMD Command Reference</title>
   </head>
-
 <BODY>
     <div id="header_wrap" class="outer">
         <header class="inner">
-
           <h1 id="project_title">
-ACEMD Command Reference
+           ACEMD Command Reference
 	  </h1>
         </header>
     </div>
-
-
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
- 
 <H1>ACEMD Command Reference</H1>
-<H2>Version 3212M</H2>
+<H2>Version 3597M</H2>
 <BR><A HREF="#Configuration">Configuration</A>
 <BR><A HREF="#Input">Input</A>
 <BR><A HREF="#Output">Output</A>
@@ -43,100 +36,101 @@ ACEMD Command Reference
 <BR><A HREF="#Interactive">Interactive</A>
 <BR><A HREF="#Extensions">Extensions</A>
 <BR><A HREF="#TCL">TCL</A>
+<BR><A HREF="#Analysis">Analysis</A>
 <div id="Configuration">
 <H2>Configuration</H2>
 Commands for configuring the simulation integration
 <UL>
-<LI><B><TT>celldimension</TT></B>
-&lt;X&gt; &lt;Y&gt; &lt;Z&gt;
-<BR>Dimensions of the unit cell. If not set, ACEMD will guess based on extent of input coordinates. celldimension will be over-ridden by and extendedsystem file
-<P></LI>
+<LI><strong>celldimension</strong>
+&lt;X&gt; &lt;Y&gt; &lt;Z&gt;:
+ Dimensions of the unit cell. If not set, ACEMD will guess based on extent of input coordinates. celldimension will be over-ridden by and extendedsystem file.
+</LI>
 
-<LI><B><TT>comfreq</TT></B>
-&lt;+ve integer&gt;
-<BR><B>Default</B> 1
-<BR>The frequency with which motion of the centre of mass of the system will be removed. Do not change.
-<P></LI>
+<LI><strong>comfreq</strong>
+&lt;+ve integer&gt;:
+ The frequency with which motion of the centre of mass of the system will be removed. Do not change..
+ <strong>Default</strong>: 1
+</LI>
 
-<LI><B><TT>energyfreq</TT></B>
-&lt;+ve integer&gt;
-<BR><B>Default</B> 1
-<BR>The frequency with which ACEMD will calculate system energies
-<P></LI>
+<LI><strong>energyfreq</strong>
+&lt;+ve integer&gt;:
+ The frequency with which ACEMD will calculate system energies.
+ <strong>Default</strong>: 1
+</LI>
 
-<LI><B><TT>energyoutputfreq</TT></B>
-&lt;+ve integer&gt;
-<BR><B>Default</B> energyfreq
-<BR>The frequency with which ACEMD will output system energies to the stdout log
-<P></LI>
+<LI><strong>energyoutputfreq</strong>
+&lt;+ve integer&gt;:
+ The frequency with which ACEMD will output system energies to the stdout log.
+ <strong>Default</strong>: energyfreq
+</LI>
 
-<LI><B><TT>extendedsystem</TT></B>
-&lt;filename&gt;
-<BR>If set, specifies an extended system .xsc file, from which a cell dimension will be read. This over-rides any guessed box size, or explicit 'celldimension'
-<P></LI>
+<LI><strong>extendedsystem</strong>
+&lt;filename&gt;:
+ If set, specifies an extended system .xsc file, from which a cell dimension will be read. This over-rides any guessed box size, or explicit 'celldimension'.
+</LI>
 
-<LI><B><TT>hydrogenscale</TT></B>
-&lt;+ve float&gt;
-<BR><B>Default</B> 1.0
-<BR>Amount by which to scale the mass of H atoms. Additional mass will be removed from any bound atom. The maximum and recommended value is 4. When set, 'timestep 4.0' is possible.
-<P></LI>
+<LI><strong>hydrogenscale</strong>
+&lt;+ve float&gt;:
+ Amount by which to scale the mass of H atoms. Additional mass will be removed from any bound atom. The maximum and recommended value is 4. When set, 'timestep 4.0' is possible..
+ <strong>Default</strong>: 1.0
+</LI>
 
-<LI><B><TT>outputunits</TT></B>
-kcal | kj
-<BR><B>Default</B> kcal
-<BR>Units for energies shown in stdout log.
-<P></LI>
+<LI><strong>outputunits</strong>
+kcal | kj:
+ Units for energies shown in stdout log..
+ <strong>Default</strong>: kcal
+</LI>
 
-<LI><B><TT>pairlistdist</TT></B>
-&lt;float&gt;
-<BR><B>Default</B> cutoff + 1.5
-<BR>Specify the buffer size for grid cells. This parameter generally should not be changed. Setting this to equal the cutoff will disable the use of pairlists.
-<P></LI>
+<LI><strong>pairlistdist</strong>
+&lt;float&gt;:
+ Specify the buffer size for grid cells. This parameter generally should not be changed. Setting this to equal the cutoff will disable the use of pairlists..
+ <strong>Default</strong>: cutoff + 1.5
+</LI>
 
-<LI><B><TT>pairlistfreq</TT></B>
-&lt;+ve integer&gt;
-<BR><B>Default</B> As required (serial runs) or 7 (parallel runs)
-<BR>The number of steps between successive pairlist regenerations. For single-GPU runs, pairlists are by default updated only when necessary
-<P></LI>
+<LI><strong>pairlistfreq</strong>
+&lt;+ve integer&gt;:
+ The number of steps between successive pairlist regenerations. For single-GPU runs, pairlists are by default updated only when necessary.
+ <strong>Default</strong>: As required (serial runs) or 7 (parallel runs)
+</LI>
 
-<LI><B><TT>protocol</TT></B>
-&lt;name&gt;
-<BR>Specify a pre-defined protocol commandset to use. Protocols will be searched for in the current working directory, $HOME/protocol and finally $ACEMD_HOME/protocol. Protocol files are expected to have the filename '<name>.tcl'
-<P></LI>
+<LI><strong>protocol</strong>
+&lt;name&gt;:
+ Specify a pre-defined protocol commandset to use. Protocols will be searched for in the current working directory, $HOME/protocol and finally $ACEMD_HOME/protocol. Protocol files are expected to have the filename '<name>.tcl'.
+</LI>
 
-<LI><B><TT>rigidbonds</TT></B>
-none|all
-<BR><B>Default</B> none
-<BR>Enable holonomic constraints on all hydrogen-heavy atom bond terms. This removes fast modes of oscillation, making a higher timestep possible. With 'rigidbonds all', 'timestep 2.5' is possible. In conjunction with 'hydrogenscale 4.', a timestep of 4.0 is stable.
-<P></LI>
+<LI><strong>rigidbonds</strong>
+none|all:
+ Enable holonomic constraints on all hydrogen-heavy atom bond terms. This removes fast modes of oscillation, making a higher timestep possible. With 'rigidbonds all', 'timestep 2.5' is possible. In conjunction with 'hydrogenscale 4.', a timestep of 4.0 is stable..
+ <strong>Default</strong>: none
+</LI>
 
-<LI><B><TT>run</TT></B>
-&lt;+ve integer&gt;
-<BR><B>Default</B> 0
-<BR>The number of simulation iterations to perform
-<P></LI>
+<LI><strong>run</strong>
+&lt;+ve integer&gt;:
+ The number of simulation iterations to perform.
+ <strong>Default</strong>: 0
+</LI>
 
-<LI><B><TT>runtime</TT></B>
-&lt;+ve integer&gt;
-<BR><B>Default</B> unset
-<BR>The amount of walltime to run for. Accumulated over restarts
-<P></LI>
+<LI><strong>runtime</strong>
+&lt;+ve integer&gt;:
+ The amount of walltime to run for. Accumulated over restarts.
+ <strong>Default</strong>: unset
+</LI>
 
-<LI><B><TT>seed</TT></B>
-&lt;+ve integer&gt;
-<BR><B>Default</B> system time
-<BR>Seed for Langevin PRNG. This doesn't need setting.
-<P></LI>
+<LI><strong>seed</strong>
+&lt;+ve integer&gt;:
+ Seed for Langevin PRNG. This doesn't need setting..
+ <strong>Default</strong>: system time
+</LI>
 
-<LI><B><TT>timestep</TT></B>
-&lt;+ve float&gt;
-<BR><B>Default</B> 1.0
-<BR>Integration timestep in fs
-<P></LI>
+<LI><strong>timestep</strong>
+&lt;+ve float&gt;:
+ Integration timestep in fs.
+ <strong>Default</strong>: 1.0
+</LI>
 
-<LI><B><TT>verbose</TT></B>
-<BR>Returns 1 if ACEMD was started with the --verbose flag
-<P></LI>
+<LI><strong>verbose</strong>
+ Returns 1 if ACEMD was started with the --verbose flag.
+</LI>
 
 
 </UL>
@@ -144,44 +138,44 @@ none|all
 <H2>Input</H2>
 Commands for specifying input files.
 <UL>
-<LI><B><TT>bincoordinates</TT></B>
-&lt;filename&gt;
-<BR><B>Default</B> unset
-<BR>Filename for initial structure coordinates, in NAMD Bincoor format
-<P></LI>
+<LI><strong>bincoordinates</strong>
+&lt;filename&gt;:
+ Filename for initial structure coordinates, in NAMD Bincoor format.
+ <strong>Default</strong>: unset
+</LI>
 
-<LI><B><TT>binindex</TT></B>
-&lt;filename&gt;
-<BR><B>Default</B> Filename for index file to set initial timestep (as made by a check-point)
-<P></LI>
+<LI><strong>binindex</strong>
+&lt;filename&gt;:
+ <strong>Default</strong>: Filename for index file to set initial timestep (as made by a check-point)
+</LI>
 
-<LI><B><TT>binvelocities</TT></B>
-&lt;filename&gt;
-<BR><B>Default</B> unset
-<BR>Initial velocity field, in NAMD Bincoor format. Over-rides 'temperature'
-<P></LI>
+<LI><strong>binvelocities</strong>
+&lt;filename&gt;:
+ Initial velocity field, in NAMD Bincoor format. Over-rides 'temperature'.
+ <strong>Default</strong>: unset
+</LI>
 
-<LI><B><TT>celldimension</TT></B>
-&lt;X&gt; &lt;Y&gt; &lt;Z&gt;
-<BR>Dimensions of the unit cell. If not set, ACEMD will guess based on extent of input coordinates. celldimension will be over-ridden by and extendedsystem file
-<P></LI>
+<LI><strong>celldimension</strong>
+&lt;X&gt; &lt;Y&gt; &lt;Z&gt;:
+ Dimensions of the unit cell. If not set, ACEMD will guess based on extent of input coordinates. celldimension will be over-ridden by and extendedsystem file.
+</LI>
 
-<LI><B><TT>coordinates</TT></B>
-&lt;filename&gt;
-<BR><B>Default</B> structure.pdb
-<BR>Filename for initial structure coordinates, in PDB format
-<P></LI>
+<LI><strong>coordinates</strong>
+&lt;filename&gt;:
+ Filename for initial structure coordinates, in PDB format.
+ <strong>Default</strong>: structure.pdb
+</LI>
 
-<LI><B><TT>extendedsystem</TT></B>
-&lt;filename&gt;
-<BR>If set, specifies an extended system .xsc file, from which a cell dimension will be read. This over-rides any guessed box size, or explicit 'celldimension'
-<P></LI>
+<LI><strong>extendedsystem</strong>
+&lt;filename&gt;:
+ If set, specifies an extended system .xsc file, from which a cell dimension will be read. This over-rides any guessed box size, or explicit 'celldimension'.
+</LI>
 
-<LI><B><TT>velocities</TT></B>
-&lt;filename&gt;
-<BR><B>Default</B> unset
-<BR>Initial velocity field, in PDB format. Orer-rides 'temperature'
-<P></LI>
+<LI><strong>velocities</strong>
+&lt;filename&gt;:
+ Initial velocity field, in PDB format. Orer-rides 'temperature'.
+ <strong>Default</strong>: unset
+</LI>
 
 
 </UL>
@@ -189,74 +183,74 @@ Commands for specifying input files.
 <H2>Output</H2>
 Commands for specifying output files and frequency.
 <UL>
-<LI><B><TT>dcdfile</TT></B>
-&lt;filename&gt;
-<BR><B>Default</B> output.dcd
-<BR>The filename for the output coordinate trajectory in DCD format
-<P></LI>
+<LI><strong>dcdfile</strong>
+&lt;filename&gt;:
+ The filename for the output coordinate trajectory in DCD format.
+ <strong>Default</strong>: output.dcd
+</LI>
 
-<LI><B><TT>dcdfreq</TT></B>
-&lt;+ve integer&gt;
-<BR>Frequency with which coordinate snapshots are written to the DCD trajectory file. If 0, no sampling is done.
-<P></LI>
+<LI><strong>dcdfreq</strong>
+&lt;+ve integer&gt;:
+ Frequency with which coordinate snapshots are written to the DCD trajectory file. If 0, no sampling is done..
+</LI>
 
-<LI><B><TT>outputname</TT></B>
-&lt;filename&gt;
-<BR><B>Default</B> output
-<BR>Filename prefix for terminal coordinate and velocity files, written in NAMD Bincoor format
-<P></LI>
+<LI><strong>outputname</strong>
+&lt;filename&gt;:
+ Filename prefix for terminal coordinate and velocity files, written in NAMD Bincoor format.
+ <strong>Default</strong>: output
+</LI>
 
-<LI><B><TT>restart</TT></B>
-on | off
-<BR><B>Default</B> off
-<BR>Enable the saving of checkpoint files, for restarting simulations
-<P></LI>
+<LI><strong>restart</strong>
+on | off:
+ Enable the saving of checkpoint files, for restarting simulations.
+ <strong>Default</strong>: off
+</LI>
 
-<LI><B><TT>restartfreq</TT></B>
-&lt;+ve integer&gt;
-<BR><B>Default</B> 0
-<BR>Frequency with which ACEMD saves checkpoint files
-<P></LI>
+<LI><strong>restartfreq</strong>
+&lt;+ve integer&gt;:
+ Frequency with which ACEMD saves checkpoint files.
+ <strong>Default</strong>: 0
+</LI>
 
-<LI><B><TT>restartname</TT></B>
-&lt;filename&gt;
-<BR><B>Default</B> restart
-<BR>Prefix for checkpoint file filenames
-<P></LI>
+<LI><strong>restartname</strong>
+&lt;filename&gt;:
+ Prefix for checkpoint file filenames.
+ <strong>Default</strong>: restart
+</LI>
 
-<LI><B><TT>restartsave</TT></B>
-on | off
-<BR><B>Default</B> off
-<BR>Enable the creation of checkpoint file backups. By default old checkpoints will be over-written
-<P></LI>
+<LI><strong>restartsave</strong>
+on | off:
+ Enable the creation of checkpoint file backups. By default old checkpoints will be over-written.
+ <strong>Default</strong>: off
+</LI>
 
-<LI><B><TT>veldcdfile</TT></B>
-&lt;filename&gt;
-<BR><B>Default</B> output.vel.dcd
-<BR>The filename for the output velocity trajectory in DCD format
-<P></LI>
+<LI><strong>veldcdfile</strong>
+&lt;filename&gt;:
+ The filename for the output velocity trajectory in DCD format.
+ <strong>Default</strong>: output.vel.dcd
+</LI>
 
-<LI><B><TT>veldcdfreq</TT></B>
-&lt;+ve integer&gt;
-<BR>Frequency with which coordinate snapshots are written to the DCD trajectory file. If 0, no sampling is done.
-<P></LI>
+<LI><strong>veldcdfreq</strong>
+&lt;+ve integer&gt;:
+ Frequency with which coordinate snapshots are written to the DCD trajectory file. If 0, no sampling is done..
+</LI>
 
-<LI><B><TT>wrap</TT></B>
-on | off
-<BR><B>Default</B> off
-<BR>Enable to wrap coordinates in the output trajectory back into the periodic cell
-<P></LI>
+<LI><strong>wrap</strong>
+on | off:
+ Enable to wrap coordinates in the output trajectory back into the periodic cell.
+ <strong>Default</strong>: off
+</LI>
 
-<LI><B><TT>xtcfile</TT></B>
-&lt;filename&gt;
-<BR><B>Default</B> output.xtc
-<BR>The filename for the output coordinate trajectory in XTC format
-<P></LI>
+<LI><strong>xtcfile</strong>
+&lt;filename&gt;:
+ The filename for the output coordinate trajectory in XTC format.
+ <strong>Default</strong>: output.xtc
+</LI>
 
-<LI><B><TT>xtcfreq</TT></B>
-&lt;+ve integer&gt;
-<BR>Frequency with which coordinate snapshots are written to the XTC trajectory file. If 0, no sampling is done.
-<P></LI>
+<LI><strong>xtcfreq</strong>
+&lt;+ve integer&gt;:
+ Frequency with which coordinate snapshots are written to the XTC trajectory file. If 0, no sampling is done..
+</LI>
 
 
 </UL>
@@ -264,68 +258,73 @@ on | off
 <H2>Forcefield</H2>
 These commands pertain to all force fields.
 <UL>
-<LI><B><TT>1-4scaling</TT></B>
-&lt;+ve float&gt;
-<BR><B>Default</B> (0.0,1.0)
-<BR>Scaling factor for 1-4 electrostatic interations.  This factor is only used when the exclude parameter is set to scaled1-4. In this case, this factor is used to modify the electrostatic interactions between 1-4 atom pairs. If the exclude parameter is set to anything but scaled1-4, this parameter has no effect regardless of its value.  For CHARMM use 1.0, for Amber 0.833333
-<P></LI>
+<LI><strong>1-4scaling</strong>
+&lt;+ve float&gt;:
+ Scaling factor for 1-4 electrostatic interations.  This factor is only used when the exclude parameter is set to scaled1-4. In this case, this factor is used to modify the electrostatic interactions between 1-4 atom pairs. If the exclude parameter is set to anything but scaled1-4, this parameter has no effect regardless of its value.  For CHARMM use 1.0, for Amber 0.833333.
+ <strong>Default</strong>: (0.0,1.0)
+</LI>
 
-<LI><B><TT>amber</TT></B>
-on | off
-<BR><B>Default</B> off
-<BR>Indicate that the Amber force field is to be used. If set, 'parmfile' is required and neither 'structure' and 'parameters' are used
-<P></LI>
+<LI><strong>amber</strong>
+on | off:
+ Indicate that the Amber force field is to be used. If set, 'parmfile' is required and neither 'structure' and 'parameters' are used.
+ <strong>Default</strong>: off
+</LI>
 
-<LI><B><TT>cosangles</TT></B>
-on | off
-<BR><B>Default</B> off
-<BR>Enable cosine form angle potential for Martini force field
-<P></LI>
+<LI><strong>cosangles</strong>
+on | off:
+ Enable cosine form angle potential for Martini force field.
+ <strong>Default</strong>: off
+</LI>
 
-<LI><B><TT>exclude</TT></B>
-none | 1-2 | 1-3 | 1-4 | scaled1-4
-<BR><B>Default</B> none
-<BR>This parameter specifies which pairs of bonded atoms should be excluded from non-bonded interactions. 1-2, 1-3 and 1-4 suppresses the electrostatic interations between atoms <2, <3 and <4 bond terms away from one-another. With the value of scaled1-4, all 1-3 pairs are excluded and all pairs that match the 1-4 criteria are modified. The CHARMM force field specifies alternate LJ parameters for 1-4 pairs. Electrostatic interactions between scaled1-4 pairs are modified by the value of 1-4scaling.
-<P></LI>
+<LI><strong>exclude</strong>
+none | 1-2 | 1-3 | 1-4 | scaled1-4:
+ This parameter specifies which pairs of bonded atoms should be excluded from non-bonded interactions. 1-2, 1-3 and 1-4 suppresses the electrostatic interations between atoms <2, <3 and <4 bond terms away from one-another. With the value of scaled1-4, all 1-3 pairs are excluded and all pairs that match the 1-4 criteria are modified. The CHARMM force field specifies alternate LJ parameters for 1-4 pairs. Electrostatic interactions between scaled1-4 pairs are modified by the value of 1-4scaling..
+ <strong>Default</strong>: none
+</LI>
 
-<LI><B><TT>martiniswitching</TT></B>
-on | off
-<BR><B>Default</B> off
-<BR>Enable Martini force field switching function
-<P></LI>
+<LI><strong>martiniswitching</strong>
+on | off:
+ Enable Martini force field switching function.
+ <strong>Default</strong>: off
+</LI>
 
-<LI><B><TT>parameters</TT></B>
-&lt;filename&gt;
-<BR><B>Default</B> CHARMM force-field parameter file (PRM,INP,RTF)
-<P></LI>
+<LI><strong>parameters</strong>
+&lt;filename&gt;:
+ <strong>Default</strong>: CHARMM force-field parameter file (PRM)
+</LI>
 
-<LI><B><TT>structure</TT></B>
-CHARMM structure topology in PSF format
-<P></LI>
+<LI><strong>structure</strong>
+CHARMM structure topology in PSF format:
+</LI>
 
-<LI><B><TT>switchdist</TT></B>
-(0.0,cutoff)
-<BR><B>Default</B> cutoff-1.5
-<BR>Range beyond which to begin to apply the switching functions
-<P></LI>
+<LI><strong>switchdist</strong>
+(0.0,cutoff):
+ Range beyond which to begin to apply the switching functions.
+ <strong>Default</strong>: cutoff-1.5
+</LI>
 
-<LI><B><TT>switching</TT></B>
-on | off
-<BR><B>Default</B> off
-<BR>Enable to apply smoothing and switching functions to electrostatic and VdW forces. When set, switchdist must also be set.
-<P></LI>
+<LI><strong>switching</strong>
+on | off:
+ Enable to apply smoothing and switching functions to electrostatic and VdW forces. When set, switchdist must also be set..
+ <strong>Default</strong>: off
+</LI>
 
-<LI><B><TT>vdwforceswitching</TT></B>
-on | off
-<BR><B>Default</B> off
-<BR>Enable force switching of the VdW potential
-<P></LI>
+<LI><strong>tabular</strong>
+vdw|elec &lt;file&gt;:
+ <strong>Default</strong>: Load a tabulated vdw or electrostatic potential
+</LI>
 
-<LI><B><TT>vdwgeometricsigma</TT></B>
-on | off
-<BR><B>Default</B> off
-<BR>Enable geometric sigma combination rule for LJ parameters
-<P></LI>
+<LI><strong>vdwforceswitching</strong>
+on | off:
+ Enable force switching of the VdW potential.
+ <strong>Default</strong>: off
+</LI>
+
+<LI><strong>vdwgeometricsigma</strong>
+on | off:
+ Enable geometric sigma combination rule for LJ parameters.
+ <strong>Default</strong>: off
+</LI>
 
 
 </UL>
@@ -333,26 +332,26 @@ on | off
 <H2>Charmm</H2>
 These commands pertain to options specific to the CHARMM force field.
 <UL>
-<LI><B><TT>1-4scaling</TT></B>
-&lt;+ve float&gt;
-<BR><B>Default</B> (0.0,1.0)
-<BR>Scaling factor for 1-4 electrostatic interations.  This factor is only used when the exclude parameter is set to scaled1-4. In this case, this factor is used to modify the electrostatic interactions between 1-4 atom pairs. If the exclude parameter is set to anything but scaled1-4, this parameter has no effect regardless of its value.  For CHARMM use 1.0, for Amber 0.833333
-<P></LI>
+<LI><strong>1-4scaling</strong>
+&lt;+ve float&gt;:
+ Scaling factor for 1-4 electrostatic interations.  This factor is only used when the exclude parameter is set to scaled1-4. In this case, this factor is used to modify the electrostatic interactions between 1-4 atom pairs. If the exclude parameter is set to anything but scaled1-4, this parameter has no effect regardless of its value.  For CHARMM use 1.0, for Amber 0.833333.
+ <strong>Default</strong>: (0.0,1.0)
+</LI>
 
-<LI><B><TT>parameters</TT></B>
-&lt;filename&gt;
-<BR><B>Default</B> CHARMM force-field parameter file (PRM,INP,RTF)
-<P></LI>
+<LI><strong>parameters</strong>
+&lt;filename&gt;:
+ <strong>Default</strong>: CHARMM force-field parameter file (PRM)
+</LI>
 
-<LI><B><TT>structure</TT></B>
-CHARMM structure topology in PSF format
-<P></LI>
+<LI><strong>structure</strong>
+CHARMM structure topology in PSF format:
+</LI>
 
-<LI><B><TT>vdwforceswitching</TT></B>
-on | off
-<BR><B>Default</B> off
-<BR>Enable force switching of the VdW potential
-<P></LI>
+<LI><strong>vdwforceswitching</strong>
+on | off:
+ Enable force switching of the VdW potential.
+ <strong>Default</strong>: off
+</LI>
 
 
 </UL>
@@ -360,22 +359,22 @@ on | off
 <H2>Amber</H2>
 These commands pertain to options specific to the Amber force field.
 <UL>
-<LI><B><TT>1-4scaling</TT></B>
-&lt;+ve float&gt;
-<BR><B>Default</B> (0.0,1.0)
-<BR>Scaling factor for 1-4 electrostatic interations.  This factor is only used when the exclude parameter is set to scaled1-4. In this case, this factor is used to modify the electrostatic interactions between 1-4 atom pairs. If the exclude parameter is set to anything but scaled1-4, this parameter has no effect regardless of its value.  For CHARMM use 1.0, for Amber 0.833333
-<P></LI>
+<LI><strong>1-4scaling</strong>
+&lt;+ve float&gt;:
+ Scaling factor for 1-4 electrostatic interations.  This factor is only used when the exclude parameter is set to scaled1-4. In this case, this factor is used to modify the electrostatic interactions between 1-4 atom pairs. If the exclude parameter is set to anything but scaled1-4, this parameter has no effect regardless of its value.  For CHARMM use 1.0, for Amber 0.833333.
+ <strong>Default</strong>: (0.0,1.0)
+</LI>
 
-<LI><B><TT>amber</TT></B>
-on | off
-<BR><B>Default</B> off
-<BR>Indicate that the Amber force field is to be used. If set, 'parmfile' is required and neither 'structure' and 'parameters' are used
-<P></LI>
+<LI><strong>amber</strong>
+on | off:
+ Indicate that the Amber force field is to be used. If set, 'parmfile' is required and neither 'structure' and 'parameters' are used.
+ <strong>Default</strong>: off
+</LI>
 
-<LI><B><TT>parmfile</TT></B>
-&lt;filename&gt;
-<BR>The filename of the Amber PRMTOP parameter file
-<P></LI>
+<LI><strong>parmfile</strong>
+&lt;filename&gt;:
+ The filename of the Amber PRMTOP parameter file.
+</LI>
 
 
 </UL>
@@ -383,11 +382,11 @@ on | off
 <H2>OPLS</H2>
 These commands pertain to options specfic to the OPLS force field.
 <UL>
-<LI><B><TT>vdwgeometricsigma</TT></B>
-on | off
-<BR><B>Default</B> off
-<BR>Enable geometric sigma combination rule for LJ parameters
-<P></LI>
+<LI><strong>vdwgeometricsigma</strong>
+on | off:
+ Enable geometric sigma combination rule for LJ parameters.
+ <strong>Default</strong>: off
+</LI>
 
 
 </UL>
@@ -395,29 +394,29 @@ on | off
 <H2>Martini</H2>
 These commands pertain to options specific to the Martini force field.
 <UL>
-<LI><B><TT>cosangles</TT></B>
-on | off
-<BR><B>Default</B> off
-<BR>Enable cosine form angle potential for Martini force field
-<P></LI>
+<LI><strong>cosangles</strong>
+on | off:
+ Enable cosine form angle potential for Martini force field.
+ <strong>Default</strong>: off
+</LI>
 
-<LI><B><TT>dielectric</TT></B>
-&lt;+ve float&gt;
-<BR><B>Default</B> 1.0
-<BR>Dielectic constant. Set to 15.0 when using Martini FF 
-<P></LI>
+<LI><strong>dielectric</strong>
+&lt;+ve float&gt;:
+ Dielectic constant. Set to 15.0 when using Martini FF .
+ <strong>Default</strong>: 1.0
+</LI>
 
-<LI><B><TT>martiniswitching</TT></B>
-on | off
-<BR><B>Default</B> off
-<BR>Enable Martini force field switching function
-<P></LI>
+<LI><strong>martiniswitching</strong>
+on | off:
+ Enable Martini force field switching function.
+ <strong>Default</strong>: off
+</LI>
 
-<LI><B><TT>pme</TT></B>
-on | off
-<BR><B>Default</B> on
-<BR>Enable the use of PME for long-range electrostatics. Disable when using Martini
-<P></LI>
+<LI><strong>pme</strong>
+on | off:
+ Enable the use of PME for long-range electrostatics. Disable when using Martini.
+ <strong>Default</strong>: on
+</LI>
 
 
 </UL>
@@ -426,62 +425,62 @@ on | off
 These commands control the PME method used to calculate the long-range contribution to the electrostatic potential. PME should usually be used in all CHARMM and Amber simulations.
 We recommend a cutoff of 9A and a PME grid spacing of 1/A
 <UL>
-<LI><B><TT>cutoff</TT></B>
-&lt;+ve float&gt;
-<BR><B>Default</B> 9.0
-<BR>Cutoff distance for direct-space electrostatic interaction evaluation
-<P></LI>
+<LI><strong>cutoff</strong>
+&lt;+ve float&gt;:
+ Cutoff distance for direct-space electrostatic interaction evaluation.
+ <strong>Default</strong>: 9.0
+</LI>
 
-<LI><B><TT>dielectric</TT></B>
-&lt;+ve float&gt;
-<BR><B>Default</B> 1.0
-<BR>Dielectic constant. Set to 15.0 when using Martini FF 
-<P></LI>
+<LI><strong>dielectric</strong>
+&lt;+ve float&gt;:
+ Dielectic constant. Set to 15.0 when using Martini FF .
+ <strong>Default</strong>: 1.0
+</LI>
 
-<LI><B><TT>fullelectfrequency</TT></B>
-&lt;+ve integer&gt;
-<BR><B>Default</B> 2
-<BR>The frequency in interations between successive calculations of long-range (PME) electrostatics
-<P></LI>
+<LI><strong>fullelectfrequency</strong>
+&lt;+ve integer&gt;:
+ The frequency in interations between successive calculations of long-range (PME) electrostatics.
+ <strong>Default</strong>: 2
+</LI>
 
-<LI><B><TT>pme</TT></B>
-on | off
-<BR><B>Default</B> on
-<BR>Enable the use of PME for long-range electrostatics. Disable when using Martini
-<P></LI>
+<LI><strong>pme</strong>
+on | off:
+ Enable the use of PME for long-range electrostatics. Disable when using Martini.
+ <strong>Default</strong>: on
+</LI>
 
-<LI><B><TT>pmefreq</TT></B>
-&lt;+ve integer&gt;
-<BR><B>Default</B> 2
-<BR>The frequency with which PME long-range electrostatics are calculated.
-<P></LI>
+<LI><strong>pmefreq</strong>
+&lt;+ve integer&gt;:
+ The frequency with which PME long-range electrostatics are calculated..
+ <strong>Default</strong>: 2
+</LI>
 
-<LI><B><TT>pmegridsizex</TT></B>
-&lt;+ve integer&gt;
-<BR>The X size of the PME mesh
-<P></LI>
+<LI><strong>pmegridsizex</strong>
+&lt;+ve integer&gt;:
+ The X size of the PME mesh.
+</LI>
 
-<LI><B><TT>pmegridsizey</TT></B>
-&lt;+ve integer&gt;
-<BR>The Y size of the PME mesh
-<P></LI>
+<LI><strong>pmegridsizey</strong>
+&lt;+ve integer&gt;:
+ The Y size of the PME mesh.
+</LI>
 
-<LI><B><TT>pmegridsizez</TT></B>
-&lt;+ve integer&gt;
-<BR>The Z size of the PME mesh
-<P></LI>
+<LI><strong>pmegridsizez</strong>
+&lt;+ve integer&gt;:
+ The Z size of the PME mesh.
+</LI>
 
-<LI><B><TT>pmegridspacing</TT></B>
-&lt;+ve float&gt;
-<BR><B>Default</B> 1.0
-<BR>The spacing of the PME mesh in 1/A. The mesh size can be set explicitly with pmegridsize[xyz]
-<P></LI>
+<LI><strong>pmegridspacing</strong>
+&lt;+ve float&gt;:
+ The spacing of the PME mesh in 1/A. The mesh size can be set explicitly with pmegridsize[xyz].
+ <strong>Default</strong>: 1.0
+</LI>
 
-<LI><B><TT>pmetolerance</TT></B>
-&lt;+ve float&gt;
-<BR><B>Default</B> 1.e-6
-<BR>The direct space Ewald coefficient. Do not change.
-<P></LI>
+<LI><strong>pmetolerance</strong>
+&lt;+ve float&gt;:
+ The direct space Ewald coefficient. Do not change..
+ <strong>Default</strong>: 1.e-6
+</LI>
 
 
 </UL>
@@ -489,41 +488,59 @@ on | off
 <H2>Barostat</H2>
 ACEMD implements a Berendsen barostat designed for the equilibration of molecular systems (globular and in a membrane) to then start NVT production runs. With the system sizes which are achievable nowadays it is not necessary to have a pressure control in the production run, unless you really know what you are doing (for large number of atoms all ensembles are equivalent statistically). For molecular systems up to 100,000 atoms in a membrane allow for an equilibration of 20 ns, for globular proteins 1 to 5 ns are sufficient. 
 <UL>
-<LI><B><TT>berendsenpressure</TT></B>
-on | off
-<BR><B>Default</B> off
-<BR>Set to enable the Berendsen pressure bath barostatic control
-<P></LI>
+<LI><strong>berendsenpressure</strong>
+on | off:
+ Set to enable the Berendsen pressure bath barostatic control.
+ <strong>Default</strong>: off
+</LI>
 
-<LI><B><TT>berendsenpressurecompressibility</TT></B>
-&lt;+ve float&gt;
-<BR><B>Default</B> 4.57e-5
-<BR>The compressibility factor for the barostat, (1/bar)
-<P></LI>
+<LI><strong>berendsenpressurecompressibility</strong>
+&lt;+ve float&gt;:
+ The compressibility factor for the barostat, (1/bar).
+ <strong>Default</strong>: 4.57e-5
+</LI>
 
-<LI><B><TT>berendsenpressurerelaxationtime</TT></B>
-&lt;+ve float&gt;
-<BR><B>Default</B> 400.
-<BR>Relation time for the barostat (fs)
-<P></LI>
+<LI><strong>berendsenpressurerelaxationtime</strong>
+&lt;+ve float&gt;:
+ Relation time for the barostat (fs).
+ <strong>Default</strong>: 400.
+</LI>
 
-<LI><B><TT>berendsenpressuretarget</TT></B>
-&lt;+ve float&gt;
-<BR><B>Default</B> 1.01325
-<BR>The target pressure (Bar) for the barostat
-<P></LI>
+<LI><strong>berendsenpressuretarget</strong>
+&lt;+ve float&gt;:
+ The target pressure (Bar) for the barostat.
+ <strong>Default</strong>: 1.01325
+</LI>
 
-<LI><B><TT>useconstantratio</TT></B>
-on | off
-<BR><B>Default</B> off
-<BR>Enable to keep the ratio of the X-Y dimensions constant while allowing the Z dimension to fluctuate independently. Enable this for membrane systems.
-<P></LI>
+<LI><strong>useconstantratio</strong>
+on | off:
+ Enable to keep the ratio of the X-Y dimensions constant while allowing the Z dimension to fluctuate independently. Enable this for membrane systems..
+ <strong>Default</strong>: off
+</LI>
 
-<LI><B><TT>useflexiblecell</TT></B>
-on | off
-<BR><B>Default</B> off
-<BR>Enable to allow the three orthogonal dimensions of the periodic cell to fluctuate independently
-<P></LI>
+<LI><strong>useconstantx</strong>
+on | off:
+ Keep the unit cell X dimension constant.
+ <strong>Default</strong>: off
+</LI>
+
+<LI><strong>useconstanty</strong>
+on | off:
+ Keep the unit cell Y dimension constant.
+ <strong>Default</strong>: off
+</LI>
+
+<LI><strong>useconstantz</strong>
+on | off:
+ Keep the unit cell Z dimension constant.
+ <strong>Default</strong>: off
+</LI>
+
+<LI><strong>useflexiblecell</strong>
+on | off:
+ Enable to allow the three orthogonal dimensions of the periodic cell to fluctuate independently.
+ <strong>Default</strong>: off
+</LI>
 
 
 </UL>
@@ -531,29 +548,29 @@ on | off
 <H2>Thermostat</H2>
 The Langevin thermostat is needed to keep the system in the NVT ensemble. This is the suggested ensemble for production runs. The langevindamping should be as small as possible in order to thermalize the system without affecting the transport parameters (diffusion). 
 <UL>
-<LI><B><TT>langevin</TT></B>
-on | off
-<BR><B>Default</B> off
-<BR>Enable the Langevin thermostat
-<P></LI>
+<LI><strong>langevin</strong>
+on | off:
+ Enable the Langevin thermostat.
+ <strong>Default</strong>: off
+</LI>
 
-<LI><B><TT>langevindamping</TT></B>
-&lt;+ve float&gt;
-<BR><B>Default</B> 0.1
-<BR>Langevin damping constant gamma (1/ps). 0.1 is recommended for production NVT simulations, and 1.0 during equilibration.
-<P></LI>
+<LI><strong>langevindamping</strong>
+&lt;+ve float&gt;:
+ Langevin damping constant gamma (1/ps). 0.1 is recommended for production NVT simulations, and 1.0 during equilibration..
+ <strong>Default</strong>: 0.1
+</LI>
 
-<LI><B><TT>langevintemp</TT></B>
-&lt;+ve float&gt;
-<BR><B>Default</B> 0.
-<BR>The set point in K for the Langevin thermostat
-<P></LI>
+<LI><strong>langevintemp</strong>
+&lt;+ve float&gt;:
+ The set point in K for the Langevin thermostat.
+ <strong>Default</strong>: 0.
+</LI>
 
-<LI><B><TT>temperature</TT></B>
-&lt;+ve float&gt;
-<BR><B>Default</B> 0.
-<BR>Temeprature in K for initial velocity field. Will be over-ridden by any binvelocities
-<P></LI>
+<LI><strong>temperature</strong>
+&lt;+ve float&gt;:
+ Temeprature in K for initial velocity field. Will be over-ridden by any binvelocities.
+ <strong>Default</strong>: 0.
+</LI>
 
 
 </UL>
@@ -561,22 +578,22 @@ on | off
 <H2>Constraints</H2>
 These commands allow positional restraints to be applied to a simulation. This is useful when equilibrating a system, to ensure that a structure does not diverge from a reference conformation
 <UL>
-<LI><B><TT>consref</TT></B>
-&lt;filename&gt;
-<BR>Specify a PDB file giving reference positions for constrained atoms. Entries with a beta > 0. will be constrained, and the value will be used as the  strength of the harmonic potential (subject to scaling by 'constraintscaling'). The occupancy column is used to specify the directions in which the restraint is applied. This takes the following values: 0 for XYZ, 1 for X, 2 for Y, 3 for Z, 4 for XY, 5 for YZ and 6 for XZ. 
-<P></LI>
+<LI><strong>consref</strong>
+&lt;filename&gt;:
+ Specify a PDB file giving reference positions for constrained atoms. Entries with a beta > 0. will be constrained, and the value will be used as the  strength of the harmonic potential (subject to scaling by 'constraintscaling'). The occupancy column is used to specify the directions in which the restraint is applied. This takes the following values: 0 for XYZ, 1 for X, 2 for Y, 3 for Z, 4 for XY, 5 for YZ and 6 for XZ. .
+</LI>
 
-<LI><B><TT>constraints</TT></B>
-on | off
-<BR><B>Default</B> off
-<BR>Set to enable positional constraints on specified atoms
-<P></LI>
+<LI><strong>constraints</strong>
+on | off:
+ Set to enable positional constraints on specified atoms.
+ <strong>Default</strong>: off
+</LI>
 
-<LI><B><TT>constraintscaling</TT></B>
-&lt;float&gt;
-<BR><B>Default</B> 0.
-<BR>The harmonic constraint energy function is multiplied by this parameter, making it possible to gradually turn off constraints during equilibration. This parameter is used only if constraints is set to on.
-<P></LI>
+<LI><strong>constraintscaling</strong>
+&lt;float&gt;:
+ The harmonic constraint energy function is multiplied by this parameter, making it possible to gradually turn off constraints during equilibration. This parameter is used only if constraints is set to on..
+ <strong>Default</strong>: 0.
+</LI>
 
 
 </UL>
@@ -585,46 +602,51 @@ on | off
 These commands allow additional biassing forces to be applied to the simulation.
  Two types of external force are currently implemented: an oscillating electrical field and a flat, pairwise repulsive potential
 <UL>
-<LI><B><TT>efield</TT></B>
-on | off
-<BR><B>Default</B> off
-<BR>Apply an external electic field to the system
-<P></LI>
+<LI><strong>efield</strong>
+on | off:
+ Apply an external electic field to the system. Function is E(t) =k.cos(omega.t-phi).
+ <strong>Default</strong>: off
+</LI>
 
-<LI><B><TT>efieldfrequency</TT></B>
-&lt;float&gt;
-<BR><B>Default</B> 1.
-<BR>The frequency of the external electic field, in THz
-<P></LI>
+<LI><strong>efieldfrequency</strong>
+&lt;float&gt;:
+ The frequency of the external electic field, in THz.
+ <strong>Default</strong>: 1.
+</LI>
 
-<LI><B><TT>efieldphase</TT></B>
-&lt;float&gt;
-<BR><B>Default</B> 0.
-<BR>The phase at timestep 0 of the external electric field, in degrees
-<P></LI>
+<LI><strong>efieldphase</strong>
+&lt;float&gt;:
+ The phase at timestep 0 of the external electric field, in degrees.
+ <strong>Default</strong>: 0.
+</LI>
 
-<LI><B><TT>efieldvector</TT></B>
-&lt;3vec&gt;
-<BR><B>Default</B> {1.0 0.0 0.0}
-<BR>The vector along which to apply the external electric field. Units are kcal/(mol Angstrom e)
-<P></LI>
+<LI><strong>efieldvector</strong>
+&lt;3vec&gt;:
+ The vector along which to apply the external electric field. Units are kcal/(mol Angstrom e).
+ <strong>Default</strong>: {1.0 0.0 0.0}
+</LI>
 
-<LI><B><TT>repulsionadd</TT></B>
-&lt;atomid&gt;|&lt;groupid&gt;
-<BR>Add to the list of atoms that feel a mutual repulsive force
-<P></LI>
+<LI><strong>repulsionadd</strong>
+&lt;atomid&gt;|&lt;groupid&gt;:
+ Add to the list of atoms that feel a mutual repulsive force.
+</LI>
 
-<LI><B><TT>repulsionconstant</TT></B>
-&lt;float&gt;
-<BR><B>Default</B> 1.0
-<BR>Set the strength of the repulsive potential (kcal/mol)
-<P></LI>
+<LI><strong>repulsionconstant</strong>
+&lt;float&gt;:
+ Set the strength of the repulsive potential (kcal/mol).
+ <strong>Default</strong>: 1.0
+</LI>
 
-<LI><B><TT>repulsionrange</TT></B>
-&lt;+ve float&gt;
-<BR><B>Default</B> 20.0
-<BR>Set the cutoff for the repulsive potential (Angstrom)
-<P></LI>
+<LI><strong>repulsionrange</strong>
+&lt;+ve float&gt;:
+ Set the cutoff for the repulsive potential (Angstrom).
+ <strong>Default</strong>: 20.0
+</LI>
+
+<LI><strong>repulsionref</strong>
+&lt;filename&gt;:
+ Reference PDB file for repulsive force. All atoms with beta>0 will be used.
+</LI>
 
 
 </UL>
@@ -632,52 +654,52 @@ on | off
 <H2>Minimisation</H2>
 Commands for performing energy minimisation. This is often required to remove any steric conflicts from a newly-constructed model
 <UL>
-<LI><B><TT>mindis</TT></B>
-&lt;+ve float&gt;
-<BR><B>Default</B> 1.0
-<BR>Minimisation bracketing distance
-<P></LI>
+<LI><strong>mindis</strong>
+&lt;+ve float&gt;:
+ Minimisation bracketing distance.
+ <strong>Default</strong>: 1.0
+</LI>
 
-<LI><B><TT>mineval</TT></B>
-&lt;+ve integer&gt;
-<BR><B>Default</B> 50
-<BR>Maximum number of force evalauations per minimisation iteration
-<P></LI>
+<LI><strong>mineval</strong>
+&lt;+ve integer&gt;:
+ Maximum number of force evalauations per minimisation iteration.
+ <strong>Default</strong>: 50
+</LI>
 
-<LI><B><TT>minimize</TT></B>
-&lt;+ve integer&gt;
-<BR><B>Default</B> 0
-<BR>Number of steps of conjugate-gradient minimisation to perform
-<P></LI>
+<LI><strong>minimize</strong>
+&lt;+ve integer&gt;:
+ Number of steps of conjugate-gradient minimisation to perform.
+ <strong>Default</strong>: 0
+</LI>
 
-<LI><B><TT>mintol</TT></B>
-&lt;+ve float&gt;
-<BR><B>Default</B> 0.01
-<BR>Minimisation force tolerance
-<P></LI>
+<LI><strong>mintol</strong>
+&lt;+ve float&gt;:
+ Minimisation force tolerance.
+ <strong>Default</strong>: 0.01
+</LI>
 
 
 </UL>
 <div id="Integration">
 <H2>Integration</H2>
 <UL>
-<LI><B><TT>hydrogenscale</TT></B>
-&lt;+ve float&gt;
-<BR><B>Default</B> 1.0
-<BR>Amount by which to scale the mass of H atoms. Additional mass will be removed from any bound atom. The maximum and recommended value is 4. When set, 'timestep 4.0' is possible.
-<P></LI>
+<LI><strong>hydrogenscale</strong>
+&lt;+ve float&gt;:
+ Amount by which to scale the mass of H atoms. Additional mass will be removed from any bound atom. The maximum and recommended value is 4. When set, 'timestep 4.0' is possible..
+ <strong>Default</strong>: 1.0
+</LI>
 
-<LI><B><TT>rigidbonds</TT></B>
-none|all
-<BR><B>Default</B> none
-<BR>Enable holonomic constraints on all hydrogen-heavy atom bond terms. This removes fast modes of oscillation, making a higher timestep possible. With 'rigidbonds all', 'timestep 2.5' is possible. In conjunction with 'hydrogenscale 4.', a timestep of 4.0 is stable.
-<P></LI>
+<LI><strong>rigidbonds</strong>
+none|all:
+ Enable holonomic constraints on all hydrogen-heavy atom bond terms. This removes fast modes of oscillation, making a higher timestep possible. With 'rigidbonds all', 'timestep 2.5' is possible. In conjunction with 'hydrogenscale 4.', a timestep of 4.0 is stable..
+ <strong>Default</strong>: none
+</LI>
 
-<LI><B><TT>timestep</TT></B>
-&lt;+ve float&gt;
-<BR><B>Default</B> 1.0
-<BR>Integration timestep in fs
-<P></LI>
+<LI><strong>timestep</strong>
+&lt;+ve float&gt;:
+ Integration timestep in fs.
+ <strong>Default</strong>: 1.0
+</LI>
 
 
 </UL>
@@ -685,23 +707,23 @@ none|all
 <H2>Interactive</H2>
 ACEMD supports VMD's Interactive Molecular Dynamics (IMD) mode. IMD is read-only: VMD cannot be used to apply external forces
 <UL>
-<LI><B><TT>imd</TT></B>
-on | off
-<BR><B>Default</B> off
-<BR>Enable to allow a VMD session direct connection to ACEMD, using the IMD Connect extension (read only, forces cannot be applied)'
-<P></LI>
+<LI><strong>imd</strong>
+on | off:
+ Enable to allow a VMD session direct connection to ACEMD, using the IMD Connect extension (read only, forces cannot be applied)'.
+ <strong>Default</strong>: off
+</LI>
 
-<LI><B><TT>imdfreq</TT></B>
-&lt;+ve integer&gt;
-<BR><B>Default</B> 1000
-<BR>The frequency with which the IMD feed is updated.
-<P></LI>
+<LI><strong>imdfreq</strong>
+&lt;+ve integer&gt;:
+ The frequency with which the IMD feed is updated..
+ <strong>Default</strong>: 1000
+</LI>
 
-<LI><B><TT>imdport</TT></B>
-&lt;+ve integer&gt;
-<BR><B>Default</B> 54321
-<BR>The TCP port that ACEMD will listen on for incoming IMD connections
-<P></LI>
+<LI><strong>imdport</strong>
+&lt;+ve integer&gt;:
+ The TCP port that ACEMD will listen on for incoming IMD connections.
+ <strong>Default</strong>: 54321
+</LI>
 
 
 </UL>
@@ -709,281 +731,106 @@ on | off
 <H2>Extensions</H2>
 Commands for enabling TCL and C plugin extensions.
 <UL>
-<LI><B><TT>pluginarg</TT></B>
-&lt;tag&gt; &lt;key&gt; &lt;value&gt;
-<BR>Pass a configuration argument to a loaded plugin. <tag> specifies a plugin identifier set in a previous call to 'pluginload'. <key> gives a name to the argument and <value> its value.
-<P></LI>
+<LI><strong>pluginarg</strong>
+&lt;tag&gt; &lt;key&gt; &lt;value&gt;:
+ Pass a configuration argument to a loaded plugin. <tag> specifies a plugin identifier set in a previous call to 'pluginload'. <key> gives a name to the argument and <value> its value..
+</LI>
 
-<LI><B><TT>pluginfreq</TT></B>
-&lt;+ve integer&gt;
-<BR><B>Default</B> 1
-<BR>The frequency with which plugin forces will be evaluated. Applies to all active plugins
-<P></LI>
+<LI><strong>pluginfreq</strong>
+&lt;+ve integer&gt;:
+ The frequency with which plugin forces will be evaluated. Applies to all active plugins.
+ <strong>Default</strong>: 1
+</LI>
 
-<LI><B><TT>pluginload</TT></B>
-&lt;tag&gt; &lt;filename&gt;
-<BR>Load a plugin specified by the file <filename>. <tag> specifies an identifier for subsequent references to the plugin by 'pluginarg'. ACEMD will attempt to load the plugin from the current working directory,  $ACED_HOME/plugin and $HOME/plugin/ . It will permute the filename with the prefix 'lib' and suffic '-so'.  If a plugin cannot be found, ACEMD will issue a warning but continue running.
-<P></LI>
+<LI><strong>pluginload</strong>
+&lt;tag&gt; &lt;filename&gt;:
+ Load a plugin specified by the file <filename>. <tag> specifies an identifier for subsequent references to the plugin by 'pluginarg'. ACEMD will attempt to load the plugin from the current working directory,  $ACED_HOME/plugin and $HOME/plugin/ . It will permute the filename with the prefix 'lib' and suffic '-so'.  If a plugin cannot be found, ACEMD will issue a warning but continue running..
+</LI>
 
-<LI><B><TT>tclforces</TT></B>
-on | off
-<BR><B>Default</B> off
-<BR>Enable TCL force scripting. If set, the procedures calcforces_init, calcforces, calcforces_endstep and calcforces_terminate must be defined
-<P></LI>
+<LI><strong>tclforces</strong>
+on | off:
+ Enable TCL force scripting. If set, the procedures calcforces_init, calcforces, calcforces_endstep and calcforces_terminate must be defined.
+ <strong>Default</strong>: off
+</LI>
 
-<LI><B><TT>tclforcesfreq</TT></B>
-&lt;+ve integer&gt;
-<BR><B>Default</B> 1
-<BR>The frequency with which the procedure calcforces will be called
-<P></LI>
+<LI><strong>tclforcesfreq</strong>
+&lt;+ve integer&gt;:
+ The frequency with which the procedure calcforces will be called.
+ <strong>Default</strong>: 1
+</LI>
 
 
 </UL>
 <div id="TCL">
 <H2>TCL</H2>
-Commands for TCL extension programming.  See the ACEMD Extension Programming Guide for more information
+Commands useful in TCL Extension Programming. See the ACEMD Extension Programming Guide for more information
 <UL>
-<LI><B><TT>addatom</TT></B>
-&lt;+ve integer&gt;
-<BR>Request coordinates of this atom for next force evaluation, and the calculated total force on this atom for current force evaluation. Request remains in effect until clearconfig is called.
-<P></LI>
+<LI><strong>pluginarg</strong>
+&lt;tag&gt; &lt;key&gt; &lt;value&gt;:
+ Pass a configuration argument to a loaded plugin. <tag> specifies a plugin identifier set in a previous call to 'pluginload'. <key> gives a name to the argument and <value> its value..
+</LI>
 
-<LI><B><TT>addforce</TT></B>
-&lt;atomid|groupid&gt; &lt;force vector&gt;
-<BR>Applies force (in kcal mol A) to atom or group. addforce should only be called from within the calcforces procedure.
-<P></LI>
+<LI><strong>pluginfreq</strong>
+&lt;+ve integer&gt;:
+ The frequency with which plugin forces will be evaluated. Applies to all active plugins.
+ <strong>Default</strong>: 1
+</LI>
 
-<LI><B><TT>addgroup</TT></B>
-&lt;atomid list&gt;
-<BR>Request center of mass coordinates of this group for next force evaluation. Returns a group ID that may then be used to find coordinates and apply forces just like a regular atom ID. Aggregate forces may then be applied to the group as whole. Request remains in effect until clearconfig is called.
-<P></LI>
+<LI><strong>pluginload</strong>
+&lt;tag&gt; &lt;filename&gt;:
+ Load a plugin specified by the file <filename>. <tag> specifies an identifier for subsequent references to the plugin by 'pluginarg'. ACEMD will attempt to load the plugin from the current working directory,  $ACED_HOME/plugin and $HOME/plugin/ . It will permute the filename with the prefix 'lib' and suffic '-so'.  If a plugin cannot be found, ACEMD will issue a warning but continue running..
+</LI>
 
-<LI><B><TT>anglegrad</TT></B>
-&lt;coor1&gt; &lt;coor2&gt; &lt;coor3&gt;
-<BR>This command takes the angle, theta, defined by the three coordinates and returns a list of the gradients dtheta/dr
-<P></LI>
+<LI><strong>tclforces</strong>
+on | off:
+ Enable TCL force scripting. If set, the procedures calcforces_init, calcforces, calcforces_endstep and calcforces_terminate must be defined.
+ <strong>Default</strong>: off
+</LI>
 
-<LI><B><TT>berendsenpressure</TT></B>
-on | off
-<BR><B>Default</B> off
-<BR>Set to enable the Berendsen pressure bath barostatic control
-<P></LI>
+<LI><strong>tclforcesfreq</strong>
+&lt;+ve integer&gt;:
+ The frequency with which the procedure calcforces will be called.
+ <strong>Default</strong>: 1
+</LI>
 
-<LI><B><TT>cellresize</TT></B>
-{ X Y Z }
-<BR>Force a resizing of the unit cell to the given dimensions. Likely to crash a simulation unless used with caution.
-<P></LI>
 
-<LI><B><TT>cellsize</TT></B>
-<BR>Return a 3vec containing the current dimensions of the unit cell.
-<P></LI>
+</UL>
+<div id="Analysis">
+<H2>Analysis</H2>
+Custom analysis functions
+<UL>
+<LI><strong>metric</strong>
+on | off:
+ on: enable distance metric recording.
+ <strong>Default</strong>: off
+</LI>
 
-<LI><B><TT>clearconfig</TT></B>
-<BR>Clears the current list of requested atoms. After clearconfig, calls to addatom and addgroup can be used to build a new configuration.
-<P></LI>
+<LI><strong>metricfile</strong>
+&lt;filename&gt;:
+ The output file for calculated metric.
+ <strong>Default</strong>: metric.dat
+</LI>
 
-<LI><B><TT>computevirial</TT></B>
-<BR>Return the 3x3 virial tensor. Requires the barostat to have been enabled (although it may have been switched off subsequently
-<P></LI>
+<LI><strong>metricfreq</strong>
+&lt;integer&gt;:
+ The frequency with which distance metrics will be calculated and output.
+ <strong>Default</strong>: 25000
+</LI>
 
-<LI><B><TT>constraints</TT></B>
-on | off
-<BR><B>Default</B> off
-<BR>Set to enable positional constraints on specified atoms
-<P></LI>
-
-<LI><B><TT>constraintscaling</TT></B>
-&lt;float&gt;
-<BR><B>Default</B> 0.
-<BR>The harmonic constraint energy function is multiplied by this parameter, making it possible to gradually turn off constraints during equilibration. This parameter is used only if constraints is set to on.
-<P></LI>
-
-<LI><B><TT>dihedralgrad</TT></B>
-&lt;coor1&gt; &lt;coor2&gt; &lt;coor3&gt; &lt;coor4&gt;
-<BR>This command takes the dihedra, phi, defined by the four input coordinates and returns a list of the gradients dphi/dr
-<P></LI>
-
-<LI><B><TT>ensemblerecv</TT></B>
-&lt;var&gt;
-<BR>Receive data send from another ensemble instance using 'ensemble_send' into <var>.
-<P></LI>
-
-<LI><B><TT>ensemblesend</TT></B>
-&lt;rank&gt; &lt;var&gt;
-<BR>Send the contents of <var> to ensemble instance with index <rank>. Must be matched with an 'ensemble_recv' on the destination instance
-<P></LI>
-
-<LI><B><TT>getangle</TT></B>
-&lt;coor1&gt; &lt;coor2&gt; &lt;coor3&gt;
-<BR>Returns the angle (from 0 to 180) defined by the three coordinates.
-<P></LI>
-
-<LI><B><TT>getbond</TT></B>
-&lt;coor1&gt; &lt;coor2&gt;
-<BR>Returns the length of the bond between the two coordinates.
-<P></LI>
-
-<LI><B><TT>getdihedral</TT></B>
-&lt;coor1&gt; &lt;coor2&gt; &lt;coor3&gt; &lt;coor4&gt;
-<BR>Returns the dihedral (from -180 to 180) defined by the four coordinates.
-<P></LI>
-
-<LI><B><TT>getenergies</TT></B>
-<BR>Returns a 3vec containing the total potential energy, the kinetic energy and the current temperature of the system. This is valid only from within the caclforces_endstep procedure.
-<P></LI>
-
-<LI><B><TT>getensemblerank</TT></B>
-<BR>Returns the 0-based index of this instance of ACEMD within any ensemble, or 0 otherwise.
-<P></LI>
-
-<LI><B><TT>getensemblesize</TT></B>
-<BR>Returns the number of ACEMD instances participating in any ensemble simulation, or 1 otherwise.
-<P></LI>
-
-<LI><B><TT>getiterationcount</TT></B>
-<BR>Return the current simulation interation number
-<P></LI>
-
-<LI><B><TT>getiterationtime</TT></B>
-<BR>Return the timestep in fs
-<P></LI>
-
-<LI><B><TT>getnatoms</TT></B>
-<BR>Return the number of atoms in the system
-<P></LI>
-
-<LI><B><TT>getstep</TT></B>
-<BR>Returns the current iteration number
-<P></LI>
-
-<LI><B><TT>gpuversion</TT></B>
-<BR>Returns an integer giving the compute capability of the GPU
-<P></LI>
-
-<LI><B><TT>langevintemp</TT></B>
-&lt;+ve float&gt;
-<BR><B>Default</B> 0.
-<BR>The set point in K for the Langevin thermostat
-<P></LI>
-
-<LI><B><TT>loadcharges</TT></B>
-&lt;var&gt;
-<BR>Loads requested atom and group charges (in e) into a local array. loadcharges should only be called from within the calcforces procedure
-<P></LI>
-
-<LI><B><TT>loadcoords</TT></B>
-&lt;var&gt;
-<BR>Loads requested atom and group coordinates (in Angstrom) into a local array. loadcoords should only be called from within the calcforces procedure.
-<P></LI>
-
-<LI><B><TT>loadmasses</TT></B>
-&lt;var&gt;
-<BR>Loads requested atom and group masses (in amu) into a local array. loadmasses should only be called from within the calcforces procedure
-<P></LI>
-
-<LI><B><TT>loadvelocities</TT></B>
-&lt;var&gt;
-<BR>Loads requested atom and group velocities into a local array. loadcoords should only be called from within the calcforces procedure.
-<P></LI>
-
-<LI><B><TT>mindist</TT></B>
-&lt;coor1&gt; &lt;coor2&gt;
-<BR>Returns the vector of the shortest distance between two coordinates, taking into account the periodic boundaries of the system. The result is a four element list containg a unit vector followed by a length.
-<P></LI>
-
-<LI><B><TT>nbenergy</TT></B>
-&lt;groupid A&gt; &lt;groupid B&gt;
-<BR>Returns a list containing the electrostatic and VdW energies computed between the atoms in groups A and B. An infinite cutoff is assumed.
-<P></LI>
-
-<LI><B><TT>print</TT></B>
-&lt;string&gt;
-<BR>Print <string> to the stdout log
-<P></LI>
-
-<LI><B><TT>readpdb</TT></B>
-&lt;var&gt; &lt;filename&gt;
-<BR>Load a PDB file <filename> and put the contents in the TCL variable named <var>, in the form of a list of 4vecs. Each 4vec contains the position of an atom followed by the temperature (beta) factor. If <filename> is not specified, that specified for 'coordinates' will be used.
-<P></LI>
-
-<LI><B><TT>repulsionadd</TT></B>
-&lt;atomid&gt;|&lt;groupid&gt;
-<BR>Add to the list of atoms that feel a mutual repulsive force
-<P></LI>
-
-<LI><B><TT>repulsionconstant</TT></B>
-&lt;float&gt;
-<BR><B>Default</B> 1.0
-<BR>Set the strength of the repulsive potential (kcal/mol)
-<P></LI>
-
-<LI><B><TT>repulsionrange</TT></B>
-&lt;+ve float&gt;
-<BR><B>Default</B> 20.0
-<BR>Set the cutoff for the repulsive potential (Angstrom)
-<P></LI>
-
-<LI><B><TT>scalevelocities</TT></B>
-&lt;float&gt;
-<BR>Scale the velocity field for the simulation. Should only be called from within calcforces_endstep
-<P></LI>
-
-<LI><B><TT>terminate</TT></B>
-<BR>Terminate the simulation in an orderly manner
-<P></LI>
-
-<LI><B><TT>vecadd</TT></B>
-&lt;3vec A&gt; &lt;3vec B&gt;
-<BR>Return the sum A+B of two vectors
-<P></LI>
-
-<LI><B><TT>vecdot</TT></B>
-&lt;3vec A&gt; &lt;3vec B&gt;
-<BR>Return the dot product of vectors A  and B
-<P></LI>
-
-<LI><B><TT>veclength</TT></B>
-&lt;3vec&gt;
-<BR>Return the magnitude of vector A sqrt(a.x*a.x + a.y*a.y + a.z*a.z)
-<P></LI>
-
-<LI><B><TT>veclength2</TT></B>
-&lt;3vec&gt;
-<BR>Return the square of the magnitude of vector A (a.x*a.x + a.y*a.y + a.z*a.z)
-<P></LI>
-
-<LI><B><TT>vecnormalise</TT></B>
-&lt;3vec A&gt;
-<BR>Return vector A normalised to unit length
-<P></LI>
-
-<LI><B><TT>vecscale</TT></B>
-&lt;3vec A&gt; &lt;scalar B&gt;
-<BR>Scale the vector A by scalar B
-<P></LI>
-
-<LI><B><TT>vecsub</TT></B>
-&lt;3vec A&gt; &lt;3vec B&gt;
-<BR>Return the difference A-B between two vectors
-<P></LI>
-
-<LI><B><TT>verbose</TT></B>
-<BR>Returns 1 if ACEMD was started with the --verbose flag
-<P></LI>
+<LI><strong>metricref</strong>
+&lt;filename&gt;:
+ Configuration of the two groups of atoms between which a distance metric will be computed. Groups are specified with the beta values of 1 and 2..
+ <strong>Default</strong>: metric.pdb
+</LI>
 
 
 </UL>
 
-      </section>
+    </section>
     </div>
-
-
-    <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
-      <footer class="inner">
+    <footer class="inner">
     <p class="copyright">Copyright &copy; 2014 Acellera.</p>
-      </footer>
+    </footer>
     </div>
-
- 
 </BODY></HTML>
