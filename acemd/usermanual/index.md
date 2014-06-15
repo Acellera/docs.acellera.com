@@ -194,11 +194,9 @@ These protocols assume the following file naming conventions which however you c
 * Trajectory: trajectory.xtc
 * Final state: output.coor output.vel output.xsc
 
-## Langevin thermostat for NVT ensemble
+## NVT vs NPT ensemble
 
 The Langevin thermostat is needed to keep the system in the NVT ensemble. This is the suggested ensemble for production runs. The langevindamping should be as small as possible in order to thermalize the system without affecting the transport parameters (diffusion). We suggest to use langevindamping 0.1 for all production runs in NVT. A langevindamping 1 is better during equilibration.
-
-## Barostat for NPT ensemble
 
 ACEMD implements a Berendsen barostat designed for the equilibration of molecular systems (globular and in a membrane) to then start NVT production runs. With the system sizes which are achievable nowadays it is not necessary to have a pressure control in the production run, unless you really know what you are doing (for large number of atoms all ensembles are equivalent statistically). For molecular systems up to 100,000 atoms in a membrane allow for an equilibration of 20 ns, for globular proteins 1 to 5 ns are sufficient.
 
@@ -279,7 +277,7 @@ At the end of a simulation, ACEMD also outputs the final system state (coordinat
 
 If the barostat is enabled, the unit cell dimensions are emitted into the output file suffix .xstfile whenever the energies are printed.
 
-## Standard output (stdout)
+## Standard output
 
 During a run ACEMD will print a summary of the system energies to stdout. This should sually be saved in a log file for future reference using re-direction, for example:
 
@@ -312,9 +310,9 @@ Restart coordinate and velocity files are in NAMD Bincoord format. Simulations s
 
 ##  Tcl Scripting
 
-The entire input file is seen by ACEMD as a Tcl script. You can interleave Tcl command with the commands shown in this manual. Tcl is also useful to manipulate the molecular systems by reading coordinates, velocities and forces on-the-fly while the simulation is running. Tcl scripts are executed in the CPU, so they can be expensive if the number of atoms involved is large (depending on system size, but target for less than 100 atoms if possible). For simple harmonic positional constraints use the constraints command instead.
+The entire input file is seen by ACEMD as a Tcl script. You can interleave Tcl command with the commands shown in the [command reference manual](../commands). Tcl is also useful to manipulate the molecular systems by reading coordinates, velocities and forces on-the-fly while the simulation is running. Tcl scripts are executed in the CPU, so they can be expensive if the number of atoms involved is large (depending on system size, but target for less than 100 atoms if possible). For simple harmonic positional constraints use the constraints command instead.
 
-ACEMD calls two tcl functions, calc_forces_init at startup and calc_forces at every step. Note that calc_forces is processed on the CPU.
+ACEMD calls two tcl functions, **calc_forces_init** at startup and **calc_forces** at every step. Note that calc_forces is processed on the CPU.
 
 Harmonic positional constraints can be applied on selected atoms. This is useful during equilibration but also in production runs, so ACEMD implements it in the fastest possible way: directly computed on the GPU. There are no limitations on the number of atoms to which the constraints are applied. Similar and more flexible constraints can also be applied using Tcl scripting.
 
@@ -400,19 +398,19 @@ ACEMD is easily extended by adding plugin modules written in C and dynamically l
 
 ## Getting support
 
-Users can receive individual and confidential support at Acellera Ltd via support@acellera.com.
+Users can receive individual and confidential support at Acellera Ltd via **support@acellera.com**.
 There is also a [ACEMD user forum](http://www.acellera.com/support/community). 
 
 ## Apply periodic boundary conditions
 
 ACEMD by default does not wrap in the output the coordinates around the periodic box, so when the molecular system is visualized water molecules appear to diffuse away. This is done such that you can measure diffusion coefficients. It is just a visualization choice. In the newest versions of ACEMD there is the command "wrap all" which instead wraps the coordinates of every atoms.
-Best and most flexible way to do the wrapping is after the simulation with VMD. From VMD 1.8.7 (http://www.ks.uiuc.edu/Research/vmd/plugins/pbctools/) you can wrap using the information in the DCD unitcell (load the dcd directly on a structure file rather than the pdb):
+Best and most flexible way to do the wrapping is after the simulation with VMD. From VMD 1.8.7 (http://www.ks.uiuc.edu/Research/vmd/plugins/pbctools/) you can wrap using the information in the DCD/xtc unitcell (load the trajectory directly on a structure file rather than the pdb):
 
 ```
 pbc wrap -center bb -centersel protein -compound res
 ```
 
-NB: In the case that you want to align the protein as well to some structure, be careful to align only after wrapping, otherwise the wrapping is wrong as the periodic box is rotated by the alignment. With the older version of VMD, 1.8.6 use instead: pbc wrap -sel "not protein" -center "protein" -all
+In the case that you want to align the protein as well to some structure, __be careful to align only after wrapping__, otherwise the wrapping is wrong as the periodic box is rotated by the alignment. 
 
 # Citations
 
