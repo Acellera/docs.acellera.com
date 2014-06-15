@@ -39,8 +39,8 @@
 <BR><A HREF="#Analysis">Analysis</A>
 <div id="Configuration">
 <H2>Configuration</H2>
-Commands for configuring the simulation integration
-<UL>
+<p>Commands for configuring the simulation integration
+</p><UL>
 <LI><strong>celldimension</strong>
 &lt;X&gt; &lt;Y&gt; &lt;Z&gt;:
  Dimensions of the unit cell. If not set, ACEMD will guess based on extent of input coordinates. celldimension will be over-ridden by and extendedsystem file.
@@ -136,8 +136,8 @@ none|all:
 </UL>
 <div id="Input">
 <H2>Input</H2>
-Commands for specifying input files.
-<UL>
+<p>Commands for specifying input files.
+</p><UL>
 <LI><strong>bincoordinates</strong>
 &lt;filename&gt;:
  Filename for initial structure coordinates, in NAMD Bincoor format.
@@ -181,8 +181,8 @@ Commands for specifying input files.
 </UL>
 <div id="Output">
 <H2>Output</H2>
-Commands for specifying output files and frequency.
-<UL>
+<p>Commands for specifying output files and frequency.
+</p><UL>
 <LI><strong>dcdfile</strong>
 &lt;filename&gt;:
  The filename for the output coordinate trajectory in DCD format.
@@ -256,8 +256,8 @@ on | off:
 </UL>
 <div id="Forcefield">
 <H2>Forcefield</H2>
-These commands pertain to all force fields.
-<UL>
+<p>These commands pertain to all force fields.
+</p><UL>
 <LI><strong>1-4scaling</strong>
 &lt;+ve float&gt;:
  Scaling factor for 1-4 electrostatic interations.  This factor is only used when the exclude parameter is set to scaled1-4. In this case, this factor is used to modify the electrostatic interactions between 1-4 atom pairs. If the exclude parameter is set to anything but scaled1-4, this parameter has no effect regardless of its value.  For CHARMM use 1.0, for Amber 0.833333.
@@ -330,8 +330,8 @@ on | off:
 </UL>
 <div id="Charmm">
 <H2>Charmm</H2>
-These commands pertain to options specific to the CHARMM force field.
-<UL>
+<p>These commands pertain to options specific to the CHARMM force field.
+</p><UL>
 <LI><strong>1-4scaling</strong>
 &lt;+ve float&gt;:
  Scaling factor for 1-4 electrostatic interations.  This factor is only used when the exclude parameter is set to scaled1-4. In this case, this factor is used to modify the electrostatic interactions between 1-4 atom pairs. If the exclude parameter is set to anything but scaled1-4, this parameter has no effect regardless of its value.  For CHARMM use 1.0, for Amber 0.833333.
@@ -357,8 +357,8 @@ on | off:
 </UL>
 <div id="Amber">
 <H2>Amber</H2>
-These commands pertain to options specific to the Amber force field.
-<UL>
+<p>These commands pertain to options specific to the Amber force field.
+</p><UL>
 <LI><strong>1-4scaling</strong>
 &lt;+ve float&gt;:
  Scaling factor for 1-4 electrostatic interations.  This factor is only used when the exclude parameter is set to scaled1-4. In this case, this factor is used to modify the electrostatic interactions between 1-4 atom pairs. If the exclude parameter is set to anything but scaled1-4, this parameter has no effect regardless of its value.  For CHARMM use 1.0, for Amber 0.833333.
@@ -380,8 +380,8 @@ on | off:
 </UL>
 <div id="OPLS">
 <H2>OPLS</H2>
-These commands pertain to options specfic to the OPLS force field.
-<UL>
+<p>These commands pertain to options specfic to the OPLS force field.
+</p><UL>
 <LI><strong>vdwgeometricsigma</strong>
 on | off:
  Enable geometric sigma combination rule for LJ parameters.
@@ -392,8 +392,8 @@ on | off:
 </UL>
 <div id="Martini">
 <H2>Martini</H2>
-These commands pertain to options specific to the Martini force field.
-<UL>
+<p>These commands pertain to options specific to the Martini force field.
+</p><UL>
 <LI><strong>cosangles</strong>
 on | off:
  Enable cosine form angle potential for Martini force field.
@@ -422,9 +422,9 @@ on | off:
 </UL>
 <div id="Electrostatics">
 <H2>Electrostatics</H2>
-These commands control the PME method used to calculate the long-range contribution to the electrostatic potential. PME should usually be used in all CHARMM and Amber simulations.
+<p>These commands control the PME method used to calculate the long-range contribution to the electrostatic potential. PME should usually be used in all CHARMM and Amber simulations.
 We recommend a cutoff of 9A and a PME grid spacing of 1/A
-<UL>
+</p><UL>
 <LI><strong>cutoff</strong>
 &lt;+ve float&gt;:
  Cutoff distance for direct-space electrostatic interaction evaluation.
@@ -486,8 +486,8 @@ on | off:
 </UL>
 <div id="Barostat">
 <H2>Barostat</H2>
-ACEMD implements a Berendsen barostat designed for the equilibration of molecular systems (globular and in a membrane) to then start NVT production runs. With the system sizes which are achievable nowadays it is not necessary to have a pressure control in the production run, unless you really know what you are doing (for large number of atoms all ensembles are equivalent statistically). For molecular systems up to 100,000 atoms in a membrane allow for an equilibration of 20 ns, for globular proteins 1 to 5 ns are sufficient. 
-<UL>
+<p>ACEMD implements a Berendsen barostat designed for the equilibration of molecular systems (globular and in a membrane) to then start NVT production runs. With the system sizes which are achievable nowadays it is not necessary to have a pressure control in the production run, unless you really know what you are doing (for large number of atoms all ensembles are equivalent statistically). For molecular systems up to 100,000 atoms in a membrane allow for an equilibration of 20 ns, for globular proteins 1 to 5 ns are sufficient. 
+</p><UL>
 <LI><strong>berendsenpressure</strong>
 on | off:
  Set to enable the Berendsen pressure bath barostatic control.
@@ -546,8 +546,8 @@ on | off:
 </UL>
 <div id="Thermostat">
 <H2>Thermostat</H2>
-The Langevin thermostat is needed to keep the system in the NVT ensemble. This is the suggested ensemble for production runs. The langevindamping should be as small as possible in order to thermalize the system without affecting the transport parameters (diffusion). 
-<UL>
+<p>The Langevin thermostat is needed to keep the system in the NVT ensemble. This is the suggested ensemble for production runs. The langevindamping should be as small as possible in order to thermalize the system without affecting the transport parameters (diffusion). 
+</p><UL>
 <LI><strong>langevin</strong>
 on | off:
  Enable the Langevin thermostat.
@@ -576,8 +576,8 @@ on | off:
 </UL>
 <div id="Constraints">
 <H2>Constraints</H2>
-These commands allow positional restraints to be applied to a simulation. This is useful when equilibrating a system, to ensure that a structure does not diverge from a reference conformation
-<UL>
+<p>These commands allow positional restraints to be applied to a simulation. This is useful when equilibrating a system, to ensure that a structure does not diverge from a reference conformation
+</p><UL>
 <LI><strong>consref</strong>
 &lt;filename&gt;:
  Specify a PDB file giving reference positions for constrained atoms. Entries with a beta > 0. will be constrained, and the value will be used as the  strength of the harmonic potential (subject to scaling by 'constraintscaling'). The occupancy column is used to specify the directions in which the restraint is applied. This takes the following values: 0 for XYZ, 1 for X, 2 for Y, 3 for Z, 4 for XY, 5 for YZ and 6 for XZ. .
@@ -599,9 +599,9 @@ on | off:
 </UL>
 <div id="External Forces">
 <H2>External Forces</H2>
-These commands allow additional biassing forces to be applied to the simulation.
+<p>These commands allow additional biassing forces to be applied to the simulation.
  Two types of external force are currently implemented: an oscillating electrical field and a flat, pairwise repulsive potential
-<UL>
+</p><UL>
 <LI><strong>efield</strong>
 on | off:
  Apply an external electic field to the system. Function is E(t) =k.cos(omega.t-phi).
@@ -652,8 +652,8 @@ on | off:
 </UL>
 <div id="Minimisation">
 <H2>Minimisation</H2>
-Commands for performing energy minimisation. This is often required to remove any steric conflicts from a newly-constructed model
-<UL>
+<p>Commands for performing energy minimisation. This is often required to remove any steric conflicts from a newly-constructed model
+</p><UL>
 <LI><strong>mindis</strong>
 &lt;+ve float&gt;:
  Minimisation bracketing distance.
@@ -705,8 +705,8 @@ none|all:
 </UL>
 <div id="Interactive">
 <H2>Interactive</H2>
-ACEMD supports VMD's Interactive Molecular Dynamics (IMD) mode. IMD is read-only: VMD cannot be used to apply external forces
-<UL>
+<p>ACEMD supports VMD's Interactive Molecular Dynamics (IMD) mode. IMD is read-only: VMD cannot be used to apply external forces
+</p><UL>
 <LI><strong>imd</strong>
 on | off:
  Enable to allow a VMD session direct connection to ACEMD, using the IMD Connect extension (read only, forces cannot be applied)'.
@@ -729,8 +729,8 @@ on | off:
 </UL>
 <div id="Extensions">
 <H2>Extensions</H2>
-Commands for enabling TCL and C plugin extensions.
-<UL>
+<p>Commands for enabling TCL and C plugin extensions.
+</p><UL>
 <LI><strong>pluginarg</strong>
 &lt;tag&gt; &lt;key&gt; &lt;value&gt;:
  Pass a configuration argument to a loaded plugin. <tag> specifies a plugin identifier set in a previous call to 'pluginload'. <key> gives a name to the argument and <value> its value..
@@ -763,8 +763,8 @@ on | off:
 </UL>
 <div id="TCL">
 <H2>TCL</H2>
-Commands useful in TCL Extension Programming. See the ACEMD Extension Programming Guide for more information
-<UL>
+<p>Commands useful in TCL Extension Programming. See the ACEMD Extension Programming Guide for more information
+</p><UL>
 <LI><strong>addatom</strong>
 &lt;+ve integer&gt;:
  Request coordinates of this atom for next force evaluation, and the calculated total force on this atom for current force evaluation. Request remains in effect until clearconfig is called..
@@ -1007,8 +1007,8 @@ on | off:
 </UL>
 <div id="Analysis">
 <H2>Analysis</H2>
-Custom analysis functions
-<UL>
+<p>Custom analysis functions
+</p><UL>
 <LI><strong>metric</strong>
 on | off:
  on: enable distance metric recording.
