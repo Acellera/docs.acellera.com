@@ -76,7 +76,7 @@ To generate a system with tleap using ff14SB and new ions, load the following se
 
 ### OPLS force field
 
-The use of OPLS force field parameters is possible using the version in [CHARMM format](http://brooks.scripps.edu/charmm_docs/Data/oplsaa-toppar.tgz), but only for the protein portion. This requires to use the configuration parameter "vdwgeometricsigma on". This forcefield is less used and so less tested, in particular we have not tested the porting 
+The use of OPLS force field parameters is possible using the version in [CHARMM format](http://brooks.scripps.edu/charmm_docs/Data/oplsaa-toppar.tgz), but only for the protein portion. This requires the use of the configuration parameter "vdwgeometricsigma on". This forcefield is less used and so less tested, in particular we have not tested the porting 
 
 # Running ACEMD
 
@@ -257,8 +257,8 @@ Shown below is an example of an explicit input file for an Amber force field sim
 
 This is equivalent to simple write in the quick format:
 
-    ff/amber
-    run/NPT
+    protocol ff/amber
+    protocol run/NPT
     langevintemp        300.0
     constraints         on
     run 100ns
