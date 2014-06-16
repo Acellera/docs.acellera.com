@@ -42,13 +42,13 @@ These yield the derived units:
 
 ## Force field parameters
 
-The default force-field formats used by ACEMD are CHARMM including cross-term support and Amber force-fields. The code can also simulate OPLS force-fields in CHARMM format via translated force-fields. To build the molecular system it is possible to use any tool that it suitable for these force fields. For instance, charmm or [VMD](http://www.ks.uiuc.edu/Research/vmd/) (free) for the Charmm forcefield and ambertools (free) for Amber.
+The default force-field formats used by ACEMD are CHARMM including cross-term support and Amber force-fields. The code can also simulate OPLS force-fields in CHARMM format via translated force-fields. To build the molecular system it is possible to use any tool that it suitable for these force fields. For instance, charmm or <a href="http://www.ks.uiuc.edu/Research/vmd/" target="_parent">VMD</a) (free) for the Charmm forcefield and ambertools (free) for Amber.
 
 ### CHARMM force field
 
-ACEMD reads directly the psf and parameter files for Charmm. You can generate these files as usual with the Charmm suite or with VMD. The topology and parameters force fields for CHARMM are available at [Mackerell's page](http://mackerell.umaryland.edu/CHARMM_ff_params.html). Please refer to this link for the complete and latest information. Different forcefields might give diffent results for your system. Also the quality of the forcefields have greatly improved in the last years. Use always the latest forcefield unless you have a specific reason not to. For Charmm we suggest two forcefields:
+ACEMD reads directly the psf and parameter files for Charmm. You can generate these files as usual with the Charmm suite or with VMD. The topology and parameters force fields for CHARMM are available at <a href="http://mackerell.umaryland.edu/CHARMM_ff_params.html" target="_parent">Mackerell's page</a>. Please refer to this link for the complete and latest information. Different forcefields might give diffent results for your system. Also the quality of the forcefields have greatly improved in the last years. Use always the latest forcefield unless you have a specific reason not to. For Charmm we suggest two forcefields:
 
-* __CHARMM36__ - this is the latest available forcefield for Charmm. It is probably the best forcefield for membrane proteins. The free (for academics) online website [CHARMM-GUI](http://www.charmm-gui.org/) is very good to set up a membrane system also changing the type of lipids.  However it is still possible to the same using VMD, just a bit more scripting is required.
+* __CHARMM36__ - this is the latest available forcefield for Charmm. It is probably the best forcefield for membrane proteins. The free (for academics) online website <a href="http://www.charmm-gui.org" target="_parent">CHARMM-GUI</a> is very good to set up a membrane system also changing the type of lipids.  However it is still possible to the same using VMD, just a bit more scripting is required.
 * __CHARMM22star__ - this is a revised version of the Charmm forcefield derived by DE SHAW research. It is older than Charmm36 but it works better for protein folding. You can also mix Charmm22star for protein with Charmm36 for proteins. Note that this is different from Charmm22 without star which should never be used. Charmm27 also widely used is known to overstabilize helices and should also be avoided now that there are better alternatives. Charmm22star files are available from us here: [charmm22star topology file](http://docs.acellera.com/acemd/pub/top_all22star_prot.inp) and [parameter file](http://docs.acellera.com/acemd/pub/par_all22star_prot.inp). There is no official distribution of charmm22star files, but these were manually validated against Desmond implementation and we are sufficiently confident that they are correct and acemd produces the correct forces.
 
 ### AMBER force field
@@ -64,7 +64,7 @@ We suggest that you keep switching when using AMBER force fields in ACEMD to avo
 
 The latest forcefield from Amber is the best to use
 
-* __Amber14SB__ solves several shortcomings of previous Amber forcefields. Special parameters for the Amber forcefields can be found at [this site](http://www.pharmacy.manchester.ac.uk/bryce/amber). To obtain the latest forcefield simply download the latest version of AmberTools for free. 
+* __Amber14SB__ solves several shortcomings of previous Amber forcefields. Special parameters for the Amber forcefields can be found at <a href="http://www.pharmacy.manchester.ac.uk/bryce/amber" target="_parent"> this site</a>. To obtain the latest forcefield simply download the latest version of AmberTools for free. 
  
 To generate a system with tleap using ff14SB and new ions, load the following settings
 
