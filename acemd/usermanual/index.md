@@ -42,7 +42,8 @@ These yield the derived units:
 
 ## Force field parameters
 
-The default force-field formats used by ACEMD are CHARMM including cross-term support and Amber force-fields. The code can also simulate OPLS force-fields in CHARMM format via translated force-fields. To build the molecular system it is possible to use any tool that it suitable for these force fields. For instance, charmm or <a href="http://www.ks.uiuc.edu/Research/vmd/" target="_parent">VMD</a> (free) for the Charmm forcefield and ambertools (free) for Amber.
+The default force-field formats used by ACEMD are CHARMM including cross-term support and Amber force-fields. The code can also simulate OPLS force-fields in CHARMM format via translated force-fields. To build the molecular system it is possible to use any tool that it suitable for these force fields. For instance, charmm or 
+<a href="http://www.ks.uiuc.edu/Research/vmd/" target="_parent"> VMD </a> for the Charmm forcefield and ambertools (free) for Amber.
 
 ### CHARMM force field
 
