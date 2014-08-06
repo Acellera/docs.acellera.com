@@ -12,7 +12,7 @@ description: Links to all resources related to ACEMD
 
 [__ACEMD protocols__](./protocols). Easy to use protocols to setup molecular systems in solution and via Charmm-Gui, parametrize a ligand in the Charmm and Amber force field. Anything that you need to know to start simulating.
 
-<a href="http://download.acellera.com/manuals/latest/docs/ACEMD-Extension-Guide.pdf" target="_parent">__ACEMD Extensions Development (pdf)__</a>. Guide for developing C and TCL extensions for ACEMD 
+<a href="http://download.acellera.com/manuals/latest/docs/ACEMD-Extension-Guide.pdf" target="_parent">__ACEMD extensions development (pdf)__</a>. Guide for developing C and TCL extensions for ACEMD 
 
 [__ACEMD installation guide__](./install). Also available in the main distribution of ACEMD. Read this if you have problems getting ACEMD running on your system and to update Nvidia drivers.
 
