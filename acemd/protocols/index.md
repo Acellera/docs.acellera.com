@@ -1,8 +1,8 @@
 ---
-title: ACEMD Documentation
+title: ACEMD Protocols
 layout: default
-name: ACEMD Documentation
-description: Links to all resources related to ACEMD
+name: ACEMD Protocols
+description: Best practice protocols to run simulations using ACEMD
 ---
 
 <ul>
