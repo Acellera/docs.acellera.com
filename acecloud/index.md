@@ -27,7 +27,7 @@ this will create a directory called acecloud
 ## Using the AceCloud Client
 
 * The AceCloud client runs ACEMD and Gromacs simulations on Amazon AWS resources. It performs all file copying and VM instantiation operations automatically - once configured with AWS access credentials the user does not need to interact directly with the AWS Console.
-* The AceCloud client is called <code<acemd```. If you already have ACEMD installed, AceCloud will automatically run it when required provided the environment variable ACEMD_HOME is set correctly. To check if ACEMD is correctly configured, see the output of 
+* The AceCloud client is called ```acemd```. If you already have ACEMD installed, AceCloud will automatically run it when required provided the environment variable ACEMD_HOME is set correctly. To check if ACEMD is correctly configured, see the output of 
 ```acemd --configure -print``` 
 * The syntax for all AceCloud operations is given by
 ```acemd --help```
@@ -68,16 +68,15 @@ This summaries all simulations, grouped by project. Simulations will be in one o
 
 ### Important Notes
 
-We recommend running short (<3day) simulations with frequent restarts, rather than one long simulation. There are several reasons for this:
-
-* The output of an AceCloud job is not available until it has completed. When running from new model, for example, we recommend testing locally or with a short run before submitting a long simulation
-* AceCloud uses <a href="http://aws.amazon.com/ec2/purchasing-options/spot-instances/">AWS Spot Instances</a>. Spot instance pricing is variable depending on demand. Rarely, in times of peak demand the spot price may exceed the default AceCloud bid price of 0.70$ and running simulations may be aborted and results lost. 
+* We recommend running short (<3day) simulations with frequent restarts, rather than one long simulation. There are several reasons for this:
+  * The output of an AceCloud job is not available until it has completed. When running from new model, for example, we recommend testing locally or with a short run before submitting a long simulation
+  * AceCloud uses <a href="http://aws.amazon.com/ec2/purchasing-options/spot-instances/">AWS Spot Instances</a>. Spot instance pricing is variable depending on demand. Rarely, in times of peak demand the spot price may exceed the default AceCloud bid price of 0.70$ and running simulations may be aborted and results lost. 
 
 The bid price is set with
 ```acemd --configure rate [rate in USD]```
 The price that you pay is the current spot price, not the price you have set as the maximum bid.
 
-* The total ouput of an AceCloud simulation is limited to 1GB. No check is made that this has been exceeded, please ensure that you have configured the simulation correctly to not exceed this.
+  * The total ouput of an AceCloud simulation is limited to 1GB. No check is made that this has been exceeded, please ensure that you have configured the simulation correctly to not exceed this.
 
 
-AWS accounts have a default limit of 10 concurrent spot instances. If you need to run more instances, higher limits can be requested per-region via the AWS Console <a href="https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Limits">here</a>
+* AWS accounts have a default limit of 10 concurrent spot instances. If you need to run more instances, higher limits can be requested per-region via the AWS Console <a href="https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Limits">here</a>
