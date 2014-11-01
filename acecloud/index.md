@@ -5,7 +5,6 @@ name: AceCloud Documentation
 description: Getting Started with AceCloud
 ---
 
-# Get Started with AceCloud
 
 ## Sign Up
 
