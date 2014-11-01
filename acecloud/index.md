@@ -15,7 +15,7 @@ description: Getting Started with AceCloud
 
 ## Install Client Software
 
-* Download the <a href="cloud.acellera.com/acecloud/acecloud-client.tgz">AceCloud Linux Client</a>
+* Download the <a href="http://cloud.acellera.com/acecloud/acecloud-client.tgz">AceCloud Linux Client</a>
 * Unpack the tarball to a suitable location with
 ```tar -zxvf acecloud-client.tgz```
 this will create a directory called acecloud
