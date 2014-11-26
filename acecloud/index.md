@@ -9,12 +9,21 @@ description: Getting Started with AceCloud
 ## Sign Up
 
 * AceCloud uses your existing Amazon Web Services acount for its compute power. If you don't yet have an AWS account, register <a href="http://aws.amazon.com/">here</a>. You will need to supply credit card details for billing purposes.
-* Next, subscribe to the AceCloud product in the <a href="https://aws.amazon.com/marketplace">Amazon Marketplace</a>.
-* Finally, obtain access keys AWS account <a href="https://console.aws.amazon.com/iam/home?nc2=h_m_sc#security_credential">here</a>. If you use IAM, create credentials that have full access to EC2 and S3.
+* Next, subscribe to the AceCloud product in the <a href="https://aws.amazon.com/marketplace/pp/B00Q5ECSOG">Amazon Marketplace</a>.
 
-## Install Client Software
+## Quick Start
 
-* Download the <a href="http://cloud.acellera.com/acecloud/acecloud-client.tgz">AceCloud Linux Client</a>
+* If you just want to run a single simulation, or quickly test performance then simply start a single instance of AceCloud via the Marketplace or EC2 Console.
+* Log in using your selected EC2 keypair and the username "ec2-user".
+* Copy simulation input files to the running instance.
+* Run ACEMD or Gromacs directly on the command line with "acemd" or "mdrun".
+
+## Install the Client Software
+
+For the full AceCloud experience, including automatic execution on EC2 and transparent scaling to large numbers of simulations, client software must be installed on your workstation and configured to use your Amazon account.
+
+* Obtain access keys AWS account <a href="https://console.aws.amazon.com/iam/home?nc2=h_m_sc#security_credential">here</a>. If you use IAM, create credentials that have full access to EC2, S3 and VPC services.
+* Download the <a href="http://cloud.acellera.com/acecloud/acecloud-client.tgz">AceCloud Linux Client</a> 
 * Unpack the tarball to a suitable location with
 ```tar -zxvf acecloud-client.tgz```
 this will create a directory called acecloud
