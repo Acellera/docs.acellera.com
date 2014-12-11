@@ -6,14 +6,14 @@
 * AceCloud uses your existing Amazon Web Services acount for its compute power. If you don't yet have an AWS account, register <a href="http://aws.amazon.com/">here</a>. You will need to supply credit card details for billing purposes.
 
 * Next, subscribe to the AceCloud product in the <a href="https://aws.amazon.com/marketplace">Amazon Marketplace</a>.
-* Finally, obtain access keys AWS account <a href="https://console.aws.amazon.com/iam/home?nc2=h_m_sc#security_credential">here</a>. If you use IAM, create credentials that have full access to EC2 and S3.
+* Finally, obtain access keys AWS account <a href="https://console.aws.amazon.com/iam/home?nc2=h_m_sc#security_credential">here</a>. If you use IAM, create credentials that have full access to EC2, S3 and VPC.
 * 
 
 ## Install Client Software
 
-* Download the <a href="cloud.acellera.com/acecloud/acecloud-client.tgz">AceCloud Linux Client</a>
+* Download the AceCloud Linux Client as part of the <a href="http://www.acellera.com/products/molecular-dynamics-software-gpu-acemd/getacemd/">ACEMD Basic distribution</a>
 * Unpack the tarball to a suitable location with
-'''tar -zxvf acecloud-client.tgz'''
+'''tar -zxvf acecloud-acemd-basic-XXX.tgz'''
 this will create a directory called acecloud
 * Add the program to the shell's PATH with
 '''export PATH=$PWD/acecloud/bin:$PATH'''
