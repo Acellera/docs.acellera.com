@@ -14,8 +14,10 @@ description: Getting Started with AceCloud
 ## Quick Start
 
 * If you just want to run a single simulation, or quickly test performance then simply start a single instance of AceCloud via the Marketplace or EC2 Console.
-* Log in using your selected EC2 keypair and the username "ec2-user".
-* Copy simulation input files to the running instance.
+* Log in using your selected EC2 keypair and the username "ec2-user", using, for example
+```ssh -i private.key.pem ec2user@[instance-host-name]```
+* Copy simulation input files to the running instance, using scp, for example: 
+```scp -i private-key.pem -r [inputdirectory] ec2-user@[instance-host-name]:.```
 * Run ACEMD or Gromacs directly on the command line with "acemd" or "mdrun".
 
 ## Install the Client Software
