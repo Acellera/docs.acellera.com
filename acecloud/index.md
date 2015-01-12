@@ -81,7 +81,6 @@ This summaries all simulations, grouped by project. Simulations will be in one o
 ### Important Notes
 
 * We recommend running short (<3day) simulations with frequent restarts, rather than one long simulation. There are several reasons for this:
-  * The output of an AceCloud job is not available until it has completed. When running from new model, for example, we recommend testing locally or with a short run before submitting a long simulation
   * AceCloud uses <a href="http://aws.amazon.com/ec2/purchasing-options/spot-instances/">AWS Spot Instances</a>. Spot instance pricing is variable depending on demand. Rarely, in times of peak demand the spot price may exceed the default AceCloud bid price of 0.70$ and running simulations may be aborted and results lost.  The bid price is set with
 ```acemd --configure rate [rate in USD]```
 The price that you pay is the current spot price, not the price you have set as the maximum bid.
