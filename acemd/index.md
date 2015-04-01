@@ -14,7 +14,7 @@ description: Links to all resources related to ACEMD
 
 <a href="https://download.acellera.com/manuals/latest/docs/ACEMD-Extension-Guide.pdf" target="_parent">__ACEMD extensions development (pdf)__</a>. Guide for developing C and TCL extensions for ACEMD 
 
-<a href="https://acellera.github.io/docs.acellera.com/acemd/install">__ACEMD installation guide__]</a>. Also available in the main distribution of ACEMD. Read this if you have problems getting ACEMD running on your system and to update Nvidia drivers.
+<a href="https://acellera.github.io/docs.acellera.com/acemd/install">__ACEMD installation guide__</a>. Also available in the main distribution of ACEMD. Read this if you have problems getting ACEMD running on your system and to update Nvidia drivers.
 
 <a href="https://acellera.github.io/docs.acellera.com/acemd/changelog">__ACEMD change log__</a>. A short summary of changes between one release and the next one of ACEMD.
 
