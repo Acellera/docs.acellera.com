@@ -393,6 +393,32 @@ For instance the following Tcl scripting example applies a flat bottom potential
     return;
     }
 
+## Debug TCL scripts
+
+The following definitions can be prepended **before** the TCL script in order to enable light debugging (function calls).
+
+    rename proc _proc
+    _proc proc {name arglist body} {
+        _proc $name $arglist [concat "proc_start;" $body ";proc_end"]
+    }
+    _proc proc_start {} {
+        puts stderr ">>> ENTER PROC [lindex [info level -1] 0]"
+        for {set level [expr [info level] -1]} {$level > 0} {incr level -1} {
+            puts stderr "  LEVEL $level: [info level $level]"
+        }
+        puts stderr ""
+    }
+    _proc proc_end {} {
+        puts stder ">>> LEAVE PROC [lindex [info level -1] 0]\n"
+    }
+
+The following functions can be added **after** the calcforces definition to enable very verbose (complete trace) debugging.
+
+
+    proc tracer { a b } { puts "TRACE $b: $a" }
+    trace add execution calcforces enterstep tracer
+
+
 ## Plugin interface
 
 ACEMD is easily extended by adding plugin modules written in C and dynamically loaded by the application. Current plugins include metadynamics, a power biased free energy calculation method. It is easy to think of ways on which users might want to customize ACEMD for their needs. In practice, the plugin interface give access to the position,velocities and forces at each iteration from a C interface. Please visit the plugin web page for more information.
