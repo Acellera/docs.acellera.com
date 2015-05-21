@@ -434,7 +434,7 @@ ACEMD by default does not wrap in the output the coordinates around the periodic
 Best and most flexible way to do the wrapping is after the simulation with VMD. From VMD 1.8.7 (http://www.ks.uiuc.edu/Research/vmd/plugins/pbctools/) you can wrap using the information in the DCD/xtc unitcell (load the trajectory directly on a structure file rather than the pdb):
 
 ```
-pbc wrap -center bb -centersel protein -compound res
+pbc wrap -center bb -centersel protein -compound res -all
 ```
 
 In the case that you want to align the protein as well to some structure, __be careful to align only after wrapping__, otherwise the wrapping is wrong as the periodic box is rotated by the alignment. 
