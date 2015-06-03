@@ -409,7 +409,7 @@ The following definitions can be prepended **before** the TCL script in order to
         puts stderr ""
     }
     _proc proc_end {} {
-        puts stder ">>> LEAVE PROC [lindex [info level -1] 0]\n"
+        puts stderr ">>> LEAVE PROC [lindex [info level -1] 0]\n"
     }
 
 The following functions can be added **after** the calcforces definition to enable very verbose (complete trace) debugging.
