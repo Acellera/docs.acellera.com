@@ -52,16 +52,7 @@ The NVIDIA Kernel driver is not installed correctly.
 
 ACEMD Basic is freely available to academic and industrial users for single-machine, single-GPU use. ACEMD Basic can be obtained by making a request on the [Acellera website](http://www.acellera.com/products/acemd/getacemd/)
 
-To install ACEMD Basic follow the instructions for ACEMD PRO. Before ACEMD Basic can be used, a license must be obtained. This is achieved by online activation, using the activation code supplied in the confirmation email.
-
-Once activated, ACEMD Basic is locked to the machine on which the activation was done. Be sure to activate on the machine on which you wish to run ACEMD.
-
-To activate, do the following, replacing XXXX-XXXX-XXXX-XXXX with your activation code:
-
-    $ acemd --active XXXX-XXXX-XXXX-XXXX
-    
-If successful, ACEMD can now be used. If activation failed, please consult the FAQ section below.
-
+To install ACEMD Basic follow the instructions for ACEMD PRO.
 
 ## FAQ
 
@@ -74,15 +65,6 @@ If successful, ACEMD can now be used. If activation failed, please consult the F
 * When I try to run `acemd', I get the error `acemd: error while loading shared libraries: libcufft.so.4:'
 Check that the directory containing the missing library is included in the LD_LIBRARY_PATH environment variable. libcudafft.so.4 and libcudart.so.4 are included in the bin directory of the acemd distribution.
 
-* I tried activation but it failed! Please check the following:
-Ethernet device eth0 exists.
-Run the command ifconfig eth0. This should report information about the network interface on your computer. If, instead you get the error error fetching interface information: Device not found, then ACEMD Basic will not be able to obtain the information necessary to activate. To remedy this, please speak to your systems administrator1
-
-* Your machine has a direct connection to the internet.
-ACEMD Basic activation performs authentication with a remote server. Activation will fail if the server cannot be reached. Note that ACEMD Basic can have difficulty communicating through some proxy servers. If activation is failing for this reason, please write to support@acellera.com, enclosing the output of the command ifconfig eth0, and we will send a license file to you via email.
-
-* This is your first attempt to activate
-The activation code can only be used to successfully activate one machine.
 
 # More on MPI
 
