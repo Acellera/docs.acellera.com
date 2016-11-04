@@ -8,13 +8,13 @@ description: Description of feature changes in any revision of ACEMD
 Release 2016-10-27   November 2016
 ----------------------------------
 
-** Requires driver update **
+**Requires driver update**
 
 **Main changes:**
 
-- Support for GTX 1080 and Tesla Pascal GPUs
+- Support for GTX 1080 and Tesla Pascal GPUs using CUDA 8.0
 - Support for PLUMED 2
-- Now distributed as part of Acellera's High Throughput Molecular Dynamics toolkit. Visit https://www.htmd.org for more information and installation instructions
+- Now distributed as part of Acellera's High Throughput Molecular Dynamics toolkit. Visit [www.htmd.org](https://www.htmd.org) for more information and installation instructions
 
 
 Release acemd 3212 – Oct 2013
