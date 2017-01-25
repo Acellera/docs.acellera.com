@@ -61,6 +61,8 @@ Floating licenses allow ACEMD to be used on any machine, subject to a limit on t
 
 The following instructions assume that you have administrative/root access to the machine in question, that the Operating System is Red Hat EL6, and that you wish to configure the license server to run automatically as a system service.
 
+first download the license server [here](https://download.acellera.com/acemd-release-2016/acellera-license-server.tgz).
+
 To install the license server, first create a new userid for it, for example:
 ```
     # useradd sglmd
