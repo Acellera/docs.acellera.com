@@ -67,7 +67,7 @@ To install the license server, first create a new userid for it, for example:
 ```
     # useradd sglmd
 ```
-Next, copy the script `ACEMD_HOME/sglmd/etc/lmgrd.sglmd` to `/etc/init.d`. Edit the copy to include the correct value for `ACEMD_HOME` for your system. We recommend using ```/opt/acellera```
+Next, copy the script `$ACEMD_HOME/sglmd/etc/lmgrd.sglmd` to `/etc/init.d`. Edit the copy to include the correct value for `ACEMD_HOME` for your system. We recommend using ```/opt/acellera```
 
 Add the license server as a system process and enable it at runlevel 3 and 5:
 ```
