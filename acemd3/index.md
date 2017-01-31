@@ -34,10 +34,10 @@ ACEMD 3 Beta is run with the command ```acemd3```. If you do not have a valid AC
 
 # Input file changes
 
-The ACEMD input file has been simplified. Where commands have been deprecated or changed name ACEMD will print a warning explaining the change. The full command set is documented [here](/acemd3/commands.md) 
+The ACEMD input file has been simplified. Where commands have been deprecated or changed name ACEMD will print a warning explaining the change. The full command set is documented [here](/acemd3/commands.html). 
 
 
-TCL scripting is no longer supported in the input file. If you used TCL for applying restraints please read the documentation on [applying restraints](/acemd3/restraints.md)
+TCL scripting is no longer supported in the input file. If you used TCL for applying restraints please read the documentation on [applying restraints](/acemd3/restraints.html).
 
 # Discontinued Features
 
@@ -50,4 +50,4 @@ ACEMD 3 Beta does not contain support for:
 
 # Support
 
-If you encounter any issues with ACEMD 3 Beta please open an issue on our [GitHub issue tracker](https://github.com/acellera/acemd_issues/issues)
+If you encounter any issues with ACEMD 3 Beta please open an issue on our [GitHub issue tracker](https://github.com/acellera/acemd_issues/issues).
