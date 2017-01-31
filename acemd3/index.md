@@ -8,6 +8,7 @@ description: ACEMD 3 Beta Documentation
 # Welcome to the ACEMD 3 Beta programme
 
 ACEMD 3 is a substantial development over ACEMD 2. Its new features include:
+
 * Improved performance
 * CPU support
 * Simplied input file
@@ -41,6 +42,7 @@ TCL scripting is no longer supported in the input file. If you used TCL for appl
 # Discontinued Features
 
 ACEMD 3 Beta does not contain support for:
+
 * Ensemble execution
 * Replica exchange
 * ACEMD Plugins
