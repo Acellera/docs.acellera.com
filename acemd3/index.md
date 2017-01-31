@@ -11,7 +11,7 @@ ACEMD 3 is a substantial development over ACEMD 2. Its new features include:
 
 * Improved performance
 * CPU support
-* Simplied input file
+* Simplified input file
 
 
 These major changes mean we will be running an extended private Beta programme before making a general release. Thank you for agreeing to participate!
@@ -31,6 +31,9 @@ $ conda install acemd3 -y
 # Running ACEMD 3 Beta
 
 ACEMD 3 Beta is run with the command ```acemd3```. If you do not have a valid ACEMD Pro license the programme will run in Basic mode, with operation limited to the first GPU on your system.
+
+If you have an ACEMD Pro license you may run on multiple GPUs with the ```--device```` flag, specifying the indices of the GPUs to  use as an argument.
+To run in CPU only mode, use the argument ```--platform CPU```. ACEMD will attempt to use all available CPU cores unless the environment variable NCPUS is set.
 
 # Input file changes
 
