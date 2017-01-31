@@ -1,8 +1,8 @@
 ---
-title: ACEMD 3 Beta Specifying restraints
+title: ACEMD 3 Beta: Specifying Restraints
 layout: default
 name: ACEMD 3 Beta Documentation
-description: ACEMD 3 Beta Command Documentation
+description: ACEMD 3 Beta Documentation
 ---
 
 # Introduction
@@ -12,11 +12,8 @@ In earlier versions of ACEMD applying restraining potentials to the system requi
 
 Two classes of restraint are currently supported:
 
-* Atom-centred Restraints
- Defined with the command ```atomRestraint```. These restraints apply a flat-bottomed harmonic potential to restrain individual atoms about a reference coordinate.
-
-* Group-based Restraaints
- Defined with the command ```groupRestraint```. These restraints apply a flat-bottomed harmonic potential to restraint a group of atoms about a reference coordinate.
+* Atom-centred Restraints defined with the command ```atomRestraint```. These restraints apply a flat-bottomed harmonic potential to restrain individual atoms about a reference coordinate.
+* Group-based Restraints defined with the command ```groupRestraint```. These restraints apply a flat-bottomed harmonic potential to restraint a group of atoms about a reference centre-of-mass coordinate.
 
 # Command Syntax
 
@@ -28,8 +25,7 @@ Two classes of restraint are currently supported:
 
 Each restraint type requires an atom selection (in VMD atom selection grammar) to define the atoms upon which the restraint will be applied. The selection also defines the reference coordinates for the restraint, made against the geometry in the ```coordinates````PDB file.
 
-* For an atomRestraint, each individial atom in the selection is restrained about its initial coordinate in the PDB by a flat-bottomed harmonic potential. 
-
+* For an atomRestraint, each individual atom in the selection is restrained about its initial coordinate in the PDB by a flat-bottomed harmonic potential. 
 * For a groupRestraint, the atoms in the selection are restrained about their centre of mass in the initial PDB by a flat-bottomed harmonic potential.
 
 ## axes
@@ -45,20 +41,13 @@ Specifies the width of the flat bottom of the restraining potential in Angstrom.
 This keyword is optional. If ommited the default is assumed.
 
 * For an atomRestraint the default value is 0. 
-
 * For a groupRestraint the default value is the linear extent of the atom selection plus 4 Angstroms. 
 
 ## setpoints
 
 Setpoints define the spring constant 'k' for the restraint at time 't'. When multiple setpoints may be defined ACEMD will linearly ramp 'k' between them, at ```trajectoryFreq``` intervals (default 100ps).
 
-The syntax is:
-
-```
-k@t
-```
-
-Where 'k' is in kcal/mol and 't' is in timestep or time if one of the  suffices 'us', 'ns', 'ps', 'fs' is used.
+The syntax is `k@t` where 'k' is in kcal/mol and 't' is in timestep or time if one of the  suffices 'us', 'ns', 'ps', 'fs' is used.
 
 For example, a 10 kcal/mol restraint applied from the beginning of the simulation, gradually reduced to 0 at 100ns may be defined with:
 
