@@ -5,21 +5,24 @@ name: ACEMD 3 Beta Documentation
 description: ACEMD 3 Beta Documentation
 ---
 
-# Introduction
+# Welcome to the ACEMD 3 Beta programme
 
-Welcome to the ACEMD 3 Beta programme! 
+ACEMD 3 is a substantial development over ACEMD 2. Its new features include:
+* Improved performance
+* CPU support
+* Simplied input file
 
-ACEMD 3 is a substantial 
-New features:
- * Improved performance
- * CPU support
- * Simplied input file
+
+These major changes mean we will be running an extended private Beta programme before making a general release. Thank you for agreeing to participate!
 
 # Installing ACEMD 3 Beta
 
 ACEMD is now distributed as part of Acellera's High Throughput Molecular Dynamics Toolkit. To install this, please follow the instructions [here](https://www.htmd.org/academic-download.html). 
 
+
 Once you have HTMD installed, install the ACEMD 3 Beta with the command
+
+
 ```
 $ conda install acemd3 -y
 ```
@@ -32,15 +35,16 @@ ACEMD 3 Beta is run with the command ```acemd3```. If you do not have a valid AC
 
 The ACEMD input file has been simplified. Where commands have been deprecated or changed name ACEMD will print a warning explaining the change. The full command set is documented [here](/acemd3/commands.md) 
 
+
 TCL scripting is no longer supported in the input file. If you used TCL for applying restraints please read the documentation on [applying restraints](/acemd3/restraints.md)
 
 # Discontinued Features
 
 ACEMD 3 Beta does not contain support for:
- * Ensemble execution
- * Replica exchange
- * ACEMD Plugins
- * PLUMED 1
+* Ensemble execution
+* Replica exchange
+* ACEMD Plugins
+* PLUMED 1
 
 # Support
 
