@@ -9,7 +9,7 @@ description:
 
 * __Hardware__ ACEMD requires a modern NVIDIA GPU: we recommend the Geforce 980, 1080 or Tesla K and P-series GPUs. The latest NVIDIA Driver should be installed, available from [here](http://www.nvidia.com/Download/index.aspx)
 
-* __Software__ ACEMD requires a 64bit Linux OS.  ACEMD is formally qualified with Red Hat EL6, but will work with any Linux distribution supported by NVIDIA CUDA, provided the GLIBC version is 2.12 or higher. Note that RHEL 5 and SLES 10 are not supported.  For replica exchange support, please ensure that the OS's `openmpi` packages are isntalled.
+* __Software__ ACEMD requires a 64bit Linux OS.  ACEMD is formally qualified with Red Hat EL6, but will work with any Linux distribution supported by NVIDIA CUDA, provided the GLIBC version is 2.12 or higher. Note that RHEL 5 and SLES 10 are not supported.  For replica exchange support, please ensure that the OS's `openmpi` packages are installed.
 
 # Installing ACEMD
 
@@ -60,6 +60,8 @@ If you receive any errors, check that the MPI development packages and C compile
 Floating licenses allow ACEMD to be used on any machine, subject to a limit on the number of concurrent instances. Floating licenses require a license server to be running. This should be installed on a machine that all clients can connect to over the network. In a cluster environment, for example, it should be run on an administrative machine.
 
 The following instructions assume that you have administrative/root access to the machine in question, that the Operating System is Red Hat EL6, and that you wish to configure the license server to run automatically as a system service.
+
+first download the license server [here](https://download.acellera.com/acemd-release-2016/acellera-license-server.tgz).
 
 To install the license server, first create a new userid for it, for example:
 ```
