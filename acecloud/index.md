@@ -6,41 +6,25 @@ description: Getting Started with AceCloud
 ---
 
 
-## Sign Up
+## Sign Up to AWS
 
 * AceCloud uses your existing Amazon Web Services acount for its compute power. If you don't yet have an AWS account, register <a href="http://aws.amazon.com/">here</a>. You will need to supply credit card details for billing purposes.
-* Next, subscribe to the AceCloud product in the <a href="https://aws.amazon.com/marketplace/pp/B00Q5ECSOG">Amazon Marketplace</a>.
 
-<!--
-## Quick Start
-
-* If you just want to run a single simulation, or quickly test performance then simply start a single instance of AceCloud via the Marketplace or EC2 Console.
-* Log in using your selected EC2 keypair and the username "ec2-user", using, for example
-```ssh -i private.key.pem ec2user@[instance-host-name]```
-* Copy simulation input files to the running instance, using scp, for example: 
-```scp -i private-key.pem -r [inputdirectory] ec2-user@[instance-host-name]:.```
-* Run ACEMD or Gromacs directly on the command line with "acemd" or "mdrun".
--->
 
 ## Install the Client Software
 
-For the full AceCloud experience, including automatic execution on EC2 and transparent scaling to large numbers of simulations, client software must be installed on your workstation and configured to use your Amazon account.
+For the full AceCloud experience, including automatic execution on EC2 and transparent scaling to large numbers of simulations, client software must be installed on your workstation and configured to use your Amazon account. The AceCloud client is part of Acellera's <a href="https://www.htmd.org">High Throughput Molecular Dynamics toolkit</a>. Installation instructions can be found <a href="https://www.htmd.org/download.html">here</a>.
 
-* Download the AceCloud Linux Client as part of the <a href="http://www.acellera.com/products/molecular-dynamics-software-gpu-acemd/getacemd/">ACEMD Basic distribution</a>
-* Unpack the tarball to a suitable location with
-```tar -zxvf acecloud-acemd-basic-XXXX.tgz```
-this will create a directory called acecloud
-* Add the program to the shell's PATH with
-```export PATH=$PWD/acecloud/bin:$PATH```
-* Obtain access keys AWS account <a href="https://console.aws.amazon.com/iam/home?nc2=h_m_sc#security_credential">here</a>. If you use IAM, create credentials that have full access to EC2, S3 and VPC services.
-* Configure the client with your AWS access keys with
-```acemd --configure auth XXXXXXKEY YYYYYYSECRET```
+## Configuration
 
+AceCloud requires configuration before it can be used. Once he software is installed, run the command:
+```acecloud --setup```
+This will open two browser windows. In the first, complete any login prompt and then subscribe to the <a href="https://aws.amazon.com/marketplace/pp/B01N3SBK3Z">AceCloud Amazon Marketplace product</a>.
+Follow the instructions in the termination window to obtain AWS access credentials from the page opened in the second window.
+   
 ## Using the AceCloud Client
 
 * The AceCloud client runs ACEMD and Gromacs simulations on Amazon AWS resources. It performs all file copying and VM instantiation operations automatically - once configured with AWS access credentials the user does not need to interact directly with the AWS Console.
-* The AceCloud client is called ```acemd```. If you already have ACEMD installed, AceCloud will automatically run it when required provided the environment variable ACEMD_HOME is set correctly. To check if ACEMD is correctly configured, see the output of 
-```acemd --configure -print``` 
 * The syntax for all AceCloud operations is given by
 ```acemd --help```
 
@@ -53,36 +37,34 @@ this will create a directory called acecloud
 
 
 * To submit a simulation to AceCloud, first prepare the input in a directory and then run
-```acemd --submit  [directory-name]```
+```acecloud --submit  [group/name] [directory-name]```
+where `[group/name]' is a two-level identifier for the simulation, for example `project2/run10` 
 * The submitted simulation is named using the absolute path of the submission directory. Simulation results will be retrieved back to the submission directory, so multiple submissions from the same directory are not permitted.
 * Simulations can be grouped into projects using the optional argument ```--project[project-name]```
 
 ### Checking simulation progress
 
 * Check the progress of simulations with
-```acemd --status```
+```acecloud --status```
 This summaries all simulations, grouped by project. Simulations will be in one of the following states:
-  * QUEUED Simulation has yet to start running
+  * PENDING Simulation has yet to start running
   * RUNNING Simulation is in progress
   * COMPLETED Simulation has finished running and results are ready to retrieve
-  * ABORTED Simulation failed. Most likely the Amazon instance was preempted. See Notes below.
-* To see the state of all individual simulations use
-```acemd --status --long```
+  * PREEMPTED Simulation has terminated early because of spot market pre-emption of the AWS instance.
 
 
 ### Retrieving simulation results
 
-* The output of a simulation becomes available once the job is complete```acemd --retrieve```
+* The output of a simulation becomes available once the job is complete```acecloud --retrieve [group/name]```
 * Output is automatically placed in the directory from which the input files were originally obtained. This will be recreated if necessary.
-* The default behaviour is to make a single pass and then exit. If run with the flag --loop the client will run indefinitely and retrieve files as soon as they become available. It can be terminated with Ctrl-C. 
 
 
 
 ### Important Notes
 
 * We recommend running short (<3day) simulations with frequent restarts, rather than one long simulation. There are several reasons for this:
-  * AceCloud uses <a href="http://aws.amazon.com/ec2/purchasing-options/spot-instances/">AWS Spot Instances</a>. Spot instance pricing is variable depending on demand. Rarely, in times of peak demand the spot price may exceed the default AceCloud bid price of 0.70$ and running simulations may be aborted and results lost.  The bid price is set with
-```acemd --configure rate [rate in USD]```
+  * AceCloud uses <a href="http://aws.amazon.com/ec2/purchasing-options/spot-instances/">AWS Spot Instances</a>. Spot instance pricing is variable depending on demand. Rarely, in times of peak demand the spot price may exceed the default AceCloud bid price of 0.70$ and running simulations may be aborted and results lost.  Current spot pricing can be displayed with ```acecloud --print-spots```
+
 The price that you pay is the current spot price, not the price you have set as the maximum bid.
   * The total ouput of an AceCloud simulation is limited to 1GB. No check is made that this has been exceeded, please ensure that you have configured the simulation correctly to not exceed this.
 * AWS accounts have a default limit of 10 concurrent spot instances. If you need to run more instances, higher limits can be requested per-region via the AWS Console <a href="https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Limits">here</a>
