@@ -10,7 +10,7 @@ description: Links to all resources related to ACEMD
 
 <a href="https://acellera.github.io/docs.acellera.com/acemd/commands/">__ACEMD command reference__</a>. A comprehensive reference for all ACEMD commands, the second document to read in order of importance. This contains basic commands as well as TCL extension commands as every ACEMD configuration file is also a TCL script.
 
-<a href="https://www.htmd.org/docs/tutorials.html">__ACEMD protocols__</a>. Easy to use HTMD protocols to setup molecular systems in solution, in membrane, with ligands, using Charmm or Amber force fields. Anything that you need to know to start simulating.
+<a href="https://www.htmd.org/docs/latest/tutorials.html">__ACEMD protocols__</a>. Easy to use HTMD protocols to setup molecular systems in solution, in membrane, with ligands, using Charmm or Amber force fields. Anything that you need to know to start simulating.
 
 <a href="http://secure.acellera.com/manuals/latest/docs/ACEMD-Extension-Guide.pdf" target="_parent">__ACEMD extensions development (pdf)__</a>. Guide for developing C and TCL extensions for ACEMD 
 
