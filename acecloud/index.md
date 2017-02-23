@@ -26,7 +26,7 @@ Follow the instructions in the termination window to obtain AWS access credentia
 
 * The AceCloud client runs ACEMD and Gromacs simulations on Amazon AWS resources. It performs all file copying and VM instantiation operations automatically - once configured with AWS access credentials the user does not need to interact directly with the AWS Console.
 * The syntax for all AceCloud operations is given by
-```acemd --help```
+```acecloud --help```
 
 ### Running simulations
 
