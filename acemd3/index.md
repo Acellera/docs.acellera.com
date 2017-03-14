@@ -18,7 +18,7 @@ These major changes mean we will be running an extended private Beta programme b
 
 # Installing ACEMD 3 Beta
 
-ACEMD is now distributed as part of Acellera's High Throughput Molecular Dynamics Toolkit. To install this, please follow the instructions [here](https://www.htmd.org/academic-download.html). 
+ACEMD is now distributed as part of Acellera's High Throughput Molecular Dynamics (HTMD) Toolkit. To install this, please follow the instructions [here](https://www.htmd.org/academic-download.html). 
 
 
 Once you have HTMD installed, install the ACEMD 3 Beta with the command
