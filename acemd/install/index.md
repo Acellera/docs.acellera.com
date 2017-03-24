@@ -7,9 +7,8 @@ description:
 
 # Prerequisites
 
-Test
-
-* ACEMD requires a modern NVIDIA GPU: we recommend the Geforce 980, 1080 or Tesla K and P-series GPUs. 
+* __Hardware__: ACEMD requires a modern NVIDIA GPU: we recommend the Geforce 980, 1080 or Tesla K and P-series GPUs. 
+The latest NVIDIA Driver should be installed, available from [here](http://www.nvidia.com/Download/index.aspx)
 
 * __Software__: ACEMD requires a 64bit Linux OS.  ACEMD is formally qualified with Red Hat EL6, but will work with 
 any Linux distribution supported by NVIDIA CUDA, provided the GLIBC version is 2.12 or higher. Note that RHEL 5 and 
