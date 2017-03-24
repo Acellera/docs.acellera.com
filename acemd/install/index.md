@@ -7,7 +7,7 @@ description:
 
 # Prerequisites
 
-* __Hardware__: ACEMD requires a modern NVIDIA GPU: we recommend the Geforce 980, 1080 or Tesla K and P-series GPUs. 
+* ACEMD requires a modern NVIDIA GPU: we recommend the Geforce 980, 1080 or Tesla K and P-series GPUs. 
 The latest NVIDIA Driver should be installed, available from [here](http://www.nvidia.com/Download/index.aspx)
 
 * __Software__: ACEMD requires a 64bit Linux OS.  ACEMD is formally qualified with Red Hat EL6, but will work with 
@@ -19,7 +19,7 @@ installed.
 
 ACEMD is now distributed as part of Acellera's High Throughput Molecular Dynamics Toolkit. To install this, please follow the instructions [here](https://www.htmd.org/academic-download.html)
 
-* __Existing customers__ We recommend that you change to the above method too.
+* __Existing customers__: We recommend that you change to the above method too.
 
 ## Install ACEMD Basic
 
