@@ -5,19 +5,19 @@ name: ACEMD Install guide
 description: 
 ---
 
-# Prerequistites
+# Prerequisites
 
 * __Hardware__ ACEMD requires a modern NVIDIA GPU: we recommend the Geforce 980, 1080 or Tesla K and P-series GPUs. The latest NVIDIA Driver should be installed, available from [here](http://www.nvidia.com/Download/index.aspx)
 
 * __Software__ ACEMD requires a 64bit Linux OS.  ACEMD is formally qualified with Red Hat EL6, but will work with any Linux distribution supported by NVIDIA CUDA, provided the GLIBC version is 2.12 or higher. Note that RHEL 5 and SLES 10 are not supported.  For replica exchange support, please ensure that the OS's `openmpi` packages are installed.
 
-# Installing ACEMD
+# Getting ACEMD
 
 ACEMD is now distributed as part of Acellera's High Throughput Molecular Dynamics Toolkit. To install this, please follow the instructions [here](https://www.htmd.org/academic-download.html)
 
 * __Existing customers__ We recommend that you change to the above method too.
 
-# ACEMD Basic
+## Install ACEMD Basic
 
 Even if you have not purchased an ACEMD Pro license, ACEMD can be used in Basic mode, in which it is restricted to running on the first GPU of your computer.
 
@@ -25,7 +25,7 @@ Basic mode first requires registration and acceptance of our EULA. to do this, p
 
 ACEMD may then be run from the command line with the command `acemd`, or via HTMD
 
-# ACEMD Pro
+## Install ACEMD Pro
 
 If you have purchases an ACEMD Pro node-locked license from Acellera you will be issued with an activation token. After following the installation instructions above, issue the command:
 ```
@@ -40,9 +40,22 @@ Customers purchasing group/floating license will receive additional installation
 
 If you have obtained ACEMD Pro as part of a Metrocubo solution, you will receive the machine with ACEMD installed, configured and ready to run.
 
+# Nvidia driver update procedure
+
+It is generally not recommended updating the driver unless there is a necessary bug fix in a later version.
+That, said, here is what you should do assuming the OS is CentOS:
 
 
-# More on Replica Exchange and MPI
+* As root, "yum update". Reboot if the kernel is updated.
+* Download the new driver from [here](http://www.nvidia.com/Download/index.aspx) 
+* `chmod +x NVIDIA-Linux-x86_64-XXX.XX.run`
+* As root, `telinit 3` to drop the text mode
+* Run NVIDIA installer, answering yes to all questions
+* `reboot`
+
+# Extra features
+
+## More on Replica Exchange and MPI
 
 ACEMD supports ensemble simulations for replica exchange molecular dynamics. This is implemented using MPI for parallel communication. Because there are many different MPI implementations, all with different binary interfaces, ACEMD includes a wrapper library to allow it be used with whichever MPI your system is configured with.
 
@@ -55,7 +68,7 @@ The wrapper library, libmpiwrapper.so, provided with ACEMD is built against Open
 ```   
 If you receive any errors, check that the MPI development packages and C compiler are installed. If successful, the libmpiwrapper.so in the lib directory will be reconfigured for your system.
 
-# License Server
+## License Server
 
 Floating licenses allow ACEMD to be used on any machine, subject to a limit on the number of concurrent instances. Floating licenses require a license server to be running. This should be installed on a machine that all clients can connect to over the network. In a cluster environment, for example, it should be run on an administrative machine.
 
@@ -100,16 +113,4 @@ Finally, ensure that the environment variable `SG_LICENSE_FILE` is set with the 
 
 If you encounter any problems installing the license server, please contact us directly at support@acellera.com
 
-# Nvidia driver update procedure
-
-It is generally not recommend updating the driver unless there is a necessary bug fix in a later version.
-That, said, here is what you should do assuming the OS is CentOS:
-
-
-* As root, "yum update". Reboot if the kernel is updated.
-* Download the new driver from [here](http://www.nvidia.com/Download/index.aspx) 
-* `chmod +x NVIDIA-Linux-x86_64-XXX.XX.run`
-* As root, `telinit 3` to drop the text mode
-* Run NVIDIA installer, answering yes to all questions
-* `reboot`
 
