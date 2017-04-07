@@ -17,7 +17,7 @@ installed.
 
 # Getting ACEMD
 
-ACEMD is now distributed as part of Acellera's High Throughput Molecular Dynamics Toolkit. To install this, please follow the instructions [here](https://www.htmd.org/academic-download.html)
+ACEMD is now distributed as part of Acellera's High Throughput Molecular Dynamics Toolkit. To install this, please follow the [DOWNLOAD instructions HERE](https://www.htmd.org/academic-download.html).
 
 * __Existing customers__: We recommend that you change to the above method too.
 
