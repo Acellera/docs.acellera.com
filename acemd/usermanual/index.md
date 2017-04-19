@@ -154,46 +154,6 @@ ACEMD simulations are configured using a single input file. This file is parsed 
 
 configures ACEMD to use the structure file struct2.pdb and to run for 1000 iterations.
 
-## Quick Configurations
-
-A complete specification for an ACEMD simulation requires configuration of input and output files, force field parameters and thermodynamic ensemble. Explicitly writing the full configuration can result in a long input file. ACEMD includes a set of pre-defined parameter sets for common simulation configurations. These are activated using the protocol command. For example:
-
-    protocol run/NVT
-    protocol ff/Amber
-
-configures ACEMD to simulate in the isothermal ensemble and to expect Amber force field input files. Unlike most other commands, protocol is executed as soon as it is encountered and can be specified multiple times.
-
-If ACEMD is run with the flag -verbose then as each protocol is executed, the commands that it specifies are printed out in the log file. These can be captured for use in an explicit input file. Any inappropriate settings can be overriden by re-issuing the command afterwards. For example:
-
-    protocol run/NVT
-    protocol ff/Amber
-    parmfile amber.prmtop
-    run      10ns
-
-changes the default setting for the name of the Amber parameter file and the length of the simulation.
-The following protocols are available:
-
-* __Run types__
-  * run/NVT run in the isotermal ensemble, using a Langevin thermostat set at 300 K
-  * run/NPT run in the isothermal-isobaric ensemble, using a Langevin thermostat at 300.K and a Berendsen barostat at 1atm.
-  * run/NVE run in the microcanonical ensemble.
-  * run/CG run a coarse-grained simulation.
-* __Force field types__
-  * ff/Amber configure for Amber force fields
-  * ff/CHARMM27 configure for CHARMM version 22 and 27 force fields
-  * ff/CHARMM36 configure for CHARMM version 36 force fields
-  * ff/Martini configure for Martini force field
-  * ff/OPLS configure for OPLS force field
-  
-These protocols assume the following file naming conventions which however you can override:
-
-* Coordinates: structure.pdb
-* CHARMM Topology: structure.psf
-* CHARMM Parameters: parameters
-* Amber Parameters: structure.prmtop
-* Extended System: input.xsc
-* Trajectory: trajectory.xtc
-* Final state: output.coor output.vel output.xsc
 
 ## NVT vs NPT ensemble
 
